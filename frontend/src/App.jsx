@@ -1,7 +1,7 @@
 import './App.css'
 import { Login } from './pages/Login'
 import { Home } from './pages/home'
-import { Request } from "./pages/Request.jsx"
+import Request from "./pages/Request.jsx"
 import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
