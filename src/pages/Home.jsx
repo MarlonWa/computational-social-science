@@ -1,9 +1,10 @@
-import {Button} from '../component/Button'
+import { Link } from 'react-router-dom'
 
 export function Home() {
     return (
         <>
-            <Button />
+            <h1>Home</h1>
+            <Link to = "/login">login</Link>
         </>
     )
 }

@@ -1,5 +1,10 @@
-export function Login(){
+import { Link } from 'react-router-dom'
+
+export function Login() {
     return (
-        <p>Login</p>
+        <>
+            <h1>Login</h1>
+            <Link to="/"> Home </Link>
+        </>
     );
 }
