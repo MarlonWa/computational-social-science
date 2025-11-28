@@ -16,3 +16,8 @@ sketch
 
 # temporary pptx
 ~$*.pptx
+
+# virtual environment for python rest api
+backend/.venv
+backend/__pycache__
+backend/db.sqlite
