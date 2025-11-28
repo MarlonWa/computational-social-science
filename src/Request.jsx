@@ -1,4 +1,4 @@
-import './App.css'
+import './Request.css'
 import ResponsiveAppBar from './Header.jsx'
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -20,7 +20,7 @@ palette: {
 },
 });
 
-function App() {
+function Request() {
   //breakpoints by screen size
   const isXs = useMediaQuery("(max-height: 600px)");      // smol
   const isSm = useMediaQuery("(min-height: 601px) and (max-height: 800px)");  // mid
@@ -69,4 +69,4 @@ function App() {
   )
 }
 
-export default App
+export default Request
