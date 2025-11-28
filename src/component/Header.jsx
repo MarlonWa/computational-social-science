@@ -10,8 +10,12 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import '@fontsource-variable/roboto-mono';
+import { Link } from 'react-router-dom'
 
-const pages = ['Titelseite']//, 'Über Uns'];
+const pages = [
+  {name: 'Titelseite', path: '/'}
+]
+//, 'Über Uns'];
 const header_title = "- Anfrage Erstellen -"
 
 const title_styling = {
@@ -85,8 +89,8 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography component={Link} to={page.path} sx={{ textAlign: 'center' }}>{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -112,11 +116,13 @@ function ResponsiveAppBar() {
           <Box sx={{display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+                component={Link}
+                to={page.path}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>

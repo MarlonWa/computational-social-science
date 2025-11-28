@@ -5,6 +5,8 @@ export function Home() {
         <>
             <h1>Home</h1>
             <Link to = "/login">login</Link>
+            <p></p>
+            <Link to = "/request">create request</Link>
         </>
     )
 }
