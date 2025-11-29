@@ -19,7 +19,7 @@ palette: {
 },
 });
 
-function Request() {
+export function Request() {
   //breakpoints by screen size
   const isXs = useMediaQuery("(max-height: 600px)");      // smol
   const isSm = useMediaQuery("(min-height: 601px) and (max-height: 800px)");  // mid
@@ -67,5 +67,3 @@ function Request() {
     </>
   )
 }
-
-export default Request
