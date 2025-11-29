@@ -95,22 +95,22 @@ def delete_user(user_id: int):
 def createDB():
     if os.path.exists(DB_NAME):
         os.remove(DB_NAME)
-        conn = get_db_connection()
+    conn = get_db_connection()
 
-        conn.execute("""
-            CREATE TABLE users (
-                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                first_name TEXT NOT NULL,
-                last_name TEXT NOT NULL,
-                email VARCHAR(255) UNIQUE NOT NULL,
-                password VARCHAR(255) NOT NULL
-            );
-        """)
+    conn.execute("""
+        CREATE TABLE users (
+            user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            email VARCHAR(255) UNIQUE NOT NULL,
+            password VARCHAR(255) NOT NULL
+        );
+    """)
 
-        conn.commit()
-        conn.close()
+    conn.commit()
+    conn.close()
 
-        print("Neue DB erstellt")
+    print("Neue DB erstellt")
 
 def fillTestDB():
     user1 = User(first_name="Blib", last_name="Blub", email="blibblub@hi.de", password="password")
