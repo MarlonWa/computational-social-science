@@ -5,7 +5,6 @@ export function Home() {
         <>
             <h1>Homepage</h1>
             <Link to = "/login">login</Link>
-            <p></p>
             <Link to = "/request">create request</Link>
         </>
     )
