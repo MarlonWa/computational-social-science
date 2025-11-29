@@ -113,8 +113,4 @@ def createDB():
 
 @app.on_event("startup") #on_event is deprecated but should still work, otherwise use "lifespan"
 def startup():
-    if os.path.exists(DB_NAME) == False: #rm old DB
-        createDB()
-    else:
-        print("Start DB")
-    
+    createDB()
