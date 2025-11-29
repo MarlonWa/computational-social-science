@@ -29,6 +29,7 @@ async def hello():
 def get_users():
     conn = get_db_connection()
     users = conn.execute("SELECT * FROM users").fetchall()
+    print(users)
     conn.close()
     return [dict(u) for u in users]
 
@@ -111,6 +112,16 @@ def createDB():
 
         print("Neue DB erstellt")
 
+def fillTestDB():
+    user1 = User(first_name="Blib", last_name="Blub", email="blibblub@hi.de", password="password")
+    user2 = User(first_name="Max", last_name="Mustermann", email="max@hi.de", password="1234")
+    user3 = User(first_name="Ella", last_name="Elli", email="ellaelli@hi.de", password="")
+    users = [user1, user2, user3]
+    for u in users:
+        create_user(u)
+    print("filled Test Database")
+
 @app.on_event("startup") #on_event is deprecated but should still work, otherwise use "lifespan"
 def startup():
     createDB()
+    fillTestDB()
