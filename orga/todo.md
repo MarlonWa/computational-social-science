@@ -65,6 +65,8 @@
 - Anfragen und Antwort DB bis (20.12) (Thommy)
 - FAQ Anleitung schreiben (23.12) (Luca, Yan)
 - Weinachtspause (24.12 - 6.1)
+- Objekt Strukturen (23.12)
+- Backend Service Implementierung (23.12) (Thommy)
 - Frontent Implementierung (bis 16.12) (Marlon, Sophie) (Der Rest hilft)
     - Pages erstellen (Alle Zusammen)
     - Pages verlinken (Alle Zusammen)
@@ -73,6 +75,7 @@
         - Anfragen erstellen
     - FAQ Implementieren
 - Projekt Woche (12.1 - 16.1)
+    - Finale Präsentation erstellen (Alle zusammen)
     - IT security (Thommy)
         - Rollen (Standard, Admin)
         - HTTPS Protokolle
