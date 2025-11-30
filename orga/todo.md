@@ -55,15 +55,15 @@
     - Text
 
 ## Timeline ab dem 01.12
-- Fragebogen erstellen (bis 10.12) (Luca, Yan)
+- Fragebogen erstellen (bis 10.12) (Luca, Yan) 
 - Interview alter Leute (bis 14.12) (Alle zusammen)
     - FAQ Sammeln (12.1)
 - Emails an die Organisationen schreiben (bis 14.12) (Luca, Yan)
 - Bekannte Leute Befragen (bis 14.12) (Alle zusammen)
-- Template und Design (14.1) (Marlon, Sophie)
-- Website Struktur und Routing (14.1) (Marlon, Thommy)
-- Anfragen und Antwort DB bis (20.1) (Thommy)
-- FAQ Anleitung schreiben (Luca, Yan)
+- Template und Design (14.12) (Marlon, Sophie)
+- Website Struktur und Routing (14.12) (Marlon, Thommy)
+- Anfragen und Antwort DB bis (20.12) (Thommy)
+- FAQ Anleitung schreiben (23.12) (Luca, Yan)
 - Weinachtspause (24.12 - 6.1)
 - Frontent Implementierung (bis 16.12) (Marlon, Sophie) (Der Rest hilft)
     - Pages erstellen (Alle Zusammen)
