@@ -12,6 +12,11 @@ class User(BaseModel):
     email : str
     password : str
 
+class Request(BaseModel):
+    user_id : int
+    title: str
+    text: str 
+
 #load environment variables like the DB name
 load_dotenv()
 DB_NAME = os.getenv("DB_NAME")
@@ -24,12 +29,12 @@ app = FastAPI()
 async def hello():
     return "Hello World"
 
+#USER DATA
 #GET User 
-@app.get("/users")
+@app.get("/user")
 def get_users():
     conn = get_db_connection()
     users = conn.execute("SELECT * FROM users").fetchall()
-    print(users)
     conn.close()
     return [dict(u) for u in users]
 
@@ -90,11 +95,84 @@ def delete_user(user_id: int):
     conn.commit()
     conn.close()
     return HTTPStatus.ACCEPTED
-    
 
+
+#REQUEST DATA
+#GET request 
+@app.get("/request")
+def get_request():
+    conn = get_db_connection()
+    request = conn.execute("SELECT * FROM requests").fetchall()
+    conn.close()
+    return [dict(r) for r in request]
+
+@app.get("/request/{request_id}")
+def get_request(request_id: int):
+    conn = get_db_connection()
+    request = conn.execute("SELECT * FROM requests WHERE request_id = ?", (request_id,)).fetchone()
+    conn.close()
+    if(request):
+        return request
+    else: 
+        return HTTPStatus.NOT_FOUND
+    
+@app.get("/userRequests/{user_id}")
+def get_user_requests(user_id: int):
+    print("test")
+    conn = get_db_connection()
+    request = conn.execute("SELECT * FROM requests WHERE user_id = ?", (user_id,)).fetchall()
+    conn.close()
+    return [dict(r) for r in request]
+
+#POST User 
+@app.post("/request")
+def create_request(request: Request):
+    conn = get_db_connection()
+    try: 
+        conn.execute("INSERT INTO requests (user_id, title, text) VALUES (?, ?, ?)", 
+                 (request.user_id, request.title, request.text,))
+        conn.commit()
+        conn.close()
+        return HTTPStatus.CREATED
+    except IntegrityError: 
+        conn.close()
+        return HTTPStatus.IM_USED
+
+#PUT request
+@app.put("/request/{request_id}")
+def update_request(request_id: int, request: Request):
+    conn = get_db_connection()
+    try:
+        conn.execute("UPDATE requests SET title = ?, text = ? WHERE request_id = ?", 
+                     (request.title, request.text, request_id,))
+        conn.commit()
+        conn.close()
+        return HTTPStatus.CREATED
+    except IntegrityError:
+        conn.close()
+        return HTTPStatus.IM_USED
+
+#DELETE request
+@app.delete("/request/{request_id}")
+def delete_request(request_id: int):
+    conn = get_db_connection()
+    request = conn.execute("DELETE FROM requests WHERE request_id = ?", (request_id,)).fetchone()
+    conn.commit()
+    conn.close()
+    return HTTPStatus.ACCEPTED
+
+
+#SETUP DB
 def createDB():
     if os.path.exists(DB_NAME):
         os.remove(DB_NAME)
+    
+    createUserTable()
+    createRequestTable()
+
+    print("Neue DB erstellt")
+
+def createUserTable():
     conn = get_db_connection()
 
     conn.execute("""
@@ -110,18 +188,46 @@ def createDB():
     conn.commit()
     conn.close()
 
-    print("Neue DB erstellt")
+    print("Neue User erstellt")
 
-def fillTestDB():
+def createRequestTable():
+    conn = get_db_connection()
+
+    conn.execute("""
+        CREATE TABLE requests (
+            request_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            title TEXT NOT NULL,
+            text VARCHAR(255)
+        );
+    """)
+
+    conn.commit()
+    conn.close()
+
+    print("Neue Request erstellt")
+
+#TEST DATA
+def testUserData():
     user1 = User(first_name="Blib", last_name="Blub", email="blibblub@hi.de", password="password")
     user2 = User(first_name="Max", last_name="Mustermann", email="max@hi.de", password="1234")
     user3 = User(first_name="Ella", last_name="Elli", email="ellaelli@hi.de", password="")
     users = [user1, user2, user3]
     for u in users:
         create_user(u)
-    print("filled Test Database")
+    print("Test Users created")
 
-@app.on_event("startup") #on_event is deprecated but should still work, otherwise use "lifespan"
+def testRequestData():
+    create_request(Request(user_id=1, title="Hello Wolrd", text = "hi hi hi"))
+    create_request(Request(user_id=1, title="Hello Wolrd", text = "hiho"))
+    create_request(Request(user_id=2, title="Hello Wolrd", text = "hallo"))
+    create_request(Request(user_id=3, title="Hello Wolrd", text = ""))
+    print("Test Request created")
+
+
+#on_event is deprecated but should still work, otherwise use "lifespan"; just ignore it
+@app.on_event("startup") 
 def startup():
     createDB()
-    fillTestDB()
+    testUserData()
+    testRequestData()
