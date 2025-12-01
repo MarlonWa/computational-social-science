@@ -11,11 +11,13 @@ class User(BaseModel):
     last_name: str
     email : str
     password : str
+    address: str = ""
+    helper: bool = False
 
 class Request(BaseModel):
     user_id : int
     title: str
-    text: str 
+    text: str = ""
 
 #load environment variables like the DB name
 load_dotenv()
@@ -23,6 +25,7 @@ DB_NAME = os.getenv("DB_NAME")
 
 #start the app
 app = FastAPI()
+app.add
 
 #Default Endpoint
 @app.get("/")
@@ -32,16 +35,16 @@ async def hello():
 #USER DATA
 #GET User 
 @app.get("/user")
-def get_users():
+async def get_users():
     conn = get_db_connection()
     users = conn.execute("SELECT * FROM users").fetchall()
     conn.close()
     return [dict(u) for u in users]
 
 @app.get("/user/{user_id}")
-def get_user(user_id: int):
+async def get_user(user_id: int):
     conn = get_db_connection()
-    user = conn.execute("SELECT first_name, last_name, email FROM users WHERE user_id = ?", (user_id,)).fetchone()
+    user = conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone()
     conn.close()
     if(user):
         return user
@@ -53,14 +56,14 @@ def get_user(user_id: int):
 def create_user(user: User):
     conn = get_db_connection()
     try: 
-        conn.execute("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)", 
-                 (user.first_name, user.last_name, user.email, user.password,))
+        conn.execute("INSERT INTO users (first_name, last_name, email, password, address, helper) VALUES (?, ?, ?, ?, ?, ?)", 
+                 (user.first_name, user.last_name, user.email, user.password, user.address, user.helper,))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED
     except IntegrityError: 
         conn.close()
-        return HTTPStatus.IM_USED
+        return HTTPStatus.BAD_REQUEST
 
 @app.post("/login")
 def login(user: User):
@@ -78,14 +81,14 @@ def login(user: User):
 def update_user(user_id: int, user: User):
     conn = get_db_connection()
     try:
-        conn.execute("UPDATE users SET first_name = ?, last_name = ?, email = ? password = ? WHERE user_id = ?", 
-                     (user.first_name, user.last_name, user.email, user.password, user_id))
+        conn.execute("UPDATE users SET first_name = ?, last_name = ?, email = ? password = ?, address = ?, helper = ? WHERE user_id = ?", 
+                     (user.first_name, user.last_name, user.email, user.password, user.address, user.helper, user_id))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED
     except IntegrityError:
         conn.close()
-        return HTTPStatus.IM_USED
+        return HTTPStatus.BAD_REQUEST
 
 #DELETE user
 @app.delete("/user/{user_id}")
@@ -181,7 +184,9 @@ def createUserTable():
             first_name TEXT NOT NULL,
             last_name TEXT NOT NULL,
             email VARCHAR(255) UNIQUE NOT NULL,
-            password VARCHAR(255) NOT NULL
+            password VARCHAR(255) NOT NULL,
+            address VARCHAR(255),
+            helper BOOLEAN
         );
     """)
 
@@ -209,9 +214,9 @@ def createRequestTable():
 
 #TEST DATA
 def testUserData():
-    user1 = User(first_name="Blib", last_name="Blub", email="blibblub@hi.de", password="password")
-    user2 = User(first_name="Max", last_name="Mustermann", email="max@hi.de", password="1234")
-    user3 = User(first_name="Ella", last_name="Elli", email="ellaelli@hi.de", password="")
+    user1 = User(first_name="Blib", last_name="Blub", email="blibblub@hi.de", password="password", address= "testvill", helper=True)
+    user2 = User(first_name="Max", last_name="Mustermann", email="max@hi.de", password="1234", address= "Passing", helper=True)
+    user3 = User(first_name="Ella", last_name="Elli", email="ellaelli@hi.de", password="", address= "TUM", helper=False)
     users = [user1, user2, user3]
     for u in users:
         create_user(u)
