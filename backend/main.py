@@ -102,7 +102,7 @@ def delete_user(user_id: int):
 #REQUEST DATA
 #GET request 
 @app.get("/request")
-def get_request():
+def get_requests():
     conn = get_db_connection()
     request = conn.execute("SELECT * FROM requests").fetchall()
     conn.close()
