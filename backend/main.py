@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 from sqlite3 import IntegrityError
 from http import HTTPStatus
-import dbTesting
 
 class User(BaseModel):
     first_name: str
@@ -236,4 +235,3 @@ def startup():
     createDB()
     testUserData()
     testRequestData()
-    dbTesting.testgetUsers()
