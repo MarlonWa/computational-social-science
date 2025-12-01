@@ -118,11 +118,10 @@ def get_request(request_id: int):
     else: 
         return HTTPStatus.NOT_FOUND
     
-@app.get("/userRequests/{user_id}")
-def get_user_requests(user_id: int):
-    print("test")
+@app.get("/user/requests/")
+def get_user_requests(user: User):
     conn = get_db_connection()
-    request = conn.execute("SELECT * FROM requests WHERE user_id = ?", (user_id,)).fetchall()
+    request = conn.execute("SELECT * FROM requests WHERE user_id = ?", (user.id,)).fetchall()
     conn.close()
     return [dict(r) for r in request]
 
