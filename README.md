@@ -28,17 +28,7 @@ Backend:
             - title
             - text
     - Functions
-        - get_users()
-            returns all users in the database
-        - get_user(user_id)
-            takes a int path variable
-            returns user with the same user_id
-            returns HTTPStatus.NOT_FOUND if user doesn't exist
-        - create_user(user)
-            takes a JSON body with a new user
-            returns HTTPStatus.CREATED if added to database 
-            returs HTTPStatus.BAD_REQUEST if email already exist
-        -login(user)
+        - See main.py for a description of individual functions and methods
             
 
 

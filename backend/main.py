@@ -32,8 +32,9 @@ async def hello():
     return "Hello World"
 
 #USER DATA
-#GET User 
+#GET User
 @app.get("/user")
+#returns all users from table "users"
 async def get_users():
     conn = get_db_connection()
     users = conn.execute("SELECT * FROM users").fetchall()
@@ -41,6 +42,7 @@ async def get_users():
     return [dict(u) for u in users]
 
 @app.get("/user/{user_id}")
+#returns a user from table "users" by user_id
 async def get_user(user_id: int):
     conn = get_db_connection()
     user = conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone()
@@ -52,6 +54,7 @@ async def get_user(user_id: int):
 
 #POST User 
 @app.post("/user")
+#creates a new user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.BAD_REQUEST on failure (e.g. email already exists)
 def create_user(user: User):
     conn = get_db_connection()
     try: 
@@ -65,6 +68,7 @@ def create_user(user: User):
         return HTTPStatus.BAD_REQUEST
 
 @app.post("/login")
+#login user, returns HTTPStatus.ACCEPTED on success, HTTPStatus.BAD_REQUEST on failure
 def login(user: User):
     conn = get_db_connection()
     result = conn.execute("SELECT * FROM users WHERE email = ? AND password = ?", 
