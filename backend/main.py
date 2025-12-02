@@ -81,6 +81,7 @@ def login(user: User):
 
 #PUT user
 @app.put("/user/{user_id}")
+#updates a user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.BAD_REQUEST on failure
 def update_user(user_id: int, user: User):
     conn = get_db_connection()
     try:
@@ -95,6 +96,7 @@ def update_user(user_id: int, user: User):
 
 #DELETE user
 @app.delete("/user/{user_id}")
+#deletes a user from table "users", returns HTTPStatus.ACCEPTED
 def delete_user(user_id: int):
     conn = get_db_connection()
     user = conn.execute("DELETE FROM users WHERE user_id = ?", (user_id,)).fetchone()
@@ -106,6 +108,7 @@ def delete_user(user_id: int):
 #REQUEST DATA
 #GET request 
 @app.get("/request")
+#returns all requests from table "requests"
 def get_requests():
     conn = get_db_connection()
     request = conn.execute("SELECT * FROM requests").fetchall()
@@ -113,6 +116,7 @@ def get_requests():
     return [dict(r) for r in request]
 
 @app.get("/request/{request_id}")
+#returns a request from table "requests" by request_id, returns HTTPStatus.NOT_FOUND if not found
 def get_request(request_id: int):
     conn = get_db_connection()
     request = conn.execute("SELECT * FROM requests WHERE request_id = ?", (request_id,)).fetchone()
@@ -123,6 +127,7 @@ def get_request(request_id: int):
         return HTTPStatus.NOT_FOUND
     
 @app.get("/user/requests/")
+#returns all requests from a specific user
 def get_user_requests(user: User):
     conn = get_db_connection()
     request = conn.execute("SELECT * FROM requests WHERE user_id = ?", (user.id,)).fetchall()
@@ -131,6 +136,7 @@ def get_user_requests(user: User):
 
 #POST User 
 @app.post("/request")
+#creates a new request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.IM_USED on failure
 def create_request(request: Request):
     conn = get_db_connection()
     try: 
@@ -145,6 +151,7 @@ def create_request(request: Request):
 
 #PUT request
 @app.put("/request/{request_id}")
+#updates a request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.IM_USED on failure
 def update_request(request_id: int, request: Request):
     conn = get_db_connection()
     try:
@@ -159,6 +166,7 @@ def update_request(request_id: int, request: Request):
 
 #DELETE request
 @app.delete("/request/{request_id}")
+#deletes a request from table "requests", returns HTTPStatus.ACCEPTED
 def delete_request(request_id: int):
     conn = get_db_connection()
     request = conn.execute("DELETE FROM requests WHERE request_id = ?", (request_id,)).fetchone()
@@ -169,6 +177,7 @@ def delete_request(request_id: int):
 
 #SETUP DB
 def createDB():
+    #delete old DB if exists
     if os.path.exists(DB_NAME):
         os.remove(DB_NAME)
     
@@ -178,6 +187,7 @@ def createDB():
     print("Neue DB erstellt")
 
 def createUserTable():
+    #create table users
     conn = get_db_connection()
 
     conn.execute("""
@@ -198,6 +208,7 @@ def createUserTable():
     print("Neue User erstellt")
 
 def createRequestTable():
+    #create table requests
     conn = get_db_connection()
 
     conn.execute("""
