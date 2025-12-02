@@ -59,29 +59,29 @@
 - Interview alter Leute (bis 14.12) (Alle zusammen)
     - FAQ Sammeln (12.1)
 - Emails an die Organisationen schreiben (bis 14.12) (Luca, Yan)
-- Bekannte Leute Befragen (bis 14.12) (Alle zusammen)
+- Bekannte Leute befragen (bis 14.12) (Alle zusammen)
 - Template und Design (14.12) (Marlon, Sophie)
 - Website Struktur und Routing (14.12) (Marlon, Thommy)
 - Anfragen und Antwort DB bis (20.12) (Thommy)
 - FAQ Anleitung schreiben (23.12) (Luca, Yan)
-- Weinachtspause (24.12 - 6.1)
+- Weihnachtspause (24.12 - 6.1)
 - Objekt Strukturen (23.12)
 - Backend Service Implementierung (23.12) (Thommy)
-- Frontent Implementierung (bis 16.12) (Marlon, Sophie) (Der Rest hilft)
+- Frontend Implementierung (bis 16.12) (Marlon, Sophie) (Der Rest hilft)
     - Pages erstellen (Alle Zusammen)
     - Pages verlinken (Alle Zusammen)
     - Projekt Logik fertig stellen
         - Login 
         - Anfragen erstellen
     - FAQ Implementieren
-- Projekt Woche (12.1 - 16.1)
+- Projektwoche (12.1 - 16.1)
     - Finale Präsentation erstellen (Alle zusammen)
     - IT security (Thommy)
         - Rollen (Standard, Admin)
         - HTTPS Protokolle
-        - Encription
+        - Encryption
         - SQL Injection (Forbidden chars)
     - Chatfunktion (der Rest)
 
-    - Ortingsfunktion () ?
+    - Ortungsfunktion () ?
 
