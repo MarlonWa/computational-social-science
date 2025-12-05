@@ -28,7 +28,7 @@
 
 ## Backend
 - User DB
-    - USer ID 
+    - User ID 
     - Namen
     - email
     - passwort

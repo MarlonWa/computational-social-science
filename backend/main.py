@@ -85,7 +85,7 @@ def login(user: User):
 def update_user(user_id: int, user: User):
     conn = get_db_connection()
     try:
-        conn.execute("UPDATE users SET first_name = ?, last_name = ?, email = ? password = ?, address = ?, helper = ? WHERE user_id = ?", 
+        conn.execute("UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, address = ?, helper = ? WHERE user_id = ?", 
                      (user.first_name, user.last_name, user.email, user.password, user.address, user.helper, user_id))
         conn.commit()
         conn.close()
