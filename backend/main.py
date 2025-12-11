@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from database import get_db_connection
 import os
 from dotenv import load_dotenv
@@ -7,16 +7,16 @@ from sqlite3 import IntegrityError
 from http import HTTPStatus
 
 class User(BaseModel):
-    first_name: str
-    last_name: str
-    email : str
-    password : str
+    first_name: str = ""
+    last_name: str = ""
+    email : str = ""
+    password : str = ""
     address: str = ""
     helper: bool = False
 
 class Request(BaseModel):
-    user_id : int
-    title: str
+    user_id : int = -1
+    title: str = ""
     text: str = ""
 
 #load environment variables like the DB name
@@ -50,7 +50,7 @@ async def get_user(user_id: int):
     if(user):
         return user
     else: 
-        return HTTPStatus.NOT_FOUND
+        raise HTTPException(status_code=404, detail="User not found")
 
 #POST User 
 @app.post("/user")
@@ -65,7 +65,7 @@ def create_user(user: User):
         return HTTPStatus.CREATED
     except IntegrityError: 
         conn.close()
-        return HTTPStatus.BAD_REQUEST
+        raise HTTPException(status_code=409, detail="Email already used")
 
 @app.post("/login")
 #login user, returns HTTPStatus.ACCEPTED on success, HTTPStatus.BAD_REQUEST on failure
@@ -77,7 +77,7 @@ def login(user: User):
     if(result):
         return HTTPStatus.ACCEPTED
     else:
-        return HTTPStatus.BAD_REQUEST
+        raise HTTPException(status_code=409, detail="Email already used")
 
 #PUT user
 @app.put("/user/{user_id}")
@@ -92,7 +92,7 @@ def update_user(user_id: int, user: User):
         return HTTPStatus.CREATED
     except IntegrityError:
         conn.close()
-        return HTTPStatus.BAD_REQUEST
+        raise HTTPException(status_code=409, detail="Email already used")
 
 #DELETE user
 @app.delete("/user/{user_id}")
@@ -124,7 +124,7 @@ def get_request(request_id: int):
     if(request):
         return request
     else: 
-        return HTTPStatus.NOT_FOUND
+        raise HTTPException(status_code=409, detail="Request not found")
     
 @app.get("/user/requests/")
 #returns all requests from a specific user
@@ -147,7 +147,7 @@ def create_request(request: Request):
         return HTTPStatus.CREATED
     except IntegrityError: 
         conn.close()
-        return HTTPStatus.IM_USED
+        raise HTTPException(status_code=409, detail="Request not found")
 
 #PUT request
 @app.put("/request/{request_id}")
@@ -162,7 +162,7 @@ def update_request(request_id: int, request: Request):
         return HTTPStatus.CREATED
     except IntegrityError:
         conn.close()
-        return HTTPStatus.IM_USED
+        raise HTTPException(status_code=409, detail="Request not found")
 
 #DELETE request
 @app.delete("/request/{request_id}")

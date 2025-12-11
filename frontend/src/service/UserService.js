@@ -1,14 +1,22 @@
+import User from '../class/User.js'
+
+//FastAPI URL 
 const url = "http://127.0.0.1:8000/user/"
 
-function getAllUsers(){
-    fetch(url)
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error(error))
+//Get User by user_id
+async function getUser(index) {
+    try {
+        const response = await fetch(url + index);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        const user = new User(result)
+        return user;
+    } catch (error) {
+        console.error(error.message);
+    }
 }
 
-function getUser(user_id){
-    const responseJson = fetch(url + user_id)
-}
-
-getUser(1)
+console.log(await getUser(5));
