@@ -19,4 +19,27 @@ async function getUser(index) {
     }
 }
 
-console.log(await getUser(5));
+//Create new User
+async function postUser(user) {
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+var user = await getUser(1);
+user.email = "newEmail";
+console.log(JSON.stringify(user));
+await postUser(user);
+

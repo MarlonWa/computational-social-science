@@ -7,6 +7,7 @@ from sqlite3 import IntegrityError
 from http import HTTPStatus
 
 class User(BaseModel):
+    user_id: int = 0
     first_name: str = ""
     last_name: str = ""
     email : str = ""
@@ -15,7 +16,8 @@ class User(BaseModel):
     helper: bool = False
 
 class Request(BaseModel):
-    user_id : int = -1
+    request_id: int = 0
+    user_id : int
     title: str = ""
     text: str = ""
 

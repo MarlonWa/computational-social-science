@@ -8,6 +8,17 @@ class User{
         this.address = JSON_Object.address;
         this.helper = (JSON_Object.helper == 1);
     }
+
+    noId(){
+        return {
+            first_name : this.first_name,
+            last_name : this.last_name,
+            email : this.email,
+            password : this.password,
+            address : this.address,
+            helper : this.helper
+        }
+    }
 }
 
 export default User;
