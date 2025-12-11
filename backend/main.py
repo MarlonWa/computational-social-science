@@ -1,3 +1,4 @@
+import asyncio
 from fastapi import FastAPI, HTTPException
 from database import get_db_connection
 import os
@@ -8,8 +9,7 @@ from http import HTTPStatus
 
 class User(BaseModel):
     user_id: int = 0
-    first_name: str = ""
-    last_name: str = ""
+    name: str = ""
     email : str = ""
     password : str = ""
     address: str = ""
@@ -57,11 +57,11 @@ async def get_user(user_id: int):
 #POST User 
 @app.post("/user")
 #creates a new user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.BAD_REQUEST on failure (e.g. email already exists)
-def create_user(user: User):
+async def create_user(user: User):
     conn = get_db_connection()
     try: 
-        conn.execute("INSERT INTO users (first_name, last_name, email, password, address, helper) VALUES (?, ?, ?, ?, ?, ?)", 
-                 (user.first_name, user.last_name, user.email, user.password, user.address, user.helper,))
+        conn.execute("INSERT INTO users (name, email, password, address, helper) VALUES (?, ?, ?, ?, ?)", 
+                 (user.name, user.email, user.password, user.address, user.helper,))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED
@@ -71,7 +71,7 @@ def create_user(user: User):
 
 @app.post("/login")
 #login user, returns HTTPStatus.ACCEPTED on success, HTTPStatus.BAD_REQUEST on failure
-def login(user: User):
+async def login(user: User):
     conn = get_db_connection()
     result = conn.execute("SELECT * FROM users WHERE email = ? AND password = ?", 
                           (user.email, user.password,)).fetchone()
@@ -84,11 +84,11 @@ def login(user: User):
 #PUT user
 @app.put("/user/{user_id}")
 #updates a user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.BAD_REQUEST on failure
-def update_user(user_id: int, user: User):
+async def update_user(user_id: int, user: User):
     conn = get_db_connection()
     try:
-        conn.execute("UPDATE users SET first_name = ?, last_name = ?, email = ?, password = ?, address = ?, helper = ? WHERE user_id = ?", 
-                     (user.first_name, user.last_name, user.email, user.password, user.address, user.helper, user_id))
+        conn.execute("UPDATE users SET name = ?, email = ?, password = ?, address = ?, helper = ? WHERE user_id = ?", 
+                     (user.name, user.email, user.password, user.address, user.helper, user_id))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED
@@ -99,7 +99,7 @@ def update_user(user_id: int, user: User):
 #DELETE user
 @app.delete("/user/{user_id}")
 #deletes a user from table "users", returns HTTPStatus.ACCEPTED
-def delete_user(user_id: int):
+async def delete_user(user_id: int):
     conn = get_db_connection()
     user = conn.execute("DELETE FROM users WHERE user_id = ?", (user_id,)).fetchone()
     conn.commit()
@@ -111,7 +111,7 @@ def delete_user(user_id: int):
 #GET request 
 @app.get("/request")
 #returns all requests from table "requests"
-def get_requests():
+async def get_requests():
     conn = get_db_connection()
     request = conn.execute("SELECT * FROM requests").fetchall()
     conn.close()
@@ -119,7 +119,7 @@ def get_requests():
 
 @app.get("/request/{request_id}")
 #returns a request from table "requests" by request_id, returns HTTPStatus.NOT_FOUND if not found
-def get_request(request_id: int):
+async def get_request(request_id: int):
     conn = get_db_connection()
     request = conn.execute("SELECT * FROM requests WHERE request_id = ?", (request_id,)).fetchone()
     conn.close()
@@ -130,7 +130,7 @@ def get_request(request_id: int):
     
 @app.get("/user/requests/")
 #returns all requests from a specific user
-def get_user_requests(user: User):
+async def get_user_requests(user: User):
     conn = get_db_connection()
     request = conn.execute("SELECT * FROM requests WHERE user_id = ?", (user.id,)).fetchall()
     conn.close()
@@ -139,7 +139,7 @@ def get_user_requests(user: User):
 #POST User 
 @app.post("/request")
 #creates a new request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.IM_USED on failure
-def create_request(request: Request):
+async def create_request(request: Request):
     conn = get_db_connection()
     try: 
         conn.execute("INSERT INTO requests (user_id, title, text) VALUES (?, ?, ?)", 
@@ -154,7 +154,7 @@ def create_request(request: Request):
 #PUT request
 @app.put("/request/{request_id}")
 #updates a request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.IM_USED on failure
-def update_request(request_id: int, request: Request):
+async def update_request(request_id: int, request: Request):
     conn = get_db_connection()
     try:
         conn.execute("UPDATE requests SET title = ?, text = ? WHERE request_id = ?", 
@@ -169,7 +169,7 @@ def update_request(request_id: int, request: Request):
 #DELETE request
 @app.delete("/request/{request_id}")
 #deletes a request from table "requests", returns HTTPStatus.ACCEPTED
-def delete_request(request_id: int):
+async def delete_request(request_id: int):
     conn = get_db_connection()
     request = conn.execute("DELETE FROM requests WHERE request_id = ?", (request_id,)).fetchone()
     conn.commit()
@@ -195,8 +195,7 @@ def createUserTable():
     conn.execute("""
         CREATE TABLE users (
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            first_name TEXT NOT NULL,
-            last_name TEXT NOT NULL,
+            name TEXT NOT NULL,
             email VARCHAR(255) UNIQUE NOT NULL,
             password VARCHAR(255) NOT NULL,
             address VARCHAR(255),
@@ -228,26 +227,35 @@ def createRequestTable():
     print("Neue Request erstellt")
 
 #TEST DATA
-def testUserData():
-    user1 = User(first_name="Blib", last_name="Blub", email="blibblub@hi.de", password="password", address= "testvill", helper=True)
-    user2 = User(first_name="Max", last_name="Mustermann", email="max@hi.de", password="1234", address= "Passing", helper=True)
-    user3 = User(first_name="Ella", last_name="Elli", email="ellaelli@hi.de", password="", address= "TUM", helper=False)
-    users = [user1, user2, user3]
+async def testUserData():
+    users = [
+        User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True),
+        User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True),
+        User(name="Ella", email="ellaelli@hi.de", password="", address= "TUM", helper=False)
+    ]
+    
     for u in users:
-        create_user(u)
+        await create_user(u)
+        
     print("Test Users created")
 
-def testRequestData():
-    create_request(Request(user_id=1, title="Hello Wolrd", text = "hi hi hi"))
-    create_request(Request(user_id=1, title="Hello Wolrd", text = "hiho"))
-    create_request(Request(user_id=2, title="Hello Wolrd", text = "hallo"))
-    create_request(Request(user_id=3, title="Hello Wolrd", text = ""))
+async def testRequestData():
+    requests = [
+        Request(user_id=1, title="Hello Wolrd", text = "hi hi hi"),
+        Request(user_id=1, title="Hello Wolrd", text = "hiho"),
+        Request(user_id=2, title="Hello Wolrd", text = "hallo"),
+        Request(user_id=3, title="Hello Wolrd", text = "")
+    ]
+    
+    for r in requests:
+        await create_request(r)
+        
     print("Test Request created")
 
 
 #on_event is deprecated but should still work, otherwise use "lifespan"; just ignore it
 @app.on_event("startup") 
-def startup():
+async def startup():
     createDB()
-    testUserData()
-    testRequestData()
+    await testUserData()
+    await testRequestData()

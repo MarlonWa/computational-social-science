@@ -38,8 +38,10 @@ async function postUser(user) {
     }
 }
 
+//Update User
+
+
 var user = await getUser(1);
 user.email = "newEmail";
-console.log(JSON.stringify(user));
 await postUser(user);
 
