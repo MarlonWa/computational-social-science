@@ -128,11 +128,11 @@ async def get_request(request_id: int):
     else: 
         raise HTTPException(status_code=409, detail="Request not found")
     
-@app.get("/user/requests/")
+@app.get("/user/{user_id}/requests")
 #returns all requests from a specific user
-async def get_user_requests(user: User):
+async def get_user_requests(user_id: int):
     conn = get_db_connection()
-    request = conn.execute("SELECT * FROM requests WHERE user_id = ?", (user.id,)).fetchall()
+    request = conn.execute("SELECT * FROM requests WHERE user_id = ?", (user_id,)).fetchall()
     conn.close()
     return [dict(r) for r in request]
 

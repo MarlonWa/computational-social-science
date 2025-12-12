@@ -79,6 +79,7 @@ async function putUser(id, user) {
     }
 }
 
+//Delete User
 async function deleteUser(id) {
     try {
         const response = await fetch(url + id, {method: "DELETE"});
@@ -91,6 +92,28 @@ async function deleteUser(id) {
     }
 }
 
+//Get all Requests from User by user_id
 async function getAllUserRequest(id){
-    
+    try {
+        const response = await fetch(url + id + "/requests");
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        const requests = []
+
+        console.log(result);
+
+        for(var i = 0; i < result.length; i++){
+            requests.push(new Request(result[i]))
+        }
+        
+        return requests;
+    } catch (error) {
+        console.error(error.message);
+    }
 }
+
+export default UserService;

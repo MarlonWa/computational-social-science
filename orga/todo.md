@@ -55,7 +55,7 @@
     - Text
 
 ## Timeline ab dem 01.12
-- Fragebogen erstellen (bis 10.12) (Luca, Yan) 
+- Fragebogen erstellen (bis 10.12) (Luca, Yan)
 - Interview alter Leute (bis 14.12) (Alle zusammen)
     - FAQ Sammeln (12.1)
 - Emails an die Organisationen schreiben (bis 14.12) (Luca, Yan)
