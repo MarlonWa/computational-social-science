@@ -1,12 +1,13 @@
 import User from '../class/User.js'
+import Request  from '../class/Request.js';
 
 //FastAPI URL 
 const url = "http://127.0.0.1:8000/user/"
 
 //Get User by user_id
-async function getUser(index) {
+async function getUser(id) {
     try {
-        const response = await fetch(url + index);
+        const response = await fetch(url + id, {method: "GET"});
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
@@ -14,6 +15,27 @@ async function getUser(index) {
         const result = await response.json();
         const user = new User(result)
         return user;
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+//Get all Users
+async function getAllUsers() {
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        const users = []
+
+        for(var i = 0; i < result.length; i++){
+            users.push(new User(result[i]))
+        }
+        
+        return users;
     } catch (error) {
         console.error(error.message);
     }
@@ -39,9 +61,36 @@ async function postUser(user) {
 }
 
 //Update User
+async function putUser(id, user) {
+    try {
+        const response = await fetch(url + id, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
 
+    } catch (error) {
+        console.error(error.message);
+    }
+}
 
-var user = await getUser(1);
-user.email = "newEmail";
-await postUser(user);
+async function deleteUser(id) {
+    try {
+        const response = await fetch(url + id, {method: "DELETE"});
 
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+}
+
+async function getAllUserRequest(id){
+    
+}
