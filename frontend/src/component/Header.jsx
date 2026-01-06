@@ -89,7 +89,7 @@ function Header({header_title = "help@m"}) {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography component={Link} to={page.path} sx={{ textAlign: 'center' }}>{page.name}</Typography>
+                  <Typography component={Link} to={page.path} sx={{ textAlign: 'center', "&:hover": {color: "white"}}}>{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -117,7 +117,7 @@ function Header({header_title = "help@m"}) {
               <Button
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block', "&:hover": {color: "white"}}}
                 component={Link}
                 to={page.path}
               >

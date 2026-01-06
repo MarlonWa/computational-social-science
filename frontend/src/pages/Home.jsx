@@ -4,11 +4,11 @@ import Header from '../component/Header.jsx'
 import Typography from '@mui/material/Typography'
 
 const pages = [
-  {name: 'ICH WILL HELFEN', path: '/login_helfer', color: "red"},
-  {name: 'ICH SUCHE HILFE', path: '/login_hilfe', color: "blue"}
+  {name: 'ICH WILL HELFEN', path: '/login_helfer', color: "#7f19d2"},
+  {name: 'ICH SUCHE HILFE', path: '/login_hilfe', color: "#c12ab9"}
 ]
 
-export function Home() {
+export function Home() { //DONE FOR NOW :)
     
   return (
     <>
@@ -42,11 +42,16 @@ export function Home() {
             <Button
                 key={page.name}
                 variant="contained"
-                color={page.color}
                 sx={{
+                backgroundColor: page.color,
                 flex: 1,
                 borderRadius: 0,
                 fontSize: { xs: "2rem", md: "5rem" },
+                opacity: 0.9,
+                "&:hover": {
+                color: "white", // keep same bg
+                opacity: 1,
+                },
                 }}
                 component={Link}
                 to={page.path}
