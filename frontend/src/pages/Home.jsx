@@ -4,8 +4,8 @@ import Header from '../component/Header.jsx'
 import Typography from '@mui/material/Typography'
 
 const pages = [
-  {name: 'ICH WILL HELFEN', path: '/login_helfer', color: "#7f19d2"},
-  {name: 'ICH SUCHE HILFE', path: '/login_hilfe', color: "#c12ab9"}
+  {name: 'ICH WILL HELFEN', path: '/helfer/login', color: "#7f19d2"},
+  {name: 'ICH SUCHE HILFE', path: '/hilfe/login', color: "#c12ab9"}
 ]
 
 export function Home() { //DONE FOR NOW :)
