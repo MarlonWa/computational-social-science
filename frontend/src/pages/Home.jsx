@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
+import Header from '../component/Header.jsx';
 
 export function Home() {
     return (
         <>
+            <Header/>
             <h1>Homepage</h1>
-            <Link to = "/login">login</Link>
+            <Link to="/faq"> FAQ </Link>
             <h1> </h1>
-            <Link to = "/request">create request</Link>
-            <h1> </h1>
-            <Link to = "/helfer/:user_id/scoreboard"> scoreboard </Link>
+            <Link to = "/dev"> ONLY FOR DEVELOPMENT - use with caution </Link>
         </>
     )
 }

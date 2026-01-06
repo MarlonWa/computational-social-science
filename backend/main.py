@@ -294,5 +294,7 @@ async def get_scoreboard_status(user_id: int):
     return {"first" : 0,
             "second" : 0,
             "third" : 0,
-            "user_rank" : 0
-           }
+            "user_rank" : 1
+            }
+
+# TODO: bitte noch endpoints zu /users und /requests ändern

@@ -16,6 +16,7 @@ import { Home_Hilfe } from './pages/Home_Hilfe.jsx'
 import { Neu_Hilfe } from './pages/Neu_Hilfe.jsx'
 import { Chats_Hilfe } from './pages/Chats_Hilfe.jsx'
 import { Chat_Hilfe } from './pages/Chat_Hilfe.jsx'
+import { Dev } from './pages/Dev.jsx'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -45,6 +46,8 @@ function App() {
         <Route path = "/hilfe/:user_id/new" element = {<Neu_Hilfe />} />
         <Route path = "/hilfe/:user_id/chats" element = {<Chats_Hilfe />} />
         <Route path = "/hilfe/:user_id/chat/:chat_id" element = {<Chat_Hilfe />} />
+        
+        <Route path = "/dev" element = {<Dev />} />
       </Routes>
     </Router>
   )
