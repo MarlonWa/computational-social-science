@@ -6,9 +6,9 @@ export function Home() {
         <>
             <Header/>
             <h1>Homepage</h1>
-            <Link to="/faq"> FAQ </Link>
-            <h1> </h1>
             <Link to = "/dev"> ONLY FOR DEVELOPMENT - use with caution </Link>
+            <h1> </h1>
+            <Link to="/faq"> FAQ </Link>
         </>
     )
 }

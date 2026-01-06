@@ -13,7 +13,8 @@ import '@fontsource-variable/roboto-mono';
 import { Link } from 'react-router-dom'
 
 const pages = [
-  {name: 'Titelseite', path: '/'}
+  {name: 'Titelseite', path: '/'},
+  {name: 'dev', path: '/dev'}
 ]
 
 const title_styling = {
