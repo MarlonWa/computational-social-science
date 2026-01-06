@@ -1,4 +1,12 @@
 import { Link } from 'react-router-dom'
+import { Button, Box } from "@mui/material";
+import Header from '../component/Header.jsx'
+import Typography from '@mui/material/Typography'
+
+const pages = [
+  {name: 'ICH WILL HELFEN', path: '/login_helfer', color: "red"},
+  {name: 'ICH SUCHE HILFE', path: '/login_hilfe', color: "blue"}
+]
 
 export function Home() {
     
