@@ -26,7 +26,7 @@ color: 'inherit',
 textDecoration: 'none'
 }
 
-function ResponsiveAppBar({header_title = "help@m"}) {
+function Header({header_title = "help@m"}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -179,4 +179,4 @@ function ResponsiveAppBar({header_title = "help@m"}) {
     </>
   );
 }
-export default ResponsiveAppBar;
+export default Header;
