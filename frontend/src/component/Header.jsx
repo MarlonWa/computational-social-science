@@ -15,8 +15,6 @@ import { Link } from 'react-router-dom'
 const pages = [
   {name: 'Titelseite', path: '/'}
 ]
-//, 'Über Uns'];
-const header_title = "- Anfrage Erstellen -"
 
 const title_styling = {
 fontFamily: "Roboto Mono Variable",
@@ -27,23 +25,23 @@ color: 'inherit',
 textDecoration: 'none'
 }
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({header_title = "help@m"}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
+  /*const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
+  };*/
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  /*const handleCloseUserMenu = () => {
       setAnchorElUser(null);
-  };
+  };*/
 
   return (
     <>

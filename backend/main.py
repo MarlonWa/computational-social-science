@@ -291,8 +291,8 @@ async def startup():
 async def get_scoreboard_status(user_id: int):
     # wir haben die /user/{user_id} methode bisschen verändert von der response her, weil wir eine json antwort brauchen
     # hier brauchen wir bitte die punkte der top3 user und außerdem den rang des aktuellen users
-    return {"1" : "",
-            "2" : "",
-            "3" : "",
-            "user_rank" : ""
+    return {"first" : 0,
+            "second" : 0,
+            "third" : 0,
+            "user_rank" : 0
            }
