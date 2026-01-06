@@ -1,5 +1,6 @@
 import asyncio
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from database import get_db_connection
 import os
 from dotenv import load_dotenv
@@ -14,6 +15,7 @@ class User(BaseModel):
     password : str = ""
     address: str = ""
     helper: bool = False
+    points: int = 0
 
 class Request(BaseModel):
     request_id: int = 0
@@ -27,6 +29,17 @@ DB_NAME = os.getenv("DB_NAME")
 
 #start the app
 app = FastAPI()
+
+#allow CORS for frontend communication
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5174",  # React
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #Default Endpoint
 @app.get("/")
@@ -49,8 +62,16 @@ async def get_user(user_id: int):
     conn = get_db_connection()
     user = conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone()
     conn.close()
-    if(user):
-        return user
+    if user:
+        return {
+            "user_id": user["user_id"],
+            "name": user["name"],
+            "email": user["email"],
+            "password": user["password"],
+            "address": user["address"],
+            "helper": user["helper"],
+            "points": user["points"]
+        }
     else: 
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -60,8 +81,8 @@ async def get_user(user_id: int):
 async def create_user(user: User):
     conn = get_db_connection()
     try: 
-        conn.execute("INSERT INTO users (name, email, password, address, helper) VALUES (?, ?, ?, ?, ?)", 
-                 (user.name, user.email, user.password, user.address, user.helper,))
+        conn.execute("INSERT INTO users (name, email, password, address, helper, points) VALUES (?, ?, ?, ?, ?, ?)", 
+                 (user.name, user.email, user.password, user.address, user.helper,user.points))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED
@@ -87,8 +108,8 @@ async def login(user: User):
 async def update_user(user_id: int, user: User):
     conn = get_db_connection()
     try:
-        conn.execute("UPDATE users SET name = ?, email = ?, password = ?, address = ?, helper = ? WHERE user_id = ?", 
-                     (user.name, user.email, user.password, user.address, user.helper, user_id))
+        conn.execute("UPDATE users SET name = ?, email = ?, password = ?, address = ?, helper = ?, points = ? WHERE user_id = ?", 
+                     (user.name, user.email, user.password, user.address, user.helper, user.points, user_id))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED
@@ -199,7 +220,8 @@ def createUserTable():
             email VARCHAR(255) UNIQUE NOT NULL,
             password VARCHAR(255) NOT NULL,
             address VARCHAR(255),
-            helper BOOLEAN
+            helper BOOLEAN,
+            points INTEGER DEFAULT 0
         );
     """)
 
@@ -229,8 +251,8 @@ def createRequestTable():
 #TEST DATA
 async def testUserData():
     users = [
-        User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True),
-        User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True),
+        User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 10),
+        User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
         User(name="Ella", email="ellaelli@hi.de", password="", address= "TUM", helper=False)
     ]
     
@@ -259,3 +281,18 @@ async def startup():
     createDB()
     await testUserData()
     await testRequestData()
+
+
+
+
+# -----------------------------------------------------------------
+# Methoden für frontend bitte implementieren :)
+@app.get("/scoreboard/{user_id}")
+async def get_scoreboard_status(user_id: int):
+    # wir haben die /user/{user_id} methode bisschen verändert von der response her, weil wir eine json antwort brauchen
+    # hier brauchen wir bitte die punkte der top3 user und außerdem den rang des aktuellen users
+    return {"1" : "",
+            "2" : "",
+            "3" : "",
+            "user_rank" : ""
+           }

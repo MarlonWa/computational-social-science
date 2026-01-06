@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-export function Login_Hilfe() {
+export function FAQ() {
     return (
         <>
             <h1>Login</h1>
