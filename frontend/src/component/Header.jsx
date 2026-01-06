@@ -27,7 +27,7 @@ color: 'inherit',
 textDecoration: 'none'
 }
 
-function ResponsiveAppBar() {
+function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -180,4 +180,4 @@ function ResponsiveAppBar() {
     </>
   );
 }
-export default ResponsiveAppBar;
+export default Header;
