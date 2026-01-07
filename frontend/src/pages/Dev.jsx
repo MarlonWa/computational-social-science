@@ -1,10 +1,23 @@
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx';
+import { Button } from "@mui/material";
 
 export function Dev() {
     const default_user = 1;
     const default_request = 1;
     const default_chat = 1;
+    const toggleBackground = () => {
+        const body = document.body;
+        const gradient = 'linear-gradient(90deg, rgba(155, 42, 42, 1) 0%, rgba(199, 152, 87, 1) 17%, rgba(200, 198, 92, 1) 33%, rgba(96, 200, 108, 1) 57%, rgba(103, 191, 201, 1) 76%, rgba(155, 156, 203, 1) 89%, rgba(216, 83, 237, 1) 100%)';
+        const current = body.style.backgroundImage;
+        // If an inline background image is set (and not 'none'), clear it; otherwise set the gradient
+        if (current && current !== 'none') {
+            body.style.backgroundImage = '';
+        } else {
+            body.style.backgroundImage = gradient;
+        }
+    };
+
     return (
         <>
             {/*<Header />*/}
@@ -60,6 +73,28 @@ export function Dev() {
             <p></p>
 
             <Link to={`/hilfe/${default_user}/chat/${default_chat}`}> Chat</Link>
+            <h1>    </h1>
+
+            <Button
+                variant="contained"
+                sx={{
+                flex: 1,
+                borderRadius: 0,
+                //fontSize: { xs: "2rem", md: "5rem" },
+                opacity: 0.9,
+                
+                backgroundImage: 'linear-gradient(90deg, rgba(155, 42, 42, 1) 0%, rgba(199, 152, 87, 1) 17%, rgba(200, 198, 92, 1) 33%, rgba(96, 200, 108, 1) 57%, rgba(103, 191, 201, 1) 76%, rgba(155, 156, 203, 1) 89%, rgba(216, 83, 237, 1) 100%)',
+
+                "&:hover": {
+                color: "white", // keep same bg
+                opacity: 1,
+                },
+                }}
+                onClick={toggleBackground}
+            >
+                {"rainbow :)"}
+            </Button>
+
         </>
     );
 }
