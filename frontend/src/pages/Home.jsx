@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Button, Box } from "@mui/material";
-import Header from '../component/Header.jsx'
+import { Header } from '../component/Header.jsx'
 import Typography from '@mui/material/Typography'
 
 const pages = [
@@ -20,9 +20,7 @@ export function Home() { //DONE FOR NOW :)
     flexDirection: "column",
     }}>
 
-    <Box sx={{pt: 2}}>
-        <Header />
-    </Box>
+    <Header />
 
         <Box
         sx={{
@@ -33,7 +31,7 @@ export function Home() { //DONE FOR NOW :)
             boxSizing: "border-box",
             display: "flex",
             gap: 2, //zwischen buttons
-            flexDirection: { xs: "column", md: "row" },
+            flexDirection: { xs: "column", lg: "row" },
             flex: 1, 
             minHeight: 0
         }}>
@@ -46,7 +44,7 @@ export function Home() { //DONE FOR NOW :)
                 backgroundColor: page.color,
                 flex: 1,
                 borderRadius: 0,
-                fontSize: { xs: "2rem", md: "5rem" },
+                fontSize: { xs: "2rem", lg: "5rem" },
                 opacity: 0.9,
                 "&:hover": {
                 color: "white", // keep same bg
@@ -64,5 +62,3 @@ export function Home() { //DONE FOR NOW :)
     </>
   );
 }
-
-export default Home

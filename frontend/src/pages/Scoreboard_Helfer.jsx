@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Header from '../component/Header.jsx';
+import { Header } from '../component/Header.jsx';
 
-export default function Scoreboard_Helfer() {  // DONE FOR NOW :)
+export function Scoreboard_Helfer() {  // DONE FOR NOW :)
     const { user_id } = useParams();
     const [points, setPoints] = useState(0);
     const [points1, setPoints1] = useState(0);
@@ -54,7 +54,6 @@ export default function Scoreboard_Helfer() {  // DONE FOR NOW :)
 
     return (
         <>
-            <p> </p>
             <Header header_title={"SCOREBOARD"}/>
             <p> Der Top 1 User hat aktuell {points1} Punkte! </p>
             <p> Der Top 2 User hat aktuell {points2} Punkte! </p>

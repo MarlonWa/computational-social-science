@@ -1,4 +1,4 @@
-import Header from '../component/Header.jsx'
+import { Header } from '../component/Header.jsx'
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import useMediaQuery from '@mui/material/useMediaQuery';

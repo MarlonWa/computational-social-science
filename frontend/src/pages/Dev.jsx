@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Header from '../component/Header.jsx';
+import { Header } from '../component/Header.jsx';
 
 export function Dev() {
     const default_user = 1;
