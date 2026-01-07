@@ -284,7 +284,7 @@ async def startup():
 
 
 # -----------------------------------------------------------------
-# Methoden für frontend bitte implementieren :)
+# TODO: Methoden für frontend bitte implementieren :)
 @app.get("/scoreboard/{user_id}")
 async def get_scoreboard_status(user_id: int):
     # wir haben die /user/{user_id} methode bisschen verändert von der response her, weil wir eine json antwort brauchen
