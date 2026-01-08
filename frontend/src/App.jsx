@@ -1,6 +1,6 @@
 import './App.css'
 import { Aktive_Anfragen_Helfer } from './pages/Aktive_Anfragen_Helfer.jsx'
-import { Anfrage_Helfer } from './pages/Anfrage_Helfer.jsx'
+import { Anfrage_in_Bearbeitung_Helfer } from './pages/Anfrage_in_Bearbeitung_Helfer.jsx'
 import { Anfragen_Helfer } from './pages/Anfragen_Helfer.jsx'
 import { Home } from './pages/Home.jsx'
 import { Login_Helfer } from './pages/Login_Helfer.jsx'
@@ -17,6 +17,7 @@ import { Neu_Hilfe } from './pages/Neu_Hilfe.jsx'
 import { Chats_Hilfe } from './pages/Chats_Hilfe.jsx'
 import { Chat_Hilfe } from './pages/Chat_Hilfe.jsx'
 import { Dev } from './pages/Dev.jsx'
+import { Anfrageansicht_Helfer } from './pages/Anfrageansicht_Helfer.jsx'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -35,9 +36,10 @@ function App() {
         <Route path = "/helfer/:user_id" element = {<Home_Helfer />} />
         <Route path = "/helfer/:user_id/scoreboard" element = {<Scoreboard_Helfer />} />
         <Route path = "/helfer/:user_id/myrequests" element = {<Aktive_Anfragen_Helfer />} />
-        <Route path = "/helfer/:user_id/myrequest/:request_id" element = {<Anfrage_Helfer />} />
+        <Route path = "/helfer/:user_id/myrequest/:request_id" element = {<Anfrage_in_Bearbeitung_Helfer />} />
         <Route path = "/helfer/:user_id/myrequest/:request_id/chat" element = {<Chat_Helfer />} />
         <Route path = "/helfer/:user_id/requests" element = {<Anfragen_Helfer />} />
+        <Route path = "/helfer/:user_id/request/:request_id" element = {<Anfrageansicht_Helfer />} />
         <Route path = "/helfer/:user_id/chats" element = {<Chats_Helfer />} />
         {/*<Route path = "/helfer/:user_id/chat/:chat_id" element = {<Chat_Helfer />} />
         We dont use this - clicking on a chat will let you get to the myrequest/requestid/chat url*/}
