@@ -300,10 +300,12 @@ async def get_scoreboard_status(user_id: int):
 
 # TODO: bitte noch endpoints zu /users und /requests ändern
 
+#TODO: bitte noch zu requests einen boolean "completed" oder "done" oder so hinzufügen, nach dem wir in "meine anfragen" filtern können
+
 #TODO: in der request table braucht es eine methode
 @app.get("/helper/{helper_id}/requests") 
 async def get_requests_by_helper(helper_id: int):
-    return [1,2]  # return list of request_ids assigned to helper
+    return []  # return dict of requests assigned to helper
 
 #TODO: assigns helper_id to request
 #TODO: check if helperid exists and is a helper

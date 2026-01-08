@@ -33,9 +33,9 @@ export function Helfer_Requests_Assigned() {
             <Header header_title={"Deine aktuellen Anfragen"}/>
             
             <h3> Deine aktuellen Anfragen </h3>
-            {requests.map((request_id) => (
+            {requests.map((request) => (
                 <>
-                <Link key={request_id} to={`/helfer/${user_id}/myrequest/${request_id}`}> Anfrage {request_id} </Link>
+                <Link key={request.request_id} to={`/helfer/${user_id}/myrequest/${request.request_id}`}> Anfrage {request.request_id}, Titel: {request.title} </Link>
                 <br />
                 </>
             ))}{
