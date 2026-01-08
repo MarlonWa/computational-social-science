@@ -253,6 +253,7 @@ async def testUserData():
         User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
         User(name="Ella", email="ellaelli@hi.de", password="", address= "TUM", helper=False)
     ]
+    #im Frontend wird zum Testen angenommen, dass ID1 ein Helfer ist und ID3 ein Hilfesuchender. Bitte nicht ändern
     
     for u in users:
         await create_user(u)
@@ -263,9 +264,10 @@ async def testRequestData():
     requests = [
         Request(user_id=1, title="Hello Wolrd", text = "hi hi hi"),
         Request(user_id=1, title="Hello Wolrd", text = "hiho"),
-        Request(user_id=2, title="Hello Wolrd", text = "hallo"),
-        Request(user_id=3, title="Hello Wolrd", text = "")
+        Request(user_id=3, title="Hello Wolrd", text = ""),
+        Request(user_id=2, title="Hello Wolrd", text = "hallo")
     ]
+    #im Frontend wird zum Testen angenommen, dass Request 1 von UserID 1 ist und Request 3 von UserID 3. Bitte nicht ändern
     
     for r in requests:
         await create_request(r)

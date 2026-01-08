@@ -3,8 +3,10 @@ import { Header } from '../component/Header.jsx';
 import { Button } from "@mui/material";
 
 export function Dev() {
-    const default_user = 1;
-    const default_request = 1;
+    const default_helfer = 1;
+    const default_hilfe = 3;
+    const default_helfer_request = 1;
+    const default_hilfe_request = 3;
     const default_chat = 1;
     const toggleBackground = () => {
         const body = document.body;
@@ -35,28 +37,28 @@ export function Dev() {
             <Link to={`/helfer/signup`}> Signup</Link>
             <br />
 
-            <Link to={`/helfer/${default_user}`}> Home </Link>
+            <Link to={`/helfer/${default_helfer}`}> Home </Link>
             <br />
 
-            <Link to={`/helfer/${default_user}/scoreboard`}> Scoreboard</Link>
+            <Link to={`/helfer/${default_helfer}/scoreboard`}> Scoreboard</Link>
             <br />
 
-            <Link to={`/helfer/${default_user}/myrequests`}> Requests in Arbeit </Link>
+            <Link to={`/helfer/${default_helfer}/myrequests`}> Requests in Arbeit </Link>
             <br />
 
-            <Link to={`/helfer/${default_user}/request/${default_request}`}> Anfrageseite, nicht Bearbeitung </Link>
+            <Link to={`/helfer/${default_helfer}/request/${default_helfer_request}`}> Anfrageseite, nicht Bearbeitung </Link>
             <br />
 
-             <Link to={`/helfer/${default_user}/myrequest/${default_request}`}> Anfrageseite, in Bearbeitung </Link>
+             <Link to={`/helfer/${default_helfer}/myrequest/${default_helfer_request}`}> Anfrageseite, in Bearbeitung </Link>
             <br />
 
-            <Link to={`/helfer/${default_user}/myrequest/${default_request}/chat`}> Chat</Link>
+            <Link to={`/helfer/${default_helfer}/myrequest/${default_helfer_request}/chat`}> Chat</Link>
             <br />
 
-            <Link to={`/helfer/${default_user}/requests`}> alle Requests</Link>
+            <Link to={`/helfer/${default_helfer}/requests`}> alle Requests</Link>
             <br />
 
-            <Link to={`/helfer/${default_user}/chats`}> Chats</Link>
+            <Link to={`/helfer/${default_helfer}/chats`}> Chats</Link>
             <h6>    </h6>
             <p> HILFE </p>
 
@@ -66,16 +68,19 @@ export function Dev() {
             <Link to={`/hilfe/signup`}> Signup</Link>
             <br />
             
-            <Link to={`/hilfe/${default_user}`}> Home</Link>
+            <Link to={`/hilfe/${default_hilfe}`}> Home</Link>
             <br />
 
-            <Link to={`/hilfe/${default_user}/new`}> Neue Anfrage</Link>
+            <Link to={`/hilfe/${default_hilfe}/request/${default_hilfe_request}`}> Detailansicht einer Anfrage</Link>
             <br />
 
-            <Link to={`/hilfe/${default_user}/chats`}> alle Chats</Link>
+            <Link to={`/hilfe/${default_hilfe}/new`}> Neue Anfrage</Link>
             <br />
 
-            <Link to={`/hilfe/${default_user}/chat/${default_chat}`}> Chat</Link>
+            <Link to={`/hilfe/${default_hilfe}/chats`}> alle Chats</Link>
+            <br />
+
+            <Link to={`/hilfe/${default_hilfe}/chat/${default_chat}`}> Chat</Link>
             <h1>    </h1>
 
             <Button

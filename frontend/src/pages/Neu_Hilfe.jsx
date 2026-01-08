@@ -31,9 +31,7 @@ export function Neu_Hilfe() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Container maxWidth="100%">
-          <Header/>
-        </Container>
+        <Header/>
 
         <Container maxWidth="lg">
           <Typography 

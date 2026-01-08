@@ -1,10 +1,16 @@
 import { Link } from 'react-router-dom'
+import { Header } from '../component/Header.jsx'
 
 export function Chats_Hilfe() {
     return (
         <>
-            <h1>Login</h1>
-            <Link to="/"> Home </Link>
+            <Header />
+            <h1> Meine aktuellen Chats und ungelesene Nachrichten (Hilfe) </h1>
+            <Link to="/hilfe/3/myrequest/3/chat"> Zum Chat mit Helfer in Anfrage 3 </Link>
+            <br />
+            <Link to="/hilfe/3"> Zurück zu meiner Startseite </Link>
+            <br />
+            <p> Hier sehen Hilfesuchende alle ihre Chats. </p>
         </>
     );
 }

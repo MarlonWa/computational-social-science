@@ -18,6 +18,7 @@ import { Chats_Hilfe } from './pages/Chats_Hilfe.jsx'
 import { Chat_Hilfe } from './pages/Chat_Hilfe.jsx'
 import { Dev } from './pages/Dev.jsx'
 import { Anfrageansicht_Helfer } from './pages/Anfrageansicht_Helfer.jsx'
+import { Detailansicht_Anfrage_Hilfe } from './pages/Detailansicht_Anfrage_Hilfe.jsx'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         We dont use this - clicking on a chat will let you get to the myrequest/requestid/chat url*/}
 
         <Route path = "/hilfe/:user_id" element = {<Home_Hilfe />} />
+        <Route path = "/hilfe/:user_id/request/:request_id" element = {<Detailansicht_Anfrage_Hilfe />} />
         <Route path = "/hilfe/:user_id/new" element = {<Neu_Hilfe />} />
         <Route path = "/hilfe/:user_id/chats" element = {<Chats_Hilfe />} />
         <Route path = "/hilfe/:user_id/chat/:chat_id" element = {<Chat_Hilfe />} />
