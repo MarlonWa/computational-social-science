@@ -21,3 +21,6 @@ sketch
 backend/.venv
 backend/__pycache__
 backend/db.sqlite
+
+# vite config
+frontend\vite.config.js
