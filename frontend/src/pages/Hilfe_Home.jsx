@@ -20,6 +20,7 @@ export function Hilfe_Home() {
         })
         .then((data) => {
             setRequests(data);
+            console.log(data);
         })
         .catch((err) => {
             setError(err.message);
@@ -58,7 +59,7 @@ export function Hilfe_Home() {
                     {requests.map((request) => (
                         <ListItem key={request.request_id} disablePadding>
                             <Link 
-                                to={`/helfer/${user_id}/myrequest/${request.request_id}`}
+                                to={`/hilfe/${user_id}/request/${request.request_id}`}
                                 style={{ textDecoration: 'none', width: '100%' }}
                             >
                                 <ListItemButton
