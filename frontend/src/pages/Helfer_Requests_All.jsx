@@ -7,8 +7,29 @@ import { Footer } from '../component/Footer.jsx';
 
 export function Helfer_Requests_All() {
     const { user_id } = useParams();
-    const requests = [{ "request_id": 1, "title": "Einkaufshilfe" }, { "request_id": 2, "title": "Gassi gehen" }]; //REMOVE THIS MOCK DATA LATER
+    const [requests, setRequests] = useState([]);
+    const [error, setError] = useState(null);
 
+    useEffect(() => {
+        fetch(`http://localhost:8000/requests/open`)
+        .then((res) => {
+            if (!res.ok) {
+            throw new Error("Keine Anfragen gefunden");
+            }
+            return res.json();
+        })
+        .then((data) => {
+            setRequests(data);
+        })
+        .catch((err) => {
+            setError(err.message);
+        });
+    }, [user_id]);
+
+
+    if (error) return <><Header header_title={"STARTSEITE: FEHLER"}/> <p> Error: {error} </p> </>;
+    
+    
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
             <Header header_title={"Offene Anfragen"}/>

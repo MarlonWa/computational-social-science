@@ -318,3 +318,15 @@ async def update_helper_for_request(helper_id: int, request_id: int):
 @app.delete("/helper/{helper_id}/{request_id}")
 async def delete_helper_for_request(helper_id: int, request_id: int):
     return {"status": "deleted"}  # return deletion status
+
+#TODO: check if this method is fine. we need it, so we wrote it :)
+@app.get("/requests/open")
+async def get_open_requests():
+    conn = get_db_connection()
+    try: 
+        requests = conn.execute("SELECT * FROM requests WHERE helper_id IS NULL").fetchall()
+        conn.close()
+        return [dict(r) for r in requests]
+    except Exception as e: 
+        conn.close()
+        raise HTTPException(status_code=500, detail="Error fetching requests")
