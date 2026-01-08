@@ -8,7 +8,7 @@ Helfer_Home.jsx
 ~~Helfer_Login.jsx~~
 Helfer_Request_Assigned_Details.jsx
 Helfer_Request_Details.jsx
-Helfer_Requests_All.jsx
+~~Helfer_Requests_All.jsx~~
 Helfer_Requests_Assigned.jsx
 ~~Helfer_Scoreboard.jsx~~
 ~~Helfer_SignUp.jsx~~
@@ -32,7 +32,7 @@ Helfer_Home.jsx
 Helfer_Login.jsx
 Helfer_Request_Assigned_Details.jsx
 Helfer_Request_Details.jsx
-Helfer_Requests_All.jsx
+~~Helfer_Requests_All.jsx~~
 ~~Helfer_Requests_Assigned.jsx~~
 ~~Helfer_Scoreboard.jsx~~
 Helfer_SignUp.jsx
