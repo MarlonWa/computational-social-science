@@ -8,24 +8,27 @@ import { useState, useEffect } from 'react';
 export function Hilfe_Home() {
     const { user_id } = useParams();
     const [requests, setRequests] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        setRequests([
-            { request_id: 1, name: "Einkaufshilfe" },
-            { request_id: 2, name: "Hund Gassi führen" },
-            { request_id: 3, name: "Apotheke" },
-            { request_id: 3, name: "Apotheke" },
-            { request_id: 3, name: "Apotheke" },
-            { request_id: 3, name: "Apotheke" },
-            { request_id: 3, name: "Apotheke" },
-            { request_id: 3, name: "Apotheke" },
-            { request_id: 3, name: "Apotheke" },
-            { request_id: 3, name: "Apotheke" },
-            { request_id: 3, name: "Apotheke" },
-            { request_id: 3, name: "Apotheke" },
-        ]);
-    }, []);
-    
+        fetch(`http://localhost:8000/user/${user_id}/requests`)
+        .then((res) => {
+            if (!res.ok) {
+            throw new Error("Keine Anfragen gefunden");
+            }
+            return res.json();
+        })
+        .then((data) => {
+            setRequests(data);
+        })
+        .catch((err) => {
+            setError(err.message);
+        });
+    }, [user_id]);
+
+
+    if (error) return <><Header header_title={"STARTSEITE: FEHLER"}/> <p> Error: {error} </p> </>;
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#fafafa' }}>
             <Header header_title={"Startseite"}/>
