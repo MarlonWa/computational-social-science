@@ -45,7 +45,7 @@ export function Home() { //DONE FOR NOW :)
                 flex: 1,
                 borderRadius: 0,
                 fontSize: { xs: "2rem", md: "4rem" },
-                opacity: 0.9,
+                opacity: 0.85,
                 "&:hover": {
                   color: "white", // keep same bg
                   opacity: 1,
