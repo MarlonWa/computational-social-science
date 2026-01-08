@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 
-export function Anfragen_Helfer() {
+export function Helfer_Requests_All() {
     return (
         <>
             <Header />

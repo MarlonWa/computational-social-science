@@ -19,7 +19,7 @@ palette: {
 },
 });
 
-export function Neu_Hilfe() {
+export function Hilfe_Request_New() {
   //breakpoints by screen size
   const isXs = useMediaQuery("(max-height: 600px)");      // smol
   const isSm = useMediaQuery("(min-height: 601px) and (max-height: 800px)");  // mid

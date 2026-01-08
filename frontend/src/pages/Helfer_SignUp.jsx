@@ -35,7 +35,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
     },
 }));
 
-export function Signup_Helfer() {
+export function Helfer_SignUp() {
     const [emailError, setEmailError] = useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [passwordError, setPasswordError] = useState(false);

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Header } from '../component/Header.jsx';
 
-export function Scoreboard_Helfer() {  // DONE FOR NOW :)
+export function Helfer_Scoreboard() {  // DONE FOR NOW :)
     const { user_id } = useParams();
     const [points, setPoints] = useState(0);
     const [points1, setPoints1] = useState(0);

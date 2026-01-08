@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 
-export function Chat_Hilfe() {
+export function Hilfe_Chat() {
     return (
         <>
             <Header />

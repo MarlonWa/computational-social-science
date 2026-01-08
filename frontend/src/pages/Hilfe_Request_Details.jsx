@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 
-export function Detailansicht_Anfrage_Hilfe() {
+export function Hilfe_Request_Details() {
     return (
         <>
             <Header />

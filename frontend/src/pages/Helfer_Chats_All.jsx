@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 
-export function Chats_Helfer() {
+export function Helfer_Chats_All() {
     return (
         <>
             <Header />

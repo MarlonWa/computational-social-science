@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 
-export function Home_Helfer() {
+export function Helfer_Home() {
     return (
         <>
             <Header />
             <h3> Startseite eines Helfers</h3>
             <Link to="/helfer/:user_id/scoreboard"> Scoreboard </Link>
             <br />
-            <Link to="/helfer/:user_id/myrequests"> Meine Anfragen in Arbeit </Link>
+            <Link to="/helfer/1/myrequests"> Meine Anfragen in Arbeit </Link>
             <br />
             <Link to="/helfer/:user_id/requests"> Alle Anfragen </Link>
             <br />

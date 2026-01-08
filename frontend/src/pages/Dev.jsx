@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx';
 import { Button } from "@mui/material";
 
-export function Dev() {
+export function DEV() {
     const default_helfer = 1;
     const default_hilfe = 3;
     const default_helfer_request = 1;

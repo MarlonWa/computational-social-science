@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 
-export function Login_Hilfe() {
+export function Hilfe_Login() {
     return (
         <>
             <Header />

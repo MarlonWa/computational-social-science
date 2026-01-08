@@ -148,7 +148,7 @@ async def get_request(request_id: int):
         raise HTTPException(status_code=409, detail="Request not found")
     
 @app.get("/user/{user_id}/requests")
-#returns all requests from a specific user
+#returns all requests from a specific creator (user_id)
 async def get_user_requests(user_id: int):
     conn = get_db_connection()
     request = conn.execute("SELECT * FROM requests WHERE user_id = ?", (user_id,)).fetchall()
@@ -236,6 +236,7 @@ def createRequestTable():
         CREATE TABLE requests (
             request_id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER NOT NULL,
+            helper_id INTEGER,
             title TEXT NOT NULL,
             text VARCHAR(255)
         );
@@ -298,3 +299,20 @@ async def get_scoreboard_status(user_id: int):
             }
 
 # TODO: bitte noch endpoints zu /users und /requests ändern
+
+#TODO: in der request table braucht es eine methode
+@app.get("/helper/{helper_id}/requests") 
+async def get_requests_by_helper(helper_id: int):
+    return [1,2]  # return list of request_ids assigned to helper
+
+#TODO: assigns helper_id to request
+#TODO: check if helperid exists and is a helper
+@app.put("/helper/{helper_id}/{request_id}")
+async def update_helper_for_request(helper_id: int, request_id: int):
+    return {"status": "accepted"}  # return acceptance status
+
+#TODO: unassigns helper_id from request, set to NULL
+#TODO: check if helperid exists and is a helper and was assigned to request
+@app.delete("/helper/{helper_id}/{request_id}")
+async def delete_helper_for_request(helper_id: int, request_id: int):
+    return {"status": "deleted"}  # return deletion status
