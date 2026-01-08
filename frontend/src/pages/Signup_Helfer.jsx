@@ -11,6 +11,7 @@ import MuiCard from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Link } from 'react-router-dom';
+import { Header } from '../component/Header.jsx'
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -28,8 +29,6 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 const SignInContainer = styled(Stack)(({ theme }) => ({
-    height: '100vh',
-    minHeight: '100%',
     padding: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
         padding: theme.spacing(4),
@@ -96,7 +95,7 @@ export function Signup_Helfer() {
 
     return (
         <>
-            <CssBaseline enableColorScheme />
+        <Header />
             <SignInContainer direction="column" justifyContent="space-between">
                 <Card variant="outlined" sx={{ position: 'relative' }}>
                     <Button
@@ -208,7 +207,7 @@ export function Signup_Helfer() {
                         </Typography>
                     </Box>
 
-                    <Button
+                    {/* <Button
                         component={Link}
                         to="/"
                         variant="outlined"
@@ -220,7 +219,7 @@ export function Signup_Helfer() {
                          }}
                     >
                         Zurück
-                    </Button>
+                    </Button> */}
                 </Card>
             </SignInContainer>
         </>

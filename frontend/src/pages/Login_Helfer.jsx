@@ -12,6 +12,7 @@ import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Link } from 'react-router-dom';
 
+import { Header } from '../component/Header.jsx'
 import ForgotPassword from '../component/ForgotPassword.jsx';
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -30,8 +31,6 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 const SignInContainer = styled(Stack)(({ theme }) => ({
-    height: '100vh',
-    minHeight: '100%',
     padding: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
         padding: theme.spacing(4),
@@ -96,7 +95,7 @@ export function Login_Helfer() {
 
     return (
         <>
-            <CssBaseline enableColorScheme />
+            <Header />
             <SignInContainer direction="column" justifyContent="space-between">
                 <Card variant="outlined" sx={{ position: 'relative' }}>
                     <Button
@@ -115,6 +114,11 @@ export function Login_Helfer() {
                     >
                         ✕
                     </Button>
+
+                    {/* DEV LINE - TODO */}
+
+                    <Link to="/helfer/1"> DEV: Login als HelferID 1 </Link>
+                    <br />
 
                     {/* title */}
                     <Typography
@@ -207,7 +211,7 @@ export function Login_Helfer() {
                         </Typography>
                     </Box>
 
-                    <Button
+                    {/* <Button
                         component={Link}
                         to="/"
                         variant="outlined"
@@ -219,7 +223,7 @@ export function Login_Helfer() {
                          }}
                     >
                         Zurück
-                    </Button>
+                    </Button> */}
                 </Card>
             </SignInContainer>
         </>
