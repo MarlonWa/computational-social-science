@@ -20,7 +20,6 @@ export function Hilfe_Home() {
         })
         .then((data) => {
             setRequests(data);
-            console.log(data);
         })
         .catch((err) => {
             setError(err.message);
