@@ -75,7 +75,7 @@ export function Hilfe_Home() {
                                     }}
                                 >
                                     <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#333' }}>
-                                        {request.name}
+                                        {request.title}
                                     </Typography>
                                 </ListItemButton>
                             </Link>
