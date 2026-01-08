@@ -189,7 +189,7 @@ export function Signup_Helfer() {
                             variant="contained"
                             onClick={validateInputs}
                         >
-                            Registrienen
+                            Registrieren
                         </Button>
                         
                     </Box>
