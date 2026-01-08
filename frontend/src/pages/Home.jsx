@@ -1,29 +1,29 @@
 import { Link } from 'react-router-dom'
 import { Button, Box } from "@mui/material";
 import { Header } from '../component/Header.jsx'
-import Typography from '@mui/material/Typography'
+import { Footer } from '../component/Footer.jsx';
 
 const pages = [
-  {name: 'ICH WILL HELFEN', path: '/helfer/login', color: "#7f19d2"},
-  {name: 'ICH SUCHE HILFE', path: '/hilfe/login', color: "#c12ab9"}
+  { name: 'ICH WILL HELFEN', path: '/helfer/login', color: "#7f19d2" },
+  { name: 'ICH SUCHE HILFE', path: '/hilfe/login', color: "#c12ab9" }
 ]
 
 export function Home() { //DONE FOR NOW :)
-    
+
   return (
     <>
-    <Box 
-    maxWidth="100%"
-    sx={{
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    }}>
+      <Box
+        maxWidth="100%"
+        sx={{
+          height: "100vh",
+          display: "flex",
+          flexDirection: "column",
+        }}>
 
-    <Header />
+        <Header />
 
         <Box
-        sx={{
+          sx={{
             //width: "100vw",
             height: "100%",
             inset: 0,
@@ -31,34 +31,36 @@ export function Home() { //DONE FOR NOW :)
             boxSizing: "border-box",
             display: "flex",
             gap: 2, //zwischen buttons
-            flexDirection: { xs: "column", lg: "row" },
-            flex: 1, 
+            flexDirection: { xs: "column", md: "row" },
+            flex: 1,
             minHeight: 0
-        }}>
-            
-        {pages.map((page) => (
+          }}>
+
+          {pages.map((page) => (
             <Button
-                key={page.name}
-                variant="contained"
-                sx={{
+              key={page.name}
+              variant="contained"
+              sx={{
                 backgroundColor: page.color,
                 flex: 1,
                 borderRadius: 0,
-                fontSize: { xs: "2rem", lg: "5rem" },
+                fontSize: { xs: "2rem", md: "4rem" },
                 opacity: 0.9,
                 "&:hover": {
-                color: "white", // keep same bg
-                opacity: 1,
+                  color: "white", // keep same bg
+                  opacity: 1,
                 },
-                }}
-                component={Link}
-                to={page.path}
+              }}
+              component={Link}
+              to={page.path}
             >
-                {page.name}
+              {page.name}
             </Button>
-        ))}
+          ))}
         </Box>
-    </Box>
+
+        <Footer />
+      </Box>
     </>
   );
 }

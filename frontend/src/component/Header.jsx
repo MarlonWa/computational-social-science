@@ -13,20 +13,20 @@ import '@fontsource-variable/roboto-mono';
 import { Link } from 'react-router-dom'
 
 const pages = [
-  {name: 'Home', path: '/'},
-  {name: 'dev', path: '/dev'}
+  { name: 'Home', path: '/' },
+  { name: 'dev', path: '/dev' }
 ]
 
 const title_styling = {
-fontFamily: "Roboto Mono Variable",
-fontWeight: 500,
-textTransform: 'uppercase',
-lineHeight: 1,
-color: 'inherit',
-textDecoration: 'none'
+  fontFamily: "Roboto Mono Variable",
+  fontWeight: 500,
+  textTransform: 'uppercase',
+  lineHeight: 1,
+  color: 'inherit',
+  textDecoration: 'none'
 }
 
-export function Header({header_title = "help@m"}) {
+export function Header({ header_title = "help@m" }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
@@ -46,13 +46,13 @@ export function Header({header_title = "help@m"}) {
 
   return (
     <>
-    <Box sx={{py: 2}} >
-      
-      <AppBar position="static">
-        <Container maxWidth="">
+      <Box sx={{ py: 2, px: 1 }} >
+
+        <AppBar position="static">
           <Toolbar disableGutters
-              sx={{
+            sx={{
               display: "grid",
+              px: { xs: "16px", md: "24px" },
               gridTemplateColumns: "1fr auto 1fr",
               alignItems: "center",
             }}
@@ -60,7 +60,7 @@ export function Header({header_title = "help@m"}) {
 
             {/* small view */}
 
-            <Box sx={{ display: { xs: 'flex', md: 'none' }}}>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -71,10 +71,11 @@ export function Header({header_title = "help@m"}) {
               >
                 <MenuIcon />
               </IconButton>
-              
+
+
               {/* burger menu */}
 
-              <Menu 
+              <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
@@ -92,12 +93,12 @@ export function Header({header_title = "help@m"}) {
               >
                 {pages.map((page) => (
                   <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                    <Typography component={Link} to={page.path} sx={{ textAlign: 'center', "&:hover": {color: "white"}}}>{page.name}</Typography>
+                    <Typography component={Link} to={page.path} sx={{ textAlign: 'center', "&:hover": { color: "white" } }}>{page.name}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
             </Box>
-            
+
             <Typography
               variant="h6"
               noWrap
@@ -114,13 +115,13 @@ export function Header({header_title = "help@m"}) {
 
 
             {/** wide list = large view */}
-            
-            <Box sx={{display: { xs: 'none', md: 'flex' } }}>
+
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               {pages.map((page) => (
                 <Button
                   key={page.name}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block', "&:hover": {color: "white"}}}
+                  sx={{ my: 2, color: 'white', display: 'block', "&:hover": { color: "white" } }}
                   component={Link}
                   to={page.path}
                 >
@@ -141,7 +142,7 @@ export function Header({header_title = "help@m"}) {
               {header_title}
             </Typography>
 
-            <Box/>
+            <Box />
 
 
             {/* <Box sx={{ flexGrow: 0 }}> 
@@ -176,9 +177,8 @@ export function Header({header_title = "help@m"}) {
 
 
           </Toolbar>
-        </Container>
-      </AppBar>
-    </Box>
+        </AppBar>
+      </Box>
     </>
   );
 }
