@@ -10,6 +10,8 @@ export function Aktive_Anfragen_Helfer() {
             <br />
             <Link to="/helfer/:user_id/myrequest/2"> Anfrage 2 </Link>
             <br />
+            <Link to="/helfer/1/"> Zurück zu meiner Startseite </Link>
+            <br />
             <p> Hier sollen Helfer auf ihre Anfragen zugreifen können, die sie aktuell bearbeiten.</p>
         </>
     );

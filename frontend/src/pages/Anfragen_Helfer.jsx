@@ -10,6 +10,8 @@ export function Anfragen_Helfer() {
             <br />
             <Link to="/helfer/2/request/2"> Anfrage 2 </Link>
             <br />
+            <Link to="/helfer/1/"> Zurück zu meiner Startseite </Link>
+            <br />
             <p> Hier sind alle offenen Anfragen, Helfer können da draufdrücken und eine annehmen. </p>
         </>
     );
