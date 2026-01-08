@@ -8,6 +8,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { lightGreen } from '@mui/material/colors';
 import Typography from '@mui/material/Typography'
 
+//TODO: add FAQ
 const theme = createTheme({
 palette: {
   mygreen: {
