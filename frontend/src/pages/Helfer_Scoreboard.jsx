@@ -49,7 +49,7 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
         });
     }, [user_id]);
 
-    if (error) return <><Header header_title={"SCOREBOARD"}/> <p> Error: {error} </p> </>;
+    if (error) return <><Header header_title={"Scoreboard"}/> <p> Error: {error} </p> </>;
 
 
     return (
@@ -59,7 +59,7 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
             <p> Der Top 2 User hat aktuell {points2} Punkte! </p>
             <p> Der Top 3 User hat aktuell {points3} Punkte! </p>
             <h4> Du hast {points} Punkte und liegst damit auf Platz {rank}. </h4>
-            <Link to="/helfer/1/"> Zurück zu meiner Startseite </Link>
+            <Link to={`/helfer/${user_id}`}> Zurück zu meiner Startseite </Link>
         </>      
     );
 }

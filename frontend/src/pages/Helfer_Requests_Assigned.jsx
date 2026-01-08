@@ -30,7 +30,7 @@ export function Helfer_Requests_Assigned() {
 
     return (
         <>
-            <Header />
+            <Header header_title={"Deine aktuellen Anfragen"}/>
             
             <h3> Deine aktuellen Anfragen </h3>
             {requests.map((request_id) => (
@@ -43,7 +43,7 @@ export function Helfer_Requests_Assigned() {
             <br />
             <Link to="/helfer/:user_id/myrequest/2"> Anfrage 2 </Link> */}
             <br />
-            <Link to="/helfer/1/"> Zurück zu meiner Startseite </Link>
+            <Link to={`/helfer/${user_id}`}> Zurück zu meiner Startseite </Link>
             <br />
             <p> Hier sollen Helfer auf ihre Anfragen zugreifen können, die sie aktuell bearbeiten.</p>
         </>

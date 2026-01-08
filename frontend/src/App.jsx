@@ -1,7 +1,7 @@
 import './App.css'
 import {Home} from './pages/Home.jsx'
 import {FAQ} from './pages/FAQ.jsx'
-import {DEV} from './pages/DEV.jsx'
+import {Dev} from './pages/Dev.jsx'
 
 import {Helfer_Login} from './pages/Helfer_Login.jsx'
 import {Helfer_SignUp} from './pages/Helfer_SignUp.jsx'
@@ -52,7 +52,7 @@ function App() {
         <Route path="/hilfe/:user_id/chats" element={<Hilfe_Chats_All />} />
         <Route path="/hilfe/:user_id/chat/:chat_id" element={<Hilfe_Chat />} />
 
-        <Route path="/dev" element={<DEV />} />
+        <Route path="/dev" element={<Dev />} />
       </Routes>
     </Router>
   )

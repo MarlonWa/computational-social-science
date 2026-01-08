@@ -7,7 +7,7 @@ export function Helfer_Request_Details() {
     //theoretisch gibts hier auch ne request_id in der url
     return (
         <>
-            <Header />
+            <Header header_title={"Detailansicht: Anfrage derzeit nicht in Bearbeitung"}/>
             <h3> eine bestimmte Anfrage hier, noch nicht in Bearbeitung</h3>
             <Link to={`/helfer/${user_id}/requests`}>zurück zu allen Anfragen</Link>
             <br />

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx';
 import { Button } from "@mui/material";
 
-export function DEV() {
+export function Dev() {
     const default_helfer = 1;
     const default_hilfe = 3;
     const default_helfer_request = 1;
@@ -22,7 +22,7 @@ export function DEV() {
 
     return (
         <>
-            <Header />
+            <Header header_title={"DEV PAGE"}/>
 
             <Link to={`/`}> Home </Link>
             <br />
@@ -31,56 +31,56 @@ export function DEV() {
             <h6>    </h6>
             <p> HELFER </p>
 
-            <Link to={`/helfer/login`}> Login</Link>
+            <Link to={`/helfer/login`}> Helfer_Login</Link>
             <br />
 
-            <Link to={`/helfer/signup`}> Signup</Link>
+            <Link to={`/helfer/signup`}> Helfer_SignUp</Link>
             <br />
 
-            <Link to={`/helfer/${default_helfer}`}> Home </Link>
+            <Link to={`/helfer/${default_helfer}`}> Helfer_Home </Link>
             <br />
 
-            <Link to={`/helfer/${default_helfer}/scoreboard`}> Scoreboard</Link>
+            <Link to={`/helfer/${default_helfer}/scoreboard`}> Helfer_Scoreboard</Link>
             <br />
 
-            <Link to={`/helfer/${default_helfer}/myrequests`}> Requests in Arbeit </Link>
+            <Link to={`/helfer/${default_helfer}/myrequests`}> Helfer_Requests_Assigned </Link>
             <br />
 
-            <Link to={`/helfer/${default_helfer}/request/${default_helfer_request}`}> Anfrageseite, nicht Bearbeitung </Link>
+            <Link to={`/helfer/${default_helfer}/request/${default_helfer_request}`}> Helfer_Request_Details </Link>
             <br />
 
-             <Link to={`/helfer/${default_helfer}/myrequest/${default_helfer_request}`}> Anfrageseite, in Bearbeitung </Link>
+             <Link to={`/helfer/${default_helfer}/myrequest/${default_helfer_request}`}> Helfer_Request_Assigned_Details </Link>
             <br />
 
-            <Link to={`/helfer/${default_helfer}/myrequest/${default_helfer_request}/chat`}> Chat</Link>
+            <Link to={`/helfer/${default_helfer}/myrequest/${default_helfer_request}/chat`}> Helfer_Chat</Link>
             <br />
 
-            <Link to={`/helfer/${default_helfer}/requests`}> alle Requests</Link>
+            <Link to={`/helfer/${default_helfer}/requests`}> Helfer_Requests_All</Link>
             <br />
 
-            <Link to={`/helfer/${default_helfer}/chats`}> Chats</Link>
+            <Link to={`/helfer/${default_helfer}/chats`}> Helfer_Chats_All</Link>
             <h6>    </h6>
             <p> HILFE </p>
 
-            <Link to={`/hilfe/login`}> Login</Link>
+            <Link to={`/hilfe/login`}> Hilfe_Login</Link>
             <br />
 
-            <Link to={`/hilfe/signup`}> Signup</Link>
+            <Link to={`/hilfe/signup`}> Hilfe_SignUp</Link>
             <br />
             
-            <Link to={`/hilfe/${default_hilfe}`}> Home</Link>
+            <Link to={`/hilfe/${default_hilfe}`}> Hilfe_Home</Link>
             <br />
 
-            <Link to={`/hilfe/${default_hilfe}/request/${default_hilfe_request}`}> Detailansicht einer Anfrage</Link>
+            <Link to={`/hilfe/${default_hilfe}/request/${default_hilfe_request}`}> Hilfe_Request_Details</Link>
             <br />
 
-            <Link to={`/hilfe/${default_hilfe}/new`}> Neue Anfrage</Link>
+            <Link to={`/hilfe/${default_hilfe}/new`}> Hilfe_Request_New</Link>
             <br />
 
-            <Link to={`/hilfe/${default_hilfe}/chats`}> alle Chats</Link>
+            <Link to={`/hilfe/${default_hilfe}/chats`}> Hilfe_Chats_All</Link>
             <br />
 
-            <Link to={`/hilfe/${default_hilfe}/chat/${default_chat}`}> Chat</Link>
+            <Link to={`/hilfe/${default_hilfe}/chat/${default_chat}`}> Hilfe_Chat</Link>
             <h1>    </h1>
 
             <Button
