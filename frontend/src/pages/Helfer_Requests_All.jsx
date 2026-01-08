@@ -6,7 +6,7 @@ export function Helfer_Requests_All() {
     const { user_id } = useParams();
     return (
         <>
-            <Header />
+            <Header header_title={"Offene Anfragen"}/>
             <h3> Alle Anfragen </h3>
             <Link to={`/helfer/${user_id}/request/1`}> Anfrage 1 </Link>
             <br />

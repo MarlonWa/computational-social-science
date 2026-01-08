@@ -6,7 +6,7 @@ export function Hilfe_Request_Details() {
     const { user_id, request_id } = useParams();
     return (
         <>
-            <Header />
+            <Header header_title={"Detailansicht"}/>
             <h1> Anfrage x: Detailansicht</h1>
             <p> blib blub, Anfrage hier (groooooßer Text) </p>
             <Link to={`/hilfe/${user_id}/chat/${request_id}`}> Zum Chat </Link>

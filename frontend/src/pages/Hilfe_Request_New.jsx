@@ -32,7 +32,7 @@ export function Hilfe_Request_New() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Header/>
+        <Header header_title={"Anfrage erstellen"}/>
 
         <Container maxWidth="lg">
           <Typography 

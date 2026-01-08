@@ -6,7 +6,7 @@ export function Hilfe_Home() {
     const { user_id } = useParams();
     return (
         <>
-            <Header />
+            <Header header_title={"Startseite"}/>
             <h3> Startseite eines Hilfesuchenden </h3>
             <Link to={`/hilfe/${user_id}/request/3`}> Anfrage ID3 </Link>
             <br />

@@ -6,7 +6,7 @@ export function Helfer_Home() {
     const { user_id } = useParams();
     return (
         <>
-            <Header />
+            <Header header_title={"Startseite"}/>
             <h3> Startseite eines Helfers</h3>
             <Link to={`/helfer/${user_id}/scoreboard`}> Scoreboard </Link>
             <br />

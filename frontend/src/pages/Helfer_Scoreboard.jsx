@@ -49,7 +49,7 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
         });
     }, [user_id]);
 
-    if (error) return <><Header header_title={"SCOREBOARD"}/> <p> Error: {error} </p> </>;
+    if (error) return <><Header header_title={"Scoreboard"}/> <p> Error: {error} </p> </>;
 
 
     return (

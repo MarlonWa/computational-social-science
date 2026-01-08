@@ -22,7 +22,7 @@ export function Dev() {
 
     return (
         <>
-            <Header />
+            <Header header_title={"DEV PAGE"}/>
 
             <Link to={`/`}> Home </Link>
             <br />

@@ -6,7 +6,7 @@ export function Hilfe_Chats_All() {
     const { user_id } = useParams();
     return (
         <>
-            <Header />
+            <Header header_title={"Deine Chats"}/>
             <h1> Meine aktuellen Chats und ungelesene Nachrichten (Hilfe) </h1>
             <Link to={`/hilfe/${user_id}/myrequest/3/chat`}> Zum Chat mit Helfer in Anfrage 3 </Link>
             <br />

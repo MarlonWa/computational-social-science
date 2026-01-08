@@ -30,7 +30,7 @@ export function Helfer_Requests_Assigned() {
 
     return (
         <>
-            <Header />
+            <Header header_title={"Deine aktuellen Anfragen"}/>
             
             <h3> Deine aktuellen Anfragen </h3>
             {requests.map((request_id) => (

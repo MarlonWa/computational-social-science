@@ -6,7 +6,7 @@ export function Helfer_Chat() {
     const { user_id, request_id } = useParams();
     return (
         <>
-            <Header />
+            <Header header_title={"Chat"}/>
             <h3> Chat (Helfer) </h3>
             <p> blib blub, bla bla :D </p>
             <Link to={`/helfer/${user_id}/myrequest/${request_id}`}> Zurück zur Anfrage </Link>
