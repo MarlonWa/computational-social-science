@@ -69,7 +69,7 @@ export function Helfer_Requests_All() {
                                         p: 2.5,
                                         backgroundColor: '#fff',
                                         borderRadius: 2,
-                                        borderLeft: '4px solid #b7a2e3ff',
+                                        borderLeft: '4px solid #9759d1ff',
                                         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
                                         transition: 'all 0.3s ease',
                                         '&:hover': { 

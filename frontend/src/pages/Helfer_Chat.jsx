@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { Box, Paper, TextField, IconButton, Stack, Avatar, Chip } from '@mui/material';
+import { Box, Paper, TextField, IconButton, Stack, Avatar, Chip, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useState } from 'react';
@@ -10,23 +10,27 @@ const chat_title = "Laptop Internet-Einrichtung";
 
 const messages = [
     { id: 1, sender: 'Anfragende', text: 'Hallo, ich brauche Hilfe mit meinem Internet', timestamp: '10:31', avatar: '👵' },
-    { id: 2, sender: 'Helfer', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32', avatar: '🧑' },
+    { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32', avatar: '🧑' },
     { id: 3, sender: 'Anfragende', text: 'Mein Laptop verbindet sich nicht mit dem Internet :(', timestamp: '10:33', avatar: '👵' },
 ];
 
 const accentColor = '#9759d1ff';
-/* const accentColor = '#5b8cc4'; */
 
 export function Helfer_Chat() {
     const { user_id, request_id } = useParams();
     const [input, setInput] = useState('');
     const [chat, setChat] = useState(messages);
 
+    const back_links = [
+        { name: 'Meine Requests', path: `/helfer/${user_id}/requests` },
+        { name: 'Meine Chats', path: `/helfer/${user_id}/chats` }
+    ]
+
     const handleSendMessage = () => {
         if (input.trim()) {
             const newMessage = {
                 id: chat.length + 1,
-                sender: 'Helfer',
+                sender: 'Du',
                 text: input,
                 timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 avatar: '🧑'
@@ -43,11 +47,12 @@ export function Helfer_Chat() {
             flexDirection: 'column',
         }}>
 
-            <Header header_title={"Chat"} />
+            <Header header_title={"Chat"} additional_links={back_links} />
 
             <Box sx={{
                 flex: 1,
-                p: 3,
+                px: { xs: 1, sm: 3 },
+                pt: { xs: 1, sm: 3 },
                 display: 'flex',
                 justifyContent: 'center',
                 overflow: 'hidden'
@@ -58,31 +63,29 @@ export function Helfer_Chat() {
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 2
+                    gap: { xs: 1, sm: 2 }
                 }}>
 
-                    {/* Header */}
+                    {/* Chat Titel */}
                     <Box sx={{
                         display: 'flex',
+                        flexDirection: { xs: 'column', sm: 'row' },
                         justifyContent: 'space-between',
-                        alignItems: 'center',
+                        alignItems: { xs: 'flex-start', sm: 'center' },
                         backgroundColor: 'white',
                         borderRadius: 2,
-                        p: 2,
+                        p: { xs: 1.5, sm: 2 },
                         boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
-                        flexShrink: 0
+                        flexShrink: 0,
+                        gap: { xs: 1, sm: 0 }
                     }}>
                         <Box>
-                            <h2 style={{ margin: 0, color: '#333' }}>{chat_title}</h2>
-                            <p style={{ margin: '4px 0 0 0', fontSize: '0.9rem', color: '#888', textAlign: 'left' }}>RequestID #{request_id}</p>
+                            <h2 style={{ margin: 0, color: '#333', fontSize: 'clamp(1.2rem, 5vw, 1.5rem)' }}>{chat_title}</h2>
+                            <p style={{ margin: '4px 0 0 0', fontSize: '0.8rem', color: '#888', textAlign: 'left' }}>RequestID #{request_id}</p>
                         </Box>
-                        <IconButton
-                            component={Link}
-                            to={`/helfer/${user_id}/myrequest/${request_id}`}
-                            sx={{ color: '#666' }}
-                        >
-                            <ArrowBackIcon />
-                        </IconButton>
+                        <Typography variant="p" color="#666" component={Link} to={`/helfer/${user_id}/myrequest/${request_id}`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
+                            ← Zur Anfrage
+                        </Typography>
                     </Box>
 
                     {/* Messages Container */}
@@ -110,31 +113,31 @@ export function Helfer_Chat() {
                             {chat.map((msg) => (
                                 <Box key={msg.id} sx={{
                                     display: 'flex',
-                                    justifyContent: msg.sender === 'Helfer' ? 'flex-end' : 'flex-start',
+                                    justifyContent: msg.sender === 'Du' ? 'flex-end' : 'flex-start',
                                     alignItems: 'flex-end',
-                                    gap: 1
+                                    gap: 0.5
                                 }}>
-                                    {msg.sender !== 'Helfer' && (
-                                        <Avatar sx={{ bgcolor: '#e0e0e0', color: '#333', fontSize: '1.5rem' }}>
+                                    {msg.sender !== 'Du' && (
+                                        <Avatar sx={{ bgcolor: '#e0e0e0', color: '#333', fontSize: '1rem', width: 28, height: 28, display: { xs: 'none', sm: 'flex' } }}>
                                             {msg.avatar}
                                         </Avatar>
                                     )}
                                     <Paper
                                         sx={{
-                                            p: 2,
-                                            maxWidth: '60%',
-                                            background: msg.sender === 'Helfer'
+                                            p: { xs: 1.5, sm: 2 },
+                                            maxWidth: { xs: '85%', sm: '60%' },
+                                            background: msg.sender === 'Du'
                                                 ? accentColor
                                                 : '#f0f0f0',
-                                            color: msg.sender === 'Helfer' ? 'white' : '#333',
-                                            borderRadius: msg.sender === 'Helfer' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                                            color: msg.sender === 'Du' ? 'white' : '#333',
+                                            borderRadius: msg.sender === 'Du' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
                                             boxShadow: '0 3px 9px rgba(0,0,0,0.18)'
                                         }}
                                     >
-                                        <Box sx={{ fontWeight: '500', mb: 0.5 }}>
+                                        <Box sx={{ fontWeight: '500', mb: 0.5, fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                                             {msg.sender}
                                         </Box>
-                                        <Box sx={{ fontSize: '1rem', lineHeight: 1.5 }}>
+                                        <Box sx={{ fontSize: { xs: '0.95rem', sm: '1rem' }, lineHeight: 1.5 }}>
                                             {msg.text}
                                         </Box>
                                         <Chip
@@ -142,14 +145,15 @@ export function Helfer_Chat() {
                                             size="small"
                                             sx={{
                                                 mt: 1,
-                                                fontSize: '0.75rem',
-                                                backgroundColor: msg.sender === 'Helfer' ? 'rgba(255,255,255,0.2)' : '#e0e0e0',
-                                                color: msg.sender === 'Helfer' ? 'white' : '#666'
+                                                fontSize: '0.7rem',
+                                                backgroundColor: msg.sender === 'Du' ? 'rgba(255,255,255,0.2)' : '#e0e0e0',
+                                                color: msg.sender === 'Du' ? 'white' : '#666',
+                                                height: 'auto'
                                             }}
                                         />
                                     </Paper>
-                                    {msg.sender === 'Helfer' && (
-                                        <Avatar sx={{ bgcolor: '#e0e0e0', color: '#333', fontSize: '1.5rem' }}>
+                                    {msg.sender === 'Du' && (
+                                        <Avatar sx={{ bgcolor: '#e0e0e0', color: '#333', fontSize: '1rem', width: 28, height: 28, display: { xs: 'none', sm: 'flex' } }}>
                                             {msg.avatar}
                                         </Avatar>
                                     )}
@@ -160,25 +164,26 @@ export function Helfer_Chat() {
 
                     {/* Input Area */}
                     <Paper sx={{
-                        p: 2,
+                        p: { xs: 1, sm: 2 },
                         backgroundColor: 'white',
                         borderRadius: 2,
                         boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
                         flexShrink: 0
                     }}>
-                        <Stack direction="row" spacing={1} alignItems="flex-end">
+                        <Stack direction="row" spacing={0.5} alignItems="flex-end">
                             <TextField
                                 fullWidth
-                                placeholder="Type your message..."
+                                placeholder="Nachricht..."
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 multiline
                                 minRows={1}
-                                maxRows={6}
+                                maxRows={4}
                                 size="small"
                                 sx={{
                                     '& .MuiOutlinedInput-root': {
                                         borderRadius: '20px',
+                                        fontSize: { xs: '0.9rem', sm: '1rem' },
                                         '&:hover fieldset': {
                                             borderColor: accentColor,
                                         },
@@ -198,10 +203,10 @@ export function Helfer_Chat() {
                                     }
                                 }}
                             >
-                                <SendIcon />
+                                <SendIcon sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />
                             </IconButton>
                         </Stack>
-                    </Paper>
+                    </Paper>‚
                 </Stack>
             </Box>
 
@@ -209,22 +214,3 @@ export function Helfer_Chat() {
         </Box>
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-/* <Header header_title={"Chat"}/>
-<h3> Chat (Helfer) </h3>
-<p> blib blub, bla bla :D </p>
-<Link to={`/helfer/${user_id}/myrequest/${request_id}`}> Zurück zur Anfrage </Link>
-<br />
-<Link to={`/helfer/${user_id}/chats`}> Zurück zur Chatübersicht </Link>
-<br />
-<Link to={`/helfer/${user_id}/requests`}> Zurück zu meinen Requests </Link> */

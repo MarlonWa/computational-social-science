@@ -25,9 +25,13 @@ const title_styling = {
   color: 'inherit',
   textDecoration: 'none'
 }
-
-export function Header({ header_title = "help@m" }) {
+/** 
+ * @param {string} header_title - Title to display in the header. 
+ * @param {Array<{name: string, path: string}>} additional_links - Additional links to display in the header.
+ */
+export function Header({ header_title = "help@m", additional_links = []}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const allPages = pages.concat(additional_links);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -91,7 +95,7 @@ export function Header({ header_title = "help@m" }) {
                 onClose={handleCloseNavMenu}
                 sx={{ display: { xs: 'block', md: 'none' } }}
               >
-                {pages.map((page) => (
+                {allPages.map((page) => (
                   <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                     <Typography component={Link} to={page.path} sx={{ textAlign: 'center', "&:hover": { color: "white" } }}>{page.name}</Typography>
                   </MenuItem>
@@ -117,7 +121,7 @@ export function Header({ header_title = "help@m" }) {
             {/** wide list = large view */}
 
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
+              {allPages.map((page) => (
                 <Button
                   key={page.name}
                   onClick={handleCloseNavMenu}
