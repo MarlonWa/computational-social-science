@@ -6,13 +6,12 @@ import { useState } from 'react';
 import { Header } from '../component/Header.jsx'
 import { Footer } from "../component/Footer.jsx";
 
-const chat_title = "Wifi Setup Help";
+const chat_title = "Laptop Internet-Einrichtung";
 
 const messages = [
-    { id: 1, sender: 'Person A', text: 'Hey, how are you?', timestamp: '10:30', avatar: '🧑' },
-    { id: 2, sender: 'Person B', text: 'I\'m doing great! How about you?', timestamp: '10:31', avatar: '👵' },
-    { id: 3, sender: 'Person A', text: 'All good! Working on the project', timestamp: '10:32', avatar: '🧑' },
-    { id: 4, sender: 'Person B', text: 'Nice! Let me know if you need help', timestamp: '10:33', avatar: '👵' },
+    { id: 1, sender: 'Anfragende', text: 'Hallo, ich brauche Hilfe mit meinem Internet', timestamp: '10:31', avatar: '👵' },
+    { id: 2, sender: 'Helfer', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32', avatar: '🧑' },
+    { id: 3, sender: 'Anfragende', text: 'Mein Laptop verbindet sich nicht mit dem Internet :(', timestamp: '10:33', avatar: '👵' },
 ];
 
 const accentColor = '#9759d1ff';
@@ -27,7 +26,7 @@ export function Helfer_Chat() {
         if (input.trim()) {
             const newMessage = {
                 id: chat.length + 1,
-                sender: 'Person A',
+                sender: 'Helfer',
                 text: input,
                 timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                 avatar: '🧑'
@@ -111,11 +110,11 @@ export function Helfer_Chat() {
                             {chat.map((msg) => (
                                 <Box key={msg.id} sx={{
                                     display: 'flex',
-                                    justifyContent: msg.sender === 'Person A' ? 'flex-end' : 'flex-start',
+                                    justifyContent: msg.sender === 'Helfer' ? 'flex-end' : 'flex-start',
                                     alignItems: 'flex-end',
                                     gap: 1
                                 }}>
-                                    {msg.sender === 'Person B' && (
+                                    {msg.sender !== 'Helfer' && (
                                         <Avatar sx={{ bgcolor: '#e0e0e0', color: '#333', fontSize: '1.5rem' }}>
                                             {msg.avatar}
                                         </Avatar>
@@ -124,11 +123,11 @@ export function Helfer_Chat() {
                                         sx={{
                                             p: 2,
                                             maxWidth: '60%',
-                                            background: msg.sender === 'Person A'
+                                            background: msg.sender === 'Helfer'
                                                 ? accentColor
                                                 : '#f0f0f0',
-                                            color: msg.sender === 'Person A' ? 'white' : '#333',
-                                            borderRadius: msg.sender === 'Person A' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                                            color: msg.sender === 'Helfer' ? 'white' : '#333',
+                                            borderRadius: msg.sender === 'Helfer' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
                                             boxShadow: '0 3px 9px rgba(0,0,0,0.18)'
                                         }}
                                     >
@@ -144,12 +143,12 @@ export function Helfer_Chat() {
                                             sx={{
                                                 mt: 1,
                                                 fontSize: '0.75rem',
-                                                backgroundColor: msg.sender === 'Person A' ? 'rgba(255,255,255,0.2)' : '#e0e0e0',
-                                                color: msg.sender === 'Person A' ? 'white' : '#666'
+                                                backgroundColor: msg.sender === 'Helfer' ? 'rgba(255,255,255,0.2)' : '#e0e0e0',
+                                                color: msg.sender === 'Helfer' ? 'white' : '#666'
                                             }}
                                         />
                                     </Paper>
-                                    {msg.sender === 'Person A' && (
+                                    {msg.sender === 'Helfer' && (
                                         <Avatar sx={{ bgcolor: '#e0e0e0', color: '#333', fontSize: '1.5rem' }}>
                                             {msg.avatar}
                                         </Avatar>
