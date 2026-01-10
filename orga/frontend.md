@@ -3,7 +3,7 @@
 ~~Dev.jsx~~
 ~~FAQ.jsx~~
 ~~Helfer_Chat.jsx~~
-Helfer_Chats_All.jsx
+~~Helfer_Chats_All.jsx~~
 Helfer_Home.jsx
 ~~Helfer_Login.jsx~~
 Helfer_Request_Assigned_Details.jsx
@@ -26,8 +26,8 @@ Hilfe_SignUp.jsx
 
 ~~Dev.jsx~~
 ~~FAQ.jsx~~
-Helfer_Chat.jsx - done IF templte is enough
-Helfer_Chats_All.jsx
+Helfer_Chat.jsx - done IF template is enough
+Helfer_Chats_All.jsx - done IF template is enough
 Helfer_Home.jsx
 Helfer_Login.jsx
 Helfer_Request_Assigned_Details.jsx

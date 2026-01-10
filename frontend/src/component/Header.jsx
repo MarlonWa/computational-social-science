@@ -121,7 +121,7 @@ export function Header({ header_title = "help@m", additional_links = []}) {
             {/** wide list = large view */}
 
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              {allPages.map((page) => (
+              {pages.map((page) => (
                 <Button
                   key={page.name}
                   onClick={handleCloseNavMenu}
@@ -146,7 +146,20 @@ export function Header({ header_title = "help@m", additional_links = []}) {
               {header_title}
             </Typography>
 
-            <Box />
+            <Box justifyContent={"flex-end"} sx={{ display: { xs: 'none', md: 'flex' } }}>
+              {additional_links.map((page) => (
+                <Button
+                  key={page.name}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block', "&:hover": { color: "white" } }}
+                  component={Link}
+                  to={page.path}
+                >
+                  {page.name}
+                </Button>
+              ))}
+            </Box>
+
 
 
             {/* <Box sx={{ flexGrow: 0 }}> 

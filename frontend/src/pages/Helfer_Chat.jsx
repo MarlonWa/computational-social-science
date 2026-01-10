@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { Box, Paper, TextField, IconButton, Stack, Avatar, Chip, Typography } from '@mui/material';
+import { Box, Paper, TextField, IconButton, Stack, Chip, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useState } from 'react';
@@ -9,9 +9,9 @@ import { Footer } from "../component/Footer.jsx";
 const chat_title = "Laptop Internet-Einrichtung";
 
 const messages = [
-    { id: 1, sender: 'Anfragende', text: 'Hallo, ich brauche Hilfe mit meinem Internet', timestamp: '10:31', avatar: '👵' },
-    { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32', avatar: '🧑' },
-    { id: 3, sender: 'Anfragende', text: 'Mein Laptop verbindet sich nicht mit dem Internet :(', timestamp: '10:33', avatar: '👵' },
+    { id: 1, sender: 'Anfragende', text: 'Hallo, ich brauche Hilfe mit meinem Internet', timestamp: '10:31'},
+    { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32'},
+    { id: 3, sender: 'Anfragende', text: 'Mein Laptop verbindet sich nicht mit dem Internet :(', timestamp: '10:33'},
 ];
 
 const accentColor = '#9759d1ff';
@@ -22,7 +22,8 @@ export function Helfer_Chat() {
     const [chat, setChat] = useState(messages);
 
     const back_links = [
-        { name: 'Meine Requests', path: `/helfer/${user_id}/requests` },
+        { name: 'Meine Startseite', path: `/helfer/${user_id}` },
+        { name: 'Meine Requests', path: `/helfer/${user_id}/myrequests` },
         { name: 'Meine Chats', path: `/helfer/${user_id}/chats` }
     ]
 
@@ -32,8 +33,7 @@ export function Helfer_Chat() {
                 id: chat.length + 1,
                 sender: 'Du',
                 text: input,
-                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                avatar: '🧑'
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
             };
             setChat([...chat, newMessage]);
             setInput('');
@@ -117,11 +117,6 @@ export function Helfer_Chat() {
                                     alignItems: 'flex-end',
                                     gap: 0.5
                                 }}>
-                                    {msg.sender !== 'Du' && (
-                                        <Avatar sx={{ bgcolor: '#e0e0e0', color: '#333', fontSize: '1rem', width: 28, height: 28, display: { xs: 'none', sm: 'flex' } }}>
-                                            {msg.avatar}
-                                        </Avatar>
-                                    )}
                                     <Paper
                                         sx={{
                                             p: { xs: 1.5, sm: 2 },
@@ -152,11 +147,6 @@ export function Helfer_Chat() {
                                             }}
                                         />
                                     </Paper>
-                                    {msg.sender === 'Du' && (
-                                        <Avatar sx={{ bgcolor: '#e0e0e0', color: '#333', fontSize: '1rem', width: 28, height: 28, display: { xs: 'none', sm: 'flex' } }}>
-                                            {msg.avatar}
-                                        </Avatar>
-                                    )}
                                 </Box>
                             ))}
                         </Stack>
