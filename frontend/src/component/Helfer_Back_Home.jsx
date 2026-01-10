@@ -9,7 +9,7 @@ import { Box, ButtonBase } from '@mui/material';
  * @param {number} user_id - ID of the user to construct the link
  * @returns A back button component linking to the helper's home page
  */
-export function Helfer_Home({color_primary = "#1976d2", color_secondary1 = '#e3f2fd', color_secondary2 = '#bbdefb', user_id}) {
+export function Helfer_Back_Home({color_primary = "#1976d2", color_secondary1 = '#e3f2fd', color_secondary2 = '#bbdefb', user_id}) {
     return (
         <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
             <ButtonBase
