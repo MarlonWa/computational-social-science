@@ -46,7 +46,7 @@ async def hello():
 
 #USER DATA
 #GET User
-@app.get("/user")
+@app.get("/users")
 #returns all users from table "users"
 async def get_users():
     conn = get_db_connection()
@@ -128,7 +128,7 @@ async def delete_user(user_id: int):
 
 #REQUEST DATA
 #GET request 
-@app.get("/request")
+@app.get("/requests")
 #returns all requests from table "requests"
 async def get_requests():
     conn = get_db_connection()
@@ -297,8 +297,6 @@ async def get_scoreboard_status(user_id: int):
             "third" : 0,
             "user_rank" : 1
             }
-
-# TODO: bitte noch endpoints zu /users und /requests ändern
 
 #TODO: bitte noch zu requests einen boolean "completed" oder "done" oder so hinzufügen, nach dem wir in "meine anfragen" filtern können
 

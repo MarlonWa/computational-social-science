@@ -11,7 +11,7 @@ const chat_title = "Laptop Internet-Einrichtung";
 const messages = [
     { id: 1, sender: 'Anfragende', text: 'Hallo, ich brauche Hilfe mit meinem Internet', timestamp: '10:31'},
     { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32'},
-    { id: 3, sender: 'Anfragende', text: 'Mein Laptop verbindet sich nicht mit dem Internet :(', timestamp: '10:33'},
+    { id: 3, sender: 'Anfragende', text: 'Mein Laptop verbindet sich nicht mit dem Internet', timestamp: '10:33'},
 ];
 
 const accentColor = '#9759d1ff';
@@ -84,7 +84,7 @@ export function Helfer_Chat() {
                             <p style={{ margin: '4px 0 0 0', fontSize: '0.8rem', color: '#888', textAlign: 'left' }}>RequestID #{request_id}</p>
                         </Box>
                         <Typography variant="p" color="#666" component={Link} to={`/helfer/${user_id}/myrequest/${request_id}`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
-                            ← Zur Anfrage
+                            Zur Anfrage →
                         </Typography>
                     </Box>
 
