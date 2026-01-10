@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Header } from '../component/Header.jsx';
+import { Alert, Box } from '@mui/material';
+import { Helfer_Home } from '../component/Helfer_Home.jsx';
 
 export function Helfer_Scoreboard() {  // DONE FOR NOW :)
     const { user_id } = useParams();
@@ -13,53 +15,69 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
     // const [name, setName] = useState("");
     const [error, setError] = useState(null);
 
+    const back_links = [
+        { name: 'Meine Startseite', path: `/helfer/${user_id}` },
+        { name: 'Meine Requests', path: `/helfer/${user_id}/myrequests` },
+        { name: 'Meine Chats', path: `/helfer/${user_id}/chats` }
+    ]
+
     useEffect(() => {
         fetch(`http://localhost:8000/user/${user_id}`)
-        .then((res) => {
-            if (!res.ok) {
-            throw new Error("User nicht gefunden");
-            }
-            return res.json();
-        })
-        .then((data) => {
-            setPoints(data.points);
-           // setName(data.name);
-        })
-        .catch((err) => {
-            setError(err.message);
-        });
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("User nicht gefunden");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setPoints(data.points);
+                // setName(data.name);
+            })
+            .catch((err) => {
+                setError(err.message);
+            });
     }, [user_id]);
 
     useEffect(() => {
         fetch(`http://localhost:8000/scoreboard/${user_id}`)
-        .then((res) => {
-            if (!res.ok) {
-            throw new Error("User nicht gefunden");
-            }
-            return res.json();
-        })
-        .then((data) => {
-            setPoints1(data.first);
-            setPoints2(data.second);
-            setPoints3(data.third);
-            setRank(data.user_rank);
-        })
-        .catch((err) => {
-            setError(err.message);
-        });
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("User nicht gefunden");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                setPoints1(data.first);
+                setPoints2(data.second);
+                setPoints3(data.third);
+                setRank(data.user_rank);
+            })
+            .catch((err) => {
+                setError(err.message);
+            });
     }, [user_id]);
 
-    if (error) return <><Header header_title={"Scoreboard"}/> <p> Error: {error} </p> </>;
-
+    if (error) return (
+        <>
+            <Header header_title={"Scoreboard"} additional_links={back_links} />
+            <Alert severity="error" sx={{ m: 2 }}>{error}</Alert>
+            <br />
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Helfer_Home user_id={user_id} />
+            </Box>
+        </>
+    );
 
     return (
         <>
-            <Header header_title={"SCOREBOARD"}/>
+            <Header header_title={"SCOREBOARD"} additional_links={back_links} />
             <p> Der Top 1 User hat aktuell {points1} Punkte! </p>
             <p> Der Top 2 User hat aktuell {points2} Punkte! </p>
             <p> Der Top 3 User hat aktuell {points3} Punkte! </p>
             <h4> Du hast {points} Punkte und liegst damit auf Platz {rank}. </h4>
-            <Link to={`/helfer/${user_id}`}> Zurück zu meiner Startseite </Link>
-        </>      
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Helfer_Home user_id={user_id} />
+            </Box>
+        </>
     );
 }
