@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 import { Footer } from '../component/Footer.jsx';
-import { Helfer_Home } from '../component/Helfer_Home.jsx';
+import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Box, Typography, Card, CircularProgress, Alert, ButtonBase } from '@mui/material';
@@ -63,7 +63,7 @@ export function Helfer_Requests_Assigned() {
             <CircularProgress />
             <br />
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Helfer_Home user_id={user_id} />
+                <Helfer_Back_Home user_id={user_id} />
             </Box>
         </Box>
     </>
@@ -75,7 +75,7 @@ export function Helfer_Requests_Assigned() {
         <Alert severity="error" sx={{ m: 2 }}>{error}</Alert>
         <br />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Helfer_Home user_id={user_id} />
+            <Helfer_Back_Home user_id={user_id} />
         </Box>
     </>
     );
@@ -91,12 +91,12 @@ export function Helfer_Requests_Assigned() {
                         <Alert severity="info">Keine aktiven Anfragen vorhanden.</Alert>
                         <br />
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Helfer_Home user_id={user_id} />
+                            <Helfer_Back_Home user_id={user_id} />
                         </Box>
                     </>
                 ) : (
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        <Helfer_Home user_id={user_id} />
+                        <Helfer_Back_Home user_id={user_id} />
 
                         {requests.map((request) => (
                             <Card

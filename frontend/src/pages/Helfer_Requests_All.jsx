@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Box, Container, List, ListItem, ListItemButton, Typography, CircularProgress, Alert } from '@mui/material';
 import { Footer } from '../component/Footer.jsx';
-import { Helfer_Home } from '../component/Helfer_Home.jsx';
+import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
 
 export function Helfer_Requests_All() {
     const { user_id } = useParams();
@@ -44,7 +44,7 @@ export function Helfer_Requests_All() {
             <CircularProgress />
             <br />
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Helfer_Home user_id={user_id} />
+                <Helfer_Back_Home user_id={user_id} />
             </Box>
         </Box>
     </>
@@ -56,7 +56,7 @@ export function Helfer_Requests_All() {
         <Alert severity="error" sx={{ m: 2 }}>{error}</Alert>
         <br />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Helfer_Home user_id={user_id} />
+            <Helfer_Back_Home user_id={user_id} />
         </Box>
     </>
     );
@@ -66,7 +66,7 @@ export function Helfer_Requests_All() {
             <Header header_title={"Offene Anfragen"} additional_links={back_links} />
 
             <Container maxWidth="md" sx={{ flex: 1, py: 2 }}>
-                <Helfer_Home user_id={user_id} />
+                <Helfer_Back_Home user_id={user_id} />
 
                 <List sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     {requests.map((request) => (

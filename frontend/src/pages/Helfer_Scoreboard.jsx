@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Header } from '../component/Header.jsx';
 import { Alert, Box } from '@mui/material';
-import { Helfer_Home } from '../component/Helfer_Home.jsx';
+import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
 
 export function Helfer_Scoreboard() {  // DONE FOR NOW :)
     const { user_id } = useParams();
@@ -63,7 +63,7 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
             <Alert severity="error" sx={{ m: 2 }}>{error}</Alert>
             <br />
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Helfer_Home user_id={user_id} />
+                <Helfer_Back_Home user_id={user_id} />
             </Box>
         </>
     );
@@ -76,7 +76,7 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
             <p> Der Top 3 User hat aktuell {points3} Punkte! </p>
             <h4> Du hast {points} Punkte und liegst damit auf Platz {rank}. </h4>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <Helfer_Home user_id={user_id} />
+                <Helfer_Back_Home user_id={user_id} />
             </Box>
         </>
     );

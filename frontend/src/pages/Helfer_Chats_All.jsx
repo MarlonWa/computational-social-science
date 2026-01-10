@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Box, Paper, Stack, Typography, Badge, Chip } from '@mui/material';
 import { Footer } from "../component/Footer.jsx";
 import { useNavigate } from 'react-router-dom';
-import { Helfer_Home } from '../component/Helfer_Home.jsx';
+import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
 
 
 const accentColor = '#9759d1ff';
@@ -31,7 +31,7 @@ export function Helfer_Chats_All() {
 
             <Box sx={{ flex: 1, px: { xs: 1, sm: 3 }, pt: { xs: 1, sm: 3 }, pb: 2, overflow: 'auto' }}>
                 <Stack sx={{ maxWidth: '900px', width: '100%', gap: 2, mx: 'auto' }}>
-                <Helfer_Home user_id={user_id} />
+                <Helfer_Back_Home user_id={user_id} />
                     {chats.map((chat) => (
                         <Paper
                             key={chat.id}
