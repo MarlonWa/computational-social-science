@@ -9,9 +9,9 @@ import { Footer } from "../component/Footer.jsx";
 const chat_title = "Laptop Internet-Einrichtung";
 
 const messages = [
-    { id: 1, sender: 'Anfragende', text: 'Hallo, ich brauche Hilfe mit meinem Internet', timestamp: '10:31'},
-    { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32'},
-    { id: 3, sender: 'Anfragende', text: 'Mein Laptop verbindet sich nicht mit dem Internet', timestamp: '10:33'},
+    { id: 1, sender: 'Person', text: 'Hallo, ich brauche Hilfe mit meinem Internet', timestamp: '10:31' },
+    { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32' },
+    { id: 3, sender: 'Person', text: 'Mein Laptop verbindet sich nicht mit dem Internet', timestamp: '10:33' },
 ];
 
 const accentColor = '#9759d1ff';
@@ -24,7 +24,6 @@ export function Helfer_Chat() {
     const back_links = [
         { name: 'Meine Startseite', path: `/helfer/${user_id}` },
         { name: 'Meine Requests', path: `/helfer/${user_id}/myrequests` },
-        { name: 'Meine Chats', path: `/helfer/${user_id}/chats` }
     ]
 
     const handleSendMessage = () => {
@@ -79,12 +78,27 @@ export function Helfer_Chat() {
                         flexShrink: 0,
                         gap: { xs: 1, sm: 0 }
                     }}>
-                        <Box>
-                            <h2 style={{ margin: 0, color: '#333', fontSize: 'clamp(1.2rem, 5vw, 1.5rem)' }}>{chat_title}</h2>
-                            <p style={{ margin: '4px 0 0 0', fontSize: '0.8rem', color: '#888', textAlign: 'left' }}>RequestID #{request_id}</p>
+                        <Box sx={{
+                            flexDirection: 'row',
+                            display: 'flex',
+                            alignItems: 'center',
+
+                        }}>
+                            <Box sx={{ flexDirection: "column" }}>
+                                <h2 style={{ margin: 0, color: '#333', fontSize: 'clamp(1.2rem, 5vw, 1.5rem)' }}>{chat_title}</h2>
+
+                                <Box sx={{ flexDirection: "row", display: "flex", justifyContent:"space-between", gap: 2 }}>
+                                    <Typography variant="p" color="#888" sx={{ margin: '4px 0 0 0', fontSize: '0.8rem' }}>
+                                        RequestID #{request_id}
+                                    </Typography>
+                                    <Typography variant="p" color="#666" component={Link} to={`/helfer/${user_id}/myrequest/${request_id}`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
+                                        Zur Anfrage ↗
+                                    </Typography>
+                                </Box>
+                            </Box>
                         </Box>
-                        <Typography variant="p" color="#666" component={Link} to={`/helfer/${user_id}/myrequest/${request_id}`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
-                            Zur Anfrage →
+                        <Typography variant="p" color="#666" component={Link} to={`/helfer/${user_id}/chats`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
+                            Zu meinen Chats →
                         </Typography>
                     </Box>
 
