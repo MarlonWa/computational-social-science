@@ -73,7 +73,7 @@ export function Hilfe_Request_New() {
             direction={{ xs: 'column', sm: 'row' }} 
             spacing={2} 
             sx={{ 
-              mb: 2,
+              my: 2,
               alignItems: { xs: 'center', sm: 'flex-start' }
             }}
           >
