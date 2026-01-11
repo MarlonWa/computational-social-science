@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -25,7 +26,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
         maxWidth: '450px',
     },
     boxShadow:
-        'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
+        Constants.shadow_login + ' 0px 5px 15px 0px, ' + Constants.shadow_login + ' 0px 15px 35px -5px',
 }));
 
 const SignInContainer = styled(Stack)(({ theme }) => ({
@@ -146,7 +147,7 @@ export function Helfer_SignUp() {
                                 placeholder="Max Mustermann"
                                 error={nameError}
                                 helperText={nameErrorMessage}
-                                color={nameError ? 'error' : 'primary'}
+                                color={nameError ? Constants.error : Constants.neutral_medium}
                             />
                         </FormControl>
                         <FormControl>
@@ -163,14 +164,14 @@ export function Helfer_SignUp() {
                                 required
                                 fullWidth
                                 variant="outlined"
-                                color={emailError ? 'error' : 'primary'}
+                                color={emailError ? Constants.error : Constants.neutral_medium}
                             />
                         </FormControl>
                         <FormControl>
                             <FormLabel htmlFor="password">Passwort</FormLabel>
                             <TextField
                                 error={passwordError}
-                                helperText={passwordErrorMessage}
+                                helperText={passwordErrorMessage}   
                                 name="password"
                                 placeholder="••••••"
                                 type="password"
@@ -179,7 +180,7 @@ export function Helfer_SignUp() {
                                 required
                                 fullWidth
                                 variant="outlined"
-                                color={passwordError ? 'error' : 'primary'}
+                                color={passwordError ? Constants.error : Constants.neutral_medium}
                             />
                         </FormControl>
               
@@ -187,7 +188,7 @@ export function Helfer_SignUp() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            onClick={validateInputs}
+                            onClick={validateInputs}    
                         >
                             Registrieren
                         </Button>

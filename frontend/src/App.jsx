@@ -1,3 +1,6 @@
+//import * as Constants from '../constants/constants.js';
+//not sure if we need
+
 import './App.css'
 import {Home} from './pages/Home.jsx'
 import {FAQ} from './pages/FAQ.jsx'
@@ -22,7 +25,7 @@ import {Hilfe_Request_Details} from './pages/Hilfe_Request_Details.jsx'
 import {Hilfe_Chat} from './pages/Hilfe_Chat.jsx'
 import {Hilfe_Chats_All} from './pages/Hilfe_Chats_All.jsx'
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
@@ -50,7 +53,7 @@ function App() {
         <Route path="/hilfe/:user_id/request/:request_id" element={<Hilfe_Request_Details />} />
         <Route path="/hilfe/:user_id/new" element={<Hilfe_Request_New />} />
         <Route path="/hilfe/:user_id/chats" element={<Hilfe_Chats_All />} />
-        <Route path="/hilfe/:user_id/chat/:chat_id" element={<Hilfe_Chat />} />
+        <Route path="/hilfe/:user_id/request/:request_id/chat" element={<Hilfe_Chat />} />
 
         <Route path="/dev" element={<Dev />} />
       </Routes>

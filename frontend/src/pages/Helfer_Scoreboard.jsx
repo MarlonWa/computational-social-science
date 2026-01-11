@@ -1,9 +1,14 @@
+import Constants from '../constants/constants.js';
 import { Link } from 'react-router-dom'
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Header } from '../component/Header.jsx';
 import { Alert, Box } from '@mui/material';
+<<<<<<< HEAD
 import { Helfer_Home } from '../component/Helfer_Home.jsx';
+=======
+import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
+>>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
 
 export function Helfer_Scoreboard() {  // DONE FOR NOW :)
     const { user_id } = useParams();
@@ -22,7 +27,11 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
     ]
 
     useEffect(() => {
+<<<<<<< HEAD
         fetch(`http://localhost:8000/user/${user_id}`)
+=======
+        fetch(Constants.API_URL + `/user/${user_id}`)
+>>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("User nicht gefunden");
@@ -39,7 +48,11 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
     }, [user_id]);
 
     useEffect(() => {
+<<<<<<< HEAD
         fetch(`http://localhost:8000/scoreboard/${user_id}`)
+=======
+        fetch(Constants.API_URL + `/scoreboard/${user_id}`)
+>>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("User nicht gefunden");
@@ -63,7 +76,11 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
             <Alert severity="error" sx={{ m: 2 }}>{error}</Alert>
             <br />
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+<<<<<<< HEAD
                 <Helfer_Home user_id={user_id} />
+=======
+                <Helfer_Back_Home user_id={user_id} />
+>>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
             </Box>
         </>
     );
@@ -76,7 +93,11 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
             <p> Der Top 3 User hat aktuell {points3} Punkte! </p>
             <h4> Du hast {points} Punkte und liegst damit auf Platz {rank}. </h4>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+<<<<<<< HEAD
                 <Helfer_Home user_id={user_id} />
+=======
+                <Helfer_Back_Home user_id={user_id} />
+>>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
             </Box>
         </>
     );

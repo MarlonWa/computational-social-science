@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,7 +23,7 @@ const title_styling = {
   fontWeight: 500,
   textTransform: 'uppercase',
   lineHeight: 1,
-  color: 'inherit',
+  color: Constants.neutral_light,
   textDecoration: 'none'
 }
 /** 
@@ -52,7 +53,7 @@ export function Header({ header_title = "help@m", additional_links = []}) {
     <>
       <Box sx={{ py: 2, px: 1 }} >
 
-        <AppBar position="static">
+        <AppBar position="static" sx={{ backgroundColor: Constants.header_color }}>
           <Toolbar disableGutters
             sx={{
               display: "grid",
@@ -71,7 +72,7 @@ export function Header({ header_title = "help@m", additional_links = []}) {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="inherit"
+                color={Constants.text_color_white}
               >
                 <MenuIcon />
               </IconButton>
@@ -97,7 +98,7 @@ export function Header({ header_title = "help@m", additional_links = []}) {
               >
                 {allPages.map((page) => (
                   <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                    <Typography component={Link} to={page.path} sx={{ textAlign: 'center', "&:hover": { color: "white" } }}>{page.name}</Typography>
+                    <Typography component={Link} to={page.path} sx={{ textAlign: 'center', "&:hover": { color: Constants.neutral_light } }}>{page.name}</Typography>
                   </MenuItem>
                 ))}
               </Menu>
@@ -125,7 +126,7 @@ export function Header({ header_title = "help@m", additional_links = []}) {
                 <Button
                   key={page.name}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block', "&:hover": { color: "white" } }}
+                  sx={{ my: 2, color: Constants.neutral_light, display: 'block', "&:hover": { color: Constants.neutral_light } }}
                   component={Link}
                   to={page.path}
                 >
@@ -151,7 +152,7 @@ export function Header({ header_title = "help@m", additional_links = []}) {
                 <Button
                   key={page.name}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block', "&:hover": { color: "white" } }}
+                  sx={{ my: 2, color: Constants.neutral_light, display: 'block', "&:hover": { color: Constants.neutral_light } }}
                   component={Link}
                   to={page.path}
                 >
@@ -159,7 +160,6 @@ export function Header({ header_title = "help@m", additional_links = []}) {
                 </Button>
               ))}
             </Box>
-
 
 
             {/* <Box sx={{ flexGrow: 0 }}> 

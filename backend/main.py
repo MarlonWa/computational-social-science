@@ -39,6 +39,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origin_regex=r"http://localhost:\d+",
+    allow_origins=["https://marlonwa.github.io", "https://css.wiesemann.dev"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -162,9 +163,9 @@ async def get_request(request_id: int):
     request = conn.execute("SELECT * FROM requests WHERE request_id = ?", (request_id,)).fetchone()
     conn.close()
     if(request):
-        return request
+        return dict(request)
     else: 
-        raise HTTPException(status_code=409, detail="Request not found")
+        raise HTTPException(status_code=404, detail="Request not found")
     
 @app.get("/user/{user_id}/requests")
 #returns all requests from a specific creator (user_id)
@@ -366,10 +367,10 @@ async def testUserData():
 
 async def testRequestData():
     requests = [
-        Request(user_id=1, title="Hello Wolrd", text = "hi hi hi"),
-        Request(user_id=1, title="Hello Wolrd", text = "hiho"),
-        Request(user_id=3, title="Hello Wolrd", text = ""),
-        Request(user_id=2, title="Hello Wolrd", text = "hallo")
+        Request(user_id=1, title="Anfrage numero 1", text = "Das ist ne Anfrage. yay"),
+        Request(user_id=1, title="Anfrage numero 2", text = "blib blub yay"),
+        Request(user_id=3, title="Anfrage numero 3", text = "Auch eine Anfrage."),
+        Request(user_id=2, title="Anfrage numero 4", text = "Anfrageänderung zu Testzwecken.")
     ]
     #im Frontend wird zum Testen angenommen, dass Request 1 von UserID 1 ist und Request 3 von UserID 3. Bitte nicht ändern
     

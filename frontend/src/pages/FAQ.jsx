@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import { Header } from '../component/Header.jsx';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -28,17 +29,17 @@ export function FAQ() {
                         <Box key={index} sx={{ 
                             p: 3, 
                             borderRadius: 2, 
-                            bgcolor: '#f5f5f5',
-                            boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                            bgcolor: Constants.neutral_light_darker,
+                            boxShadow: '0 2px 8px ' + Constants.shadow_black,
                             transition: 'all 0.3s ease',
                             '&:hover': {
-                                boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                                boxShadow: '0 4px 12px ' + Constants.shadow_black,
                             }
                         }}>
-                            <Typography sx={{ fontSize: { xs: '1rem', sm: '1.2rem' }, fontWeight: 600, mb: 1.5 }}>
+                            <Typography sx={{ fontSize: { xs: '1.5rem', sm: '1.8rem' }, fontWeight: 600, mb: 1.5 }}>
                                 {item.question}
                             </Typography>
-                            <Typography sx={{ fontSize: { xs: '0.95rem', sm: '1.1rem' }, lineHeight: 1.6, color: '#555' }}>
+                            <Typography sx={{ fontSize: { xs: '1.45rem', sm: '1.7rem' }, lineHeight: 1.6, color: Constants.text_color_dark_grey }}>
                                 {item.answer}
                             </Typography>
                         </Box>

@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 import { useParams } from 'react-router-dom';
@@ -11,7 +12,7 @@ export function Hilfe_Home() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/user/${user_id}/requests`)
+        fetch(Constants.API_URL + `/user/${user_id}/requests`)
         .then((res) => {
             if (!res.ok) {
             throw new Error("Keine Anfragen gefunden");
@@ -30,7 +31,7 @@ export function Hilfe_Home() {
     if (error) return <><Header header_title={"STARTSEITE: FEHLER"}/> <p> Error: {error} </p> </>;
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#fafafa' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: Constants.neutral_light }}>
             <Header header_title={"Startseite"}/>
             
             <Container maxWidth="md" sx={{ flex: 1, py: 4 }}>
@@ -41,13 +42,17 @@ export function Hilfe_Home() {
                         sx={{ 
                             width: '100%', 
                             py: 3, 
-                            fontSize: '3rem',
+                            fontSize: { xs: '2.4rem', sm: '2.8rem' },
                             fontWeight: 'bold',
                             mb: 4,
                             borderRadius: 2,
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                            boxShadow: '0 8px 25px rgba(102, 126, 234, 0.6)',
-                            '&:hover': { boxShadow: '0 12px 35px rgba(102, 126, 234, 0.8)' }
+                            //changed this to our default colors, possible to change back
+                            /* background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            boxShadow: '0 8px 25px rgba(102, 126, 234, 0.6)', */
+                            backgroundColor: Constants.primary_color,
+                            boxShadow: Constants.primary_color_dark,
+                            //'&:hover': { boxShadow: "0 12px 35px " + hoverAccentColor }
+                            '&:hover': { backgroundColor: Constants.primary_color_dark}
                         }}
                     >
                         Neue Anfrage
@@ -64,17 +69,17 @@ export function Hilfe_Home() {
                                 <ListItemButton
                                     sx={{
                                         p: 3,
-                                        backgroundColor: '#fff',
+                                        backgroundColor: Constants.neutral_light,
                                         borderRadius: 2,
-                                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                                        boxShadow: '0 2px 8px' + Constants.shadow_black,
                                         '&:hover': { 
-                                            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
-                                            transform: 'translateY(-2px)',
+                                            boxShadow: '0 8px 20px' + Constants.shadow_black,
+                                            //transform: 'translateY(-2px)',
                                             transition: 'all 0.3s ease'
                                         }
                                     }}
                                 >
-                                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#333' }}>
+                                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: Constants.text_color_black, fontSize: { xs: '1.8rem', sm: '2.5rem' } }}>
                                         {request.title}
                                     </Typography>
                                 </ListItemButton>
