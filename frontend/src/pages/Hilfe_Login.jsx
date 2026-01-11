@@ -83,7 +83,7 @@ export function Hilfe_Login() {
                 <Card variant="outlined" sx={{ position: 'relative', p: 3, gap: 1 }}>
                     {/* DEV LINE - TODO */}
 
-                    {/* <Link to="/hilfe/3"> DEV: Login als Hilfesuchender ID 3 </Link> */}
+                    <Link to="/hilfe/3"> DEV: Login als Hilfesuchender ID 3 </Link>
                     
                     {/* title */}
                     <Typography
