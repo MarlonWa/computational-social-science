@@ -22,7 +22,7 @@ import {Hilfe_Request_Details} from './pages/Hilfe_Request_Details.jsx'
 import {Hilfe_Chat} from './pages/Hilfe_Chat.jsx'
 import {Hilfe_Chats_All} from './pages/Hilfe_Chats_All.jsx'
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
