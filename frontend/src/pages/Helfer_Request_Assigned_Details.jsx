@@ -116,8 +116,8 @@ export function Helfer_Request_Assigned_Details() {
                             </Typography>
                         </Paper>
 
-                        {/* Action Buttons */}
-                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 2 }}>
+                         {/* Action Buttons */}
+                        {/*<Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 2 }}>
                             <Button
                                 component={Link}
                                 to={`/helfer/${user_id}/myrequests`}
@@ -151,9 +151,86 @@ export function Helfer_Request_Assigned_Details() {
                             >
                                 zum  Chat
                             </Button>
-                        </Stack>
+                        </Stack> */}
                     </Stack>
                 </Box>
+
+                    {/* Action Buttons */}
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 2 }}>
+                        <Button
+                            component={Link}
+                            to={`/helfer/${user_id}/myrequests`}
+                            variant="outlined"
+                            startIcon={<ArrowBackIcon />}
+                            sx={{
+                                flex: 1,
+                                borderColor: Constants.neutral_medium,
+                                color: Constants.text_color_black,
+                                '&:hover': {
+                                    backgroundColor: Constants.neutral_light_darker,
+                                    color: Constants.text_color_black
+                                }
+                            }}
+                        >
+                            Zurück zu meinen Anfragen
+                        </Button>
+                        <Button
+                            component={Link}
+                            to={`/helfer/${user_id}/myrequest/${request_id}/chat`}
+                            variant="contained"
+                            startIcon={<ChatIcon />}
+                            sx={{
+                                flex: 1,
+                                backgroundColor: Constants.primary_color,
+                                '&:hover': {
+                                    backgroundColor: Constants.primary_color_dark,
+                                    color : Constants.neutral_light
+                                }
+                            }}
+                        >
+                            zum  Chat
+                        </Button>
+                    </Stack>
+
+                    {/* Additional Action Buttons */}
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 2 }}>
+                        <Button
+                            variant="contained"
+                            onClick={() => {
+                                fetch(Constants.API_URL + `/helper/${user_id}/remove?request_id=${request_id}`, { method: 'PUT' })
+                                    .then(() => window.location.href = `/helfer/${user_id}/myrequests`)
+                                    .catch((err) => setError(err.message));
+                            }}
+                            sx={{
+                                flex: 1,
+                                backgroundColor: Constants.primary_color,
+                                '&:hover': {
+                                    backgroundColor: Constants.primary_color_dark,
+                                    color : Constants.neutral_light
+                                }
+                            }}
+                        >
+                            Anfrage nicht mehr bearbeiten
+                        </Button>
+                        <Button
+                            variant="contained"
+                            onClick={() => {
+                                fetch(Constants.API_URL + `/request/status/${request_id}/closed`, { method: 'PUT' })
+                                    .then(() => window.location.href = `/helfer/${user_id}/myrequests`)
+                                    .catch((err) => setError(err.message));
+                            }}
+                            sx={{
+                                flex: 1,
+                                backgroundColor: Constants.primary_color,
+                                '&:hover': {
+                                    backgroundColor: Constants.primary_color_dark,
+                                    color : Constants.neutral_light
+                                }
+                            }}
+                        >
+                            Anfrage abschließen
+                        </Button>
+                    </Stack>
 
                 <Footer />
             </Box>
