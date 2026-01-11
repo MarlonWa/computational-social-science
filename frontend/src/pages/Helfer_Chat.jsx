@@ -10,6 +10,12 @@ import { Footer } from "../component/Footer.jsx";
 const chat_title = "Laptop Internet-Einrichtung";
 
 const messages = [
+<<<<<<< HEAD
+    { id: 1, sender: 'Anfragende', text: 'Hallo, ich brauche Hilfe mit meinem Internet', timestamp: '10:31'},
+    { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32'},
+    { id: 3, sender: 'Anfragende', text: 'Mein Laptop verbindet sich nicht mit dem Internet', timestamp: '10:33'},
+];
+=======
     { id: 1, sender: 'Person', text: 'Hallo,. ich bruche Hilfe mit meinem Interrnt', timestamp: '10:31' },
     { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32' },
     { id: 3, sender: 'Person', text: 'Meinlaptop verbindet sich  nicgt mit dem Internet', timestamp: '10:33' },
@@ -21,6 +27,7 @@ const messages = [
     { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32' },
     { id: 3, sender: 'Person', text: 'Mein Laptop verbindet sich nicht mit dem Internet', timestamp: '10:33' },
 ]; */
+>>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
 
 
 export function Helfer_Chat() {
@@ -104,8 +111,13 @@ export function Helfer_Chat() {
                                 </Box>
                             </Box>
                         </Box>
+<<<<<<< HEAD
+                        <Typography variant="p" color="#666" component={Link} to={`/helfer/${user_id}/myrequest/${request_id}`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
+                            Zur Anfrage →
+=======
                         <Typography variant="p" color={Constants.text_color_dark_grey} component={Link} to={`/helfer/${user_id}/chats`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
                             Zu meinen Chats →
+>>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
                         </Typography>
                     </Box>
 

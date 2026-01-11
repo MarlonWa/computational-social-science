@@ -4,6 +4,20 @@ import { Header } from '../component/Header.jsx'
 import { useParams } from "react-router-dom";
 import { Box, Paper, Stack, Typography, Badge, Chip } from '@mui/material';
 import { Footer } from "../component/Footer.jsx";
+<<<<<<< HEAD
+import { useNavigate } from 'react-router-dom';
+import { Helfer_Home } from '../component/Helfer_Home.jsx';
+
+
+const accentColor = '#9759d1ff';
+
+//TODO HARDCODED - rm
+const chats = [
+    { id: 1, request_id: 1, title: 'Laptop Internet-Einrichtung', user: 'Maria Schmidt', lastMessage: 'Mein Laptop verbindet sich nicht mit dem Internet',lastTime: '14:22'},
+    { id: 3, request_id: 3, title: 'Email-Einrichtung', user: 'Anna Weber', lastMessage: 'Kannst du mir morgen helfen?',  lastTime: '10:33'},
+    { id: 2, request_id: 2, title: 'Smartphone Bedienung', user: 'Hans Müller', lastMessage: 'Vielen Dank für deine Hilfe!', lastTime: 'Gestern' },
+];
+=======
 import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
 
 //TODO HARDCODED - rm
@@ -12,6 +26,7 @@ const chats = [
     { id: 3, request_id: 3, title: 'Email Einrivhtung', user: 'Anna Weber', lastMessage: 'Kannstdu mir morgen hrlfen?',  lastTime: '10:33'},
     { id: 2, request_id: 2, title: 'Smartphone Bedienung', user: 'Hans Müller', lastMessage: 'Vielen Dank für deine Hilfe!', lastTime: 'Gestern' },
 ]; //added some typos so we can have a laugh :>
+>>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
 
 export function Helfer_Chats_All() {
     const { user_id } = useParams();
@@ -28,7 +43,11 @@ export function Helfer_Chats_All() {
 
             <Box sx={{ flex: 1, px: { xs: 1, sm: 3 }, pt: { xs: 1, sm: 3 }, pb: 2, overflow: 'auto' }}>
                 <Stack sx={{ maxWidth: '900px', width: '100%', gap: 2, mx: 'auto' }}>
+<<<<<<< HEAD
+                <Helfer_Home user_id={user_id} />
+=======
                 <Helfer_Back_Home user_id={user_id} />
+>>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
                     {chats.map((chat) => (
                         <Paper
                             key={chat.id}
