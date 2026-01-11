@@ -4,8 +4,8 @@ import { Header } from '../component/Header.jsx'
 import { Footer } from '../component/Footer.jsx';
 
 const pages = [
-  { name: 'ICH WILL HELFEN', path: '/helfer/login', color: "#7f19d2" },
-  { name: 'ICH SUCHE HILFE', path: '/hilfe/login', color: "#c12ab9" }
+  { name: 'ICH WILL HELFEN', path: '/helfer/login', color: "#9759d1ff" },
+  { name: 'ICH SUCHE HILFE', path: '/hilfe/login', color: "#d159c7ff" }
 ]
 
 export function Home() { //DONE FOR NOW :)

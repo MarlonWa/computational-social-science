@@ -1,3 +1,10 @@
+## our colour scheme ^^
+blue (header): #1976d2ff
+greyish (footer): #b2c2d2ff
+purple (buttons): #9759d1ff
+pink (back buttons): #d159c7ff
+
+
 ## Pages Design
 
 ~~Dev.jsx~~
@@ -16,8 +23,8 @@ Hilfe_Chat.jsx
 Hilfe_Chats_All.jsx
 ~~Hilfe_Home.jsx~~
 Hilfe_Login.jsx
-Hilfe_Request_Details.jsx
-Hilfe_Request_New.jsx
+~~Hilfe_Request_Details.jsx~~
+~~Hilfe_Request_New.jsx~~
 Hilfe_SignUp.jsx
 ~~Home.jsx~~
 
@@ -40,7 +47,7 @@ Hilfe_Chat.jsx
 Hilfe_Chats_All.jsx
 ~~Hilfe_Home.jsx~~
 Hilfe_Login.jsx
-Hilfe_Request_Details.jsx
-Hilfe_Request_New.jsx
+~~Hilfe_Request_Details.jsx~~
+Hilfe_Request_New.jsx - only missing the submit functionality
 Hilfe_SignUp.jsx
 ~~Home.jsx~~

@@ -1,6 +1,17 @@
 import { Link } from 'react-router-dom';
 import { Box, ButtonBase } from '@mui/material';
 
+//old colours
+/* const color_primary_default = "#1976d2";
+const color_secondary1_default = '#e3f2fd';
+const color_secondary2_default = '#bbdefb'; */
+
+//default pink: #d159c7ff
+const color_primary_default = "#c535b9"; //darker pink for better readability
+const color_secondary1_default = '#f5e3f3';
+const color_secondary2_default = '#f0ccec';
+
+
 /**
  * 
  * @param {string} color_primary - Primary color for text and icons
@@ -9,7 +20,7 @@ import { Box, ButtonBase } from '@mui/material';
  * @param {number} user_id - ID of the user to construct the link
  * @returns A back button component linking to the helper's home page
  */
-export function Helfer_Back_Home({color_primary = "#1976d2", color_secondary1 = '#e3f2fd', color_secondary2 = '#bbdefb', user_id}) {
+export function Helfer_Back_Home({color_primary = color_primary_default, color_secondary1 = color_secondary1_default, color_secondary2 = color_secondary2_default, user_id}) {
     return (
         <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
             <ButtonBase
