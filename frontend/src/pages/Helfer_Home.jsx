@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 import { Footer } from '../component/Footer.jsx'
@@ -31,7 +32,7 @@ export function Helfer_Home() {
             }}>  
                 <Box sx={{
                     display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
+                    //gridTemplateColumns: '1fr 1fr',
                     gap: '1.5rem',
                     maxWidth: '600px',
                     width: '100%',
@@ -44,17 +45,17 @@ export function Helfer_Home() {
                             <Button
                                 fullWidth
                                 sx={{
-                                    backgroundColor: '#9759d1',
-                                    color: 'white',
-                                    padding: '1.5rem 1rem',
-                                    fontSize: '1.2rem',
+                                    backgroundColor: Constants.primary_color,
+                                    color: Constants.neutral_light,
+                                    p: "2rem 1rem",
+                                    fontSize: '2.5rem',
                                     fontWeight: 400,
                                     textTransform: 'none',
                                     borderRadius: '8px',
                                     transition: 'all 0.3s ease',
                                     '&:hover': {
-                                        backgroundColor: '#7f41b3',
-                                        boxShadow: '0 8px 16px rgba(151, 89, 209, 0.3)',
+                                        backgroundColor: Constants.primary_color_dark,
+                                        boxShadow: '0 8px 16px ' + Constants.shadow_black,
                                         transform: 'translateY(-2px)',
                                     },
                                 }}

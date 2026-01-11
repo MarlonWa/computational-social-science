@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import { Link, useParams } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 import { Box, Paper, Stack, Typography, Button, CircularProgress, Alert } from '@mui/material';
@@ -6,7 +7,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ChatIcon from '@mui/icons-material/Chat';
 import { useState, useEffect } from 'react';
 import { Hilfe_Back_Home } from '../component/Hilfe_Back_Home.jsx';
-const accentColor = '#9759d1ff';
 
 export function Hilfe_Request_Details() {
     
@@ -21,7 +21,7 @@ export function Hilfe_Request_Details() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/request/${request_id}`)
+        fetch(Constants.API_URL + `/request/${request_id}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("Anfrage nicht gefunden");
@@ -87,11 +87,11 @@ export function Hilfe_Request_Details() {
                         {/* Title Section */}
                         <Paper sx={{
                             p: { xs: 2, sm: 3 },
-                            backgroundColor: 'white',
+                            backgroundColor: Constants.neutral_light,
                             borderRadius: 2,
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                            boxShadow: '0 4px 12px' + Constants.shadow_black,
                         }}>
-                            <Typography variant="h3" sx={{ fontWeight: 600, color: '#333', mb: 1, fontSize: { xs: '2.4rem', sm: '2.8rem' } }}>
+                            <Typography variant="h3" sx={{ fontWeight: 600, color: Constants.text_color_black, mb: 1, fontSize: { xs: '2.4rem', sm: '2.8rem' } }}>
                                 {request.title}
                             </Typography>
                             {/* <Typography variant="body2" sx={{ color: '#666' }}>
@@ -104,12 +104,12 @@ export function Hilfe_Request_Details() {
                             p: { xs: 2, sm: 3 },
                             backgroundColor: 'white',
                             borderRadius: 2,
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                            boxShadow: '0 4px 12px' + Constants.shadow_black,
                         }}>
                             {/* <Typography variant="h5" sx={{ fontWeight: 600, color: '#333', mb: 2, fontSize: { xs: '1.4rem', sm: '1.8rem' } }}>
                                 Beschreibung
                             </Typography> */}
-                            <Typography variant="body1" sx={{ color: '#555', lineHeight: 1.8, fontSize: { xs: '1.8rem', sm: '2.5rem' } }}>
+                            <Typography variant="body1" sx={{ color: Constants.text_color_dark_grey, lineHeight: 1.8, fontSize: { xs: '1.8rem', sm: '2.5rem' } }}>
                                 {request.text}
                             </Typography>
                         </Paper>
@@ -125,11 +125,11 @@ export function Hilfe_Request_Details() {
                                     flex: 1,
                                     py: { xs: 2, sm: 2.5 },
                                     fontSize: { xs: '1.5rem', sm: '1.9rem' },
-                                    borderColor: '#999',
-                                    color: '#333',
+                                    borderColor: Constants.neutral_medium,
+                                    color: Constants.text_color_black,
                                     '&:hover': {
-                                        borderColor: '#666',
-                                        backgroundColor: '#f5f5f5'
+                                        backgroundColor: Constants.neutral_light_darker,
+                                        color: Constants.text_color_black
                                     }
                                 }}
                             >
@@ -144,9 +144,10 @@ export function Hilfe_Request_Details() {
                                     flex: 1,
                                     py: { xs: 2, sm: 2.5 },
                                     fontSize: { xs: '1.5rem', sm: '1.9rem' },
-                                    backgroundColor: accentColor,
+                                    backgroundColor: Constants.primary_color,
                                     '&:hover': {
-                                        backgroundColor: '#7f19d2'
+                                        backgroundColor: Constants.primary_color_dark,
+                                        color : Constants.neutral_light
                                     }
                                 }}
                             >

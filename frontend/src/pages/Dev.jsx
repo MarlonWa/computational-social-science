@@ -1,3 +1,6 @@
+import Constants from '../constants/constants.js';
+//not needed yet
+
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx';
 import { Footer } from '../component/Footer.jsx';

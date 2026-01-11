@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import { Link } from 'react-router-dom'
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -22,7 +23,7 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
     ]
 
     useEffect(() => {
-        fetch(`http://localhost:8000/user/${user_id}`)
+        fetch(Constants.API_URL + `/user/${user_id}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("User nicht gefunden");
@@ -39,7 +40,7 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
     }, [user_id]);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/scoreboard/${user_id}`)
+        fetch(Constants.API_URL + `/scoreboard/${user_id}`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("User nicht gefunden");

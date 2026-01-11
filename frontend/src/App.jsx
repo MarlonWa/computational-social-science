@@ -1,3 +1,6 @@
+//import * as Constants from '../constants/constants.js';
+//not sure if we need
+
 import './App.css'
 import {Home} from './pages/Home.jsx'
 import {FAQ} from './pages/FAQ.jsx'

@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import { Link, useParams } from "react-router-dom";
 import { Box, Paper, TextField, IconButton, Stack, Chip, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
@@ -9,12 +10,18 @@ import { Footer } from "../component/Footer.jsx";
 const chat_title = "Laptop Internet-Einrichtung";
 
 const messages = [
+    { id: 1, sender: 'Person', text: 'Hallo,. ich bruche Hilfe mit meinem Interrnt', timestamp: '10:31' },
+    { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32' },
+    { id: 3, sender: 'Person', text: 'Meinlaptop verbindet sich  nicgt mit dem Internet', timestamp: '10:33' },
+]; //added some typos, because elderly people sometimes dont type perfectly
+
+// (old messages)
+/* const messages = [
     { id: 1, sender: 'Person', text: 'Hallo, ich brauche Hilfe mit meinem Internet', timestamp: '10:31' },
     { id: 2, sender: 'Du', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32' },
     { id: 3, sender: 'Person', text: 'Mein Laptop verbindet sich nicht mit dem Internet', timestamp: '10:33' },
-];
+]; */
 
-const accentColor = '#9759d1ff';
 
 export function Helfer_Chat() {
     const { user_id, request_id } = useParams();
@@ -71,10 +78,10 @@ export function Helfer_Chat() {
                         flexDirection: { xs: 'column', sm: 'row' },
                         justifyContent: 'space-between',
                         alignItems: { xs: 'flex-start', sm: 'center' },
-                        backgroundColor: 'white',
+                        backgroundColor: Constants.neutral_light,
                         borderRadius: 2,
                         p: { xs: 1.5, sm: 2 },
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                        boxShadow: '0 4px 12px ' + Constants.shadow_black,
                         flexShrink: 0,
                         gap: { xs: 1, sm: 0 }
                     }}>
@@ -85,19 +92,19 @@ export function Helfer_Chat() {
 
                         }}>
                             <Box sx={{ flexDirection: "column" }}>
-                                <h2 style={{ margin: 0, color: '#333', fontSize: 'clamp(1.2rem, 5vw, 1.5rem)' }}>{chat_title}</h2>
+                                <h2 style={{ margin: 0, color: Constants.text_color_black, fontSize: 'clamp(1.2rem, 5vw, 1.5rem)' }}>{chat_title}</h2>
 
                                 <Box sx={{ flexDirection: "row", display: "flex", justifyContent:"space-between", gap: 2 }}>
-                                    <Typography variant="p" color="#888" sx={{ margin: '4px 0 0 0', fontSize: '0.8rem' }}>
+                                    <Typography variant="p" color={Constants.text_color_light_grey} sx={{ margin: '4px 0 0 0', fontSize: '0.8rem' }}>
                                         RequestID #{request_id}
                                     </Typography>
-                                    <Typography variant="p" color="#666" component={Link} to={`/helfer/${user_id}/myrequest/${request_id}`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
+                                    <Typography variant="p" color={Constants.text_color_dark_grey} component={Link} to={`/helfer/${user_id}/myrequest/${request_id}`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
                                         Zur Anfrage ↗
                                     </Typography>
                                 </Box>
                             </Box>
                         </Box>
-                        <Typography variant="p" color="#666" component={Link} to={`/helfer/${user_id}/chats`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
+                        <Typography variant="p" color={Constants.text_color_dark_grey} component={Link} to={`/helfer/${user_id}/chats`} sx={{ fontSize: { xs: '0.85rem', sm: '1rem' } }}>
                             Zu meinen Chats →
                         </Typography>
                     </Box>
@@ -109,17 +116,17 @@ export function Helfer_Chat() {
                         p: 3,
                         backgroundColor: 'white',
                         borderRadius: 2,
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                        boxShadow: '0 4px 12px ' + Constants.shadow_black,
                         minHeight: 0,
                         '&::-webkit-scrollbar': {
                             width: '8px',
                         },
                         '&::-webkit-scrollbar-track': {
-                            background: '#f0f0f0',
+                            background: Constants.neutral_light_darker,
                             borderRadius: '10px',
                         },
                         '&::-webkit-scrollbar-thumb': {
-                            background: '#c0c0c0',
+                            background: Constants.neutral_light_darker,
                             borderRadius: '10px',
                         }
                     }}>
@@ -136,11 +143,11 @@ export function Helfer_Chat() {
                                             p: { xs: 1.5, sm: 2 },
                                             maxWidth: { xs: '85%', sm: '60%' },
                                             background: msg.sender === 'Du'
-                                                ? accentColor
-                                                : '#f0f0f0',
-                                            color: msg.sender === 'Du' ? 'white' : '#333',
+                                                ? Constants.primary_color
+                                                : Constants.neutral_light,
+                                            color: msg.sender === 'Du' ? Constants.neutral_light : Constants.text_color_dark_grey,
                                             borderRadius: msg.sender === 'Du' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
-                                            boxShadow: '0 3px 9px rgba(0,0,0,0.18)'
+                                            boxShadow: '0 3px 9px ' + Constants.shadow_black
                                         }}
                                     >
                                         <Box sx={{ fontWeight: '500', mb: 0.5, fontSize: { xs: '0.9rem', sm: '1rem' } }}>
@@ -155,8 +162,8 @@ export function Helfer_Chat() {
                                             sx={{
                                                 mt: 1,
                                                 fontSize: '0.7rem',
-                                                backgroundColor: msg.sender === 'Du' ? 'rgba(255,255,255,0.2)' : '#e0e0e0',
-                                                color: msg.sender === 'Du' ? 'white' : '#666',
+                                                backgroundColor: msg.sender === 'Du' ? Constants.primary_color_light : Constants.neutral_light_darker,
+                                                color: msg.sender === 'Du' ? Constants.neutral_light : Constants.neutral_medium,
                                                 height: 'auto'
                                             }}
                                         />
@@ -171,7 +178,7 @@ export function Helfer_Chat() {
                         p: { xs: 1, sm: 2 },
                         backgroundColor: 'white',
                         borderRadius: 2,
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                        boxShadow: '0 4px 12px ' + Constants.shadow_black,
                         flexShrink: 0
                     }}>
                         <Stack direction="row" spacing={0.5} alignItems="flex-end">
@@ -181,7 +188,7 @@ export function Helfer_Chat() {
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 multiline
-                                minRows={1}
+                                minRows={1} 
                                 maxRows={4}
                                 size="small"
                                 sx={{
@@ -189,10 +196,10 @@ export function Helfer_Chat() {
                                         borderRadius: '20px',
                                         fontSize: { xs: '0.9rem', sm: '1rem' },
                                         '&:hover fieldset': {
-                                            borderColor: accentColor,
+                                            borderColor: Constants.primary_color,
                                         },
                                         '&.Mui-focused fieldset': {
-                                            borderColor: accentColor,
+                                            borderColor: Constants.primary_color,
                                         }
                                     }
                                 }}
@@ -200,10 +207,10 @@ export function Helfer_Chat() {
                             <IconButton
                                 onClick={() => handleSendMessage()}
                                 sx={{
-                                    background: accentColor,
+                                    background: Constants.primary_color,
                                     color: 'white',
                                     '&:hover': {
-                                        background: '#4a7ab2'
+                                        background: Constants.primary_color_dark
                                     }
                                 }}
                             >

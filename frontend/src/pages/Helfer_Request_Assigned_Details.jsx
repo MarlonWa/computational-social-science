@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import { Link, useParams } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 import { Box, Paper, Stack, Typography, Button, CircularProgress, Alert } from '@mui/material';
@@ -6,7 +7,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ChatIcon from '@mui/icons-material/Chat';
 import { useState, useEffect } from 'react';
 import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
-const accentColor = '#9759d1ff';
 
 export function Helfer_Request_Assigned_Details() {
 
@@ -22,7 +22,7 @@ export function Helfer_Request_Assigned_Details() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-            fetch(`http://localhost:8000/request/${request_id}`)
+            fetch(Constants.API_URL + `/request/${request_id}`)
                 .then((res) => {
                     if (!res.ok) {
                         throw new Error("Anfrage nicht gefunden");
@@ -91,9 +91,9 @@ export function Helfer_Request_Assigned_Details() {
                             p: { xs: 2, sm: 3 },
                             backgroundColor: 'white',
                             borderRadius: 2,
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                            boxShadow: '0 4px 12px ' + Constants.shadow_black,
                         }}>
-                            <Typography variant="h4" sx={{ fontWeight: 600, color: '#333', mb: 1 }}>
+                            <Typography variant="h4" sx={{ fontWeight: 600, color: Constants.text_color_black, mb: 1 }}>
                                 {request.title}
                             </Typography>
                             {/* <Typography variant="body2" sx={{ color: '#666' }}>
@@ -106,12 +106,12 @@ export function Helfer_Request_Assigned_Details() {
                             p: { xs: 2, sm: 3 },
                             backgroundColor: 'white',
                             borderRadius: 2,
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                            boxShadow: '0 4px 12px ' + Constants.shadow_black,
                         }}>
-                            <Typography variant="h6" sx={{ fontWeight: 600, color: '#333', mb: 2 }}>
+                            <Typography variant="h6" sx={{ fontWeight: 600, color: Constants.text_color_black, mb: 2 }}>
                                 Beschreibung
                             </Typography>
-                            <Typography variant="body1" sx={{ color: '#555', lineHeight: 1.8 }}>
+                            <Typography variant="body1" sx={{ color: Constants.text_color_dark_grey, lineHeight: 1.8 }}>
                                 {request.text}
                             </Typography>
                         </Paper>
@@ -125,11 +125,11 @@ export function Helfer_Request_Assigned_Details() {
                                 startIcon={<ArrowBackIcon />}
                                 sx={{
                                     flex: 1,
-                                    borderColor: '#999',
-                                    color: '#333',
+                                    borderColor: Constants.neutral_medium,
+                                    color: Constants.text_color_black,
                                     '&:hover': {
-                                        borderColor: '#666',
-                                        backgroundColor: '#f5f5f5'
+                                        backgroundColor: Constants.neutral_light_darker,
+                                        color: Constants.text_color_black
                                     }
                                 }}
                             >
@@ -142,9 +142,10 @@ export function Helfer_Request_Assigned_Details() {
                                 startIcon={<ChatIcon />}
                                 sx={{
                                     flex: 1,
-                                    backgroundColor: accentColor,
+                                    backgroundColor: Constants.primary_color,
                                     '&:hover': {
-                                        backgroundColor: '#7f19d2'
+                                        backgroundColor: Constants.primary_color_dark,
+                                        color : Constants.neutral_light
                                     }
                                 }}
                             >

@@ -50,6 +50,6 @@ Hilfe_Chats_All.jsx
 ~~Hilfe_Home.jsx~~
 Hilfe_Login.jsx
 ~~Hilfe_Request_Details.jsx~~
-Hilfe_Request_New.jsx - only missing the submit functionality
+Hilfe_Request_New.jsx - only missing the submit functionality, add FAQ
 Hilfe_SignUp.jsx
 ~~Home.jsx~~

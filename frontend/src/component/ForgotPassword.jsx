@@ -6,6 +6,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import OutlinedInput from '@mui/material/OutlinedInput';
 
+//hat keine Constants (?)
+
 /**
  * @param {Object} props
  * @param {boolean} props.open

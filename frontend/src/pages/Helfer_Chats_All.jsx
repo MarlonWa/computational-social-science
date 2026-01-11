@@ -1,20 +1,17 @@
+import Constants from '../constants/constants.js';
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 import { useParams } from "react-router-dom";
 import { Box, Paper, Stack, Typography, Badge, Chip } from '@mui/material';
 import { Footer } from "../component/Footer.jsx";
-import { useNavigate } from 'react-router-dom';
 import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
-
-
-const accentColor = '#9759d1ff';
 
 //TODO HARDCODED - rm
 const chats = [
-    { id: 1, request_id: 1, title: 'Laptop Internet-Einrichtung', user: 'Maria Schmidt', lastMessage: 'Mein Laptop verbindet sich nicht mit dem Internet',lastTime: '14:22'},
-    { id: 3, request_id: 3, title: 'Email-Einrichtung', user: 'Anna Weber', lastMessage: 'Kannst du mir morgen helfen?',  lastTime: '10:33'},
+    { id: 1, request_id: 1, title: 'Laptopinternet Einrichtug', user: 'Maria Schmidt', lastMessage: 'Mein Laptpp verbindet sicnicht mit dem Intrrnet',lastTime: '14:22'},
+    { id: 3, request_id: 3, title: 'Email Einrivhtung', user: 'Anna Weber', lastMessage: 'Kannstdu mir morgen hrlfen?',  lastTime: '10:33'},
     { id: 2, request_id: 2, title: 'Smartphone Bedienung', user: 'Hans Müller', lastMessage: 'Vielen Dank für deine Hilfe!', lastTime: 'Gestern' },
-];
+]; //added some typos so we can have a laugh :>
 
 export function Helfer_Chats_All() {
     const { user_id } = useParams();
@@ -42,11 +39,11 @@ export function Helfer_Chats_All() {
                                 cursor: 'pointer',
                                 transition: 'all 0.3s ease',
                                 '&:hover': {
-                                    boxShadow: '0 8px 16px rgba(0,0,0,0.2)',
+                                    boxShadow: '0 8px 16px ' + Constants.shadow_black,
                                     transform: 'translateY(-2px)',
-                                    backgroundColor: '#fafafa'
+                                    backgroundColor: Constants.neutral_light_darker
                                 },
-                                boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                                boxShadow: '0 4px 12px ' + Constants.shadow_black,
                                 borderRadius: 2
                             }}
                         >
@@ -58,18 +55,18 @@ export function Helfer_Chats_All() {
                             }}>
                                 <Box/>
                                 <Box sx={{ minWidth: 0}}>
-                                    <Typography variant="h6" sx={{ fontWeight: 600, color: '#333', mb: 0.5}}>
+                                    <Typography variant="h6" sx={{ fontWeight: 600, color: Constants.text_color_black, mb: 0.5}}>
                                         {chat.title}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: '#666', mb: 0.5 }}>
+                                    <Typography variant="body2" sx={{ color: Constants.text_color_dark_grey, mb: 0.5 }}>
                                         {chat.user}
                                     </Typography>
-                                    <Typography variant="body2" sx={{ color: '#999', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                    <Typography variant="body2" sx={{ color: Constants.neutral_medium, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                                         {chat.lastMessage}
                                     </Typography>
                                 </Box>
                                 <Box sx={{ textAlign: 'right'}}>
-                                    <Typography variant="caption" sx={{ color: '#999', display: 'block', mb: 1 }}>
+                                    <Typography variant="caption" sx={{ color: Constants.neutral_medium, display: 'block', mb: 1 }}>
                                         {chat.lastTime}
                                     </Typography>
                                 </Box>
