@@ -1,5 +1,6 @@
 import Constants from '../constants/constants.js';
 import { Header } from '../component/Header.jsx'
+import { Footer } from '../component/Footer.jsx';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -9,6 +10,7 @@ import { Hilfe_Back_Home } from '../component/Hilfe_Back_Home.jsx';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
 import { useState } from 'react';
+import { Box } from '@mui/material';
 
 //TODO: add FAQ
 
@@ -82,9 +84,10 @@ export function Hilfe_Request_New() {
 
   return (
     <>
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: Constants.neutral_light }}>
         <Header header_title={"Anfrage erstellen"}/>
 
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ flex: 1 }}>
         <Typography
           variant="h3"
           noWrap
@@ -161,6 +164,8 @@ export function Hilfe_Request_New() {
           </Button>
         </Stack>
       </Container>
+      <Footer/>
+      </Box>
     </>
   )
 }

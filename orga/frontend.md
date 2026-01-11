@@ -31,7 +31,7 @@ Helfer_Chats_All.jsx - done IF template is enough
 ~~Helfer_Home.jsx~~
 Helfer_Login.jsx
 ~~Helfer_Request_Assigned_Details.jsx~~
-~~Helfer_Request_Details.jsx~~ - Anfrage annehmen Knopf fehlt noch
+~~Helfer_Request_Details.jsx~~
 ~~Helfer_Requests_All.jsx~~
 ~~Helfer_Requests_Assigned.jsx~~ - DEV Link entfernen
 ~~Helfer_Scoreboard.jsx~~
@@ -41,6 +41,6 @@ Hilfe_Chats_All.jsx
 ~~Hilfe_Home.jsx~~
 Hilfe_Login.jsx
 ~~Hilfe_Request_Details.jsx~~
-Hilfe_Request_New.jsx - only missing the submit functionality, add FAQ
+~~Hilfe_Request_New.jsx~~
 Hilfe_SignUp.jsx
 ~~Home.jsx~~
