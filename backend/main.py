@@ -144,9 +144,9 @@ async def get_request(request_id: int):
     request = conn.execute("SELECT * FROM requests WHERE request_id = ?", (request_id,)).fetchone()
     conn.close()
     if(request):
-        return request
+        return dict(request)
     else: 
-        raise HTTPException(status_code=409, detail="Request not found")
+        raise HTTPException(status_code=404, detail="Request not found")
     
 @app.get("/user/{user_id}/requests")
 #returns all requests from a specific creator (user_id)
