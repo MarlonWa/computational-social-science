@@ -34,6 +34,7 @@ const Constants = {
     footer_color : "#b2c2d2ff",
 
     API_URL : "https://css.wiesemann.dev"
+    //API_URL : "http://localhost:8000"  //for local testing
 };
 
 export default Constants;
