@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from sqlite3 import IntegrityError
 from http import HTTPStatus
 
+#Models 
 class User(BaseModel):
     user_id: int = 0
     name: str = ""
@@ -19,9 +20,13 @@ class User(BaseModel):
 
 class Request(BaseModel):
     request_id: int = 0
-    user_id : int
+    user_id : int = 0
+    helper_id: int = 0
     title: str = ""
     text: str = ""
+    status: str = "open"
+
+request_status = ["open", "closed", "in_progress"]
 
 #load environment variables like the DB name
 load_dotenv()
@@ -136,6 +141,20 @@ async def get_requests():
     conn.close()
     return [dict(r) for r in request]
 
+@app.get("/requests/{status}")
+async def get_open_requests(status: str):
+    if(status not in request_status):
+        raise HTTPException(status_code=406, detail="Invalid status")
+    
+    conn = get_db_connection()
+    try: 
+        requests = conn.execute("SELECT * FROM requests WHERE status = ?", (status,)).fetchall()
+        conn.close()
+        return [dict(r) for r in requests]
+    except Exception as e: 
+        conn.close()
+        raise HTTPException(status_code=500, detail="Error fetching requests")
+    
 @app.get("/request/{request_id}")
 #returns a request from table "requests" by request_id, returns HTTPStatus.NOT_FOUND if not found
 async def get_request(request_id: int):
@@ -185,6 +204,24 @@ async def update_request(request_id: int, request: Request):
         conn.close()
         raise HTTPException(status_code=409, detail="Request not found")
 
+#PUT request
+@app.put("/request/status/{request_id}/{status}")
+#updates a request status in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.NOT_ACCEPTABLE on failure
+async def update_request_status(request_id: int, status: str):
+    if(status not in request_status):
+        raise HTTPException(status_code=406, detail="Invalid status")
+    
+    conn = get_db_connection()
+    try:
+        conn.execute("UPDATE requests SET status = ? WHERE request_id = ?", 
+                     (status, request_id,))
+        conn.commit()
+        conn.close()
+        return HTTPStatus.CREATED
+    except IntegrityError:
+        conn.close()
+        raise HTTPException(status_code=409, detail="Request not found")
+
 #DELETE request
 @app.delete("/request/{request_id}")
 #deletes a request from table "requests", returns HTTPStatus.ACCEPTED
@@ -194,6 +231,70 @@ async def delete_request(request_id: int):
     conn.commit()
     conn.close()
     return HTTPStatus.ACCEPTED
+
+
+#SCOREBOARD DATA
+@app.get("/scoreboard/")
+#get global scoreboard
+async def get_scoreboard():
+    conn = get_db_connection()
+    points = conn.execute("SELECT ROW_NUMBER() OVER (ORDER BY points DESC) as place, name, points FROM users ORDER BY points DESC LIMIT 3").fetchall()
+    conn.close()
+    
+    return [dict(u) for u in points]
+    
+@app.get("/scoreboard/{user_id}")
+#get User scorerank and score
+async def get_scoreboard_status(user_id: int):
+    conn = get_db_connection()
+    points = conn.execute("SELECT points FROM users WHERE user_id = ?", (user_id,)).fetchone()
+    rank = conn.execute("SELECT ROW_NUMBER() OVER (ORDER BY points DESC) as rank FROM users").fetchone()
+    conn.close()
+    
+    return {
+        "user_score" : points["points"],
+        "user_rank" : rank["rank"]
+    }
+
+
+#HELPER DATA
+#GET user
+@app.get("/helper/{helper_id}/requests") 
+async def get_requests_by_helper(helper_id: int):
+    conn = get_db_connection()
+    request = conn.execute("SELECT * FROM requests WHERE helper_id = ?", (helper_id,)).fetchall()
+    conn.close()
+    return [dict(r) for r in request]
+
+#PUT request
+@app.put("/helper/{helper_id}/{request_id}")
+#updates a request helper in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.IM_USED on failure
+async def update_helper_for_request(request_id: int, helper_id: int):
+    conn = get_db_connection()
+    try:
+        conn.execute("UPDATE requests SET helper_id = ? WHERE request_id = ?", 
+                     (helper_id, request_id,))
+        conn.commit()
+        conn.close()
+        return HTTPStatus.CREATED
+    except IntegrityError:
+        conn.close()
+        raise HTTPException(status_code=409, detail="Request not found")
+
+#PUT request
+@app.put("/helper/{helper_id}/remove")
+#removes helper from request
+async def delete_helper_for_request(request_id: int):
+    conn = get_db_connection()
+    try:
+        conn.execute("UPDATE requests SET helper_id = NULL WHERE request_id = ?", 
+                     (request_id,))
+        conn.commit()
+        conn.close()
+        return HTTPStatus.CREATED
+    except IntegrityError:
+        conn.close()
+        raise HTTPException(status_code=409, detail="Request not found") 
 
 
 #SETUP DB
@@ -238,7 +339,8 @@ def createRequestTable():
             user_id INTEGER NOT NULL,
             helper_id INTEGER,
             title TEXT NOT NULL,
-            text VARCHAR(255)
+            text VARCHAR(255),
+            status VARCHAR(20) DEFAULT 'open'
         );
     """)
 
@@ -250,8 +352,9 @@ def createRequestTable():
 #TEST DATA
 async def testUserData():
     users = [
-        User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 10),
+        User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 100),
         User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
+        User(name="Gustav", email="ub@hi.de", password="password", address= "testvill", helper=True, points = 10),
         User(name="Ella", email="ellaelli@hi.de", password="", address= "TUM", helper=False)
     ]
     #im Frontend wird zum Testen angenommen, dass ID1 ein Helfer ist und ID3 ein Hilfesuchender. Bitte nicht ändern
@@ -282,49 +385,3 @@ async def startup():
     createDB()
     await testUserData()
     await testRequestData()
-
-
-
-
-# -----------------------------------------------------------------
-# TODO: Methoden für frontend bitte implementieren :)
-@app.get("/scoreboard/{user_id}")
-async def get_scoreboard_status(user_id: int):
-    # wir haben die /user/{user_id} methode bisschen verändert von der response her, weil wir eine json antwort brauchen
-    # hier brauchen wir bitte die punkte der top3 user und außerdem den rang des aktuellen users
-    return {"first" : 0,
-            "second" : 0,
-            "third" : 0,
-            "user_rank" : 1
-            }
-
-#TODO: bitte noch zu requests einen boolean "completed" oder "done" oder so hinzufügen, nach dem wir in "meine anfragen" filtern können
-
-#TODO: in der request table braucht es eine methode
-@app.get("/helper/{helper_id}/requests") 
-async def get_requests_by_helper(helper_id: int):
-    return []  # return dict of requests assigned to helper
-
-#TODO: assigns helper_id to request
-#TODO: check if helperid exists and is a helper
-@app.put("/helper/{helper_id}/{request_id}")
-async def update_helper_for_request(helper_id: int, request_id: int):
-    return {"status": "accepted"}  # return acceptance status
-
-#TODO: unassigns helper_id from request, set to NULL
-#TODO: check if helperid exists and is a helper and was assigned to request
-@app.delete("/helper/{helper_id}/{request_id}")
-async def delete_helper_for_request(helper_id: int, request_id: int):
-    return {"status": "deleted"}  # return deletion status
-
-#TODO: check if this method is fine. we need it, so we wrote it :)
-@app.get("/requests/open")
-async def get_open_requests():
-    conn = get_db_connection()
-    try: 
-        requests = conn.execute("SELECT * FROM requests WHERE helper_id IS NULL").fetchall()
-        conn.close()
-        return [dict(r) for r in requests]
-    except Exception as e: 
-        conn.close()
-        raise HTTPException(status_code=500, detail="Error fetching requests")
