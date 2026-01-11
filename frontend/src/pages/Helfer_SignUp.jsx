@@ -13,6 +13,7 @@ import { styled } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Link } from 'react-router-dom';
 import { Header } from '../component/Header.jsx'
+import { Footer } from '../component/Footer.jsx';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -27,13 +28,6 @@ const Card = styled(MuiCard)(({ theme }) => ({
     },
     boxShadow:
         Constants.shadow_login + ' 0px 5px 15px 0px, ' + Constants.shadow_login + ' 0px 15px 35px -5px',
-}));
-
-const SignInContainer = styled(Stack)(({ theme }) => ({
-    padding: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-        padding: theme.spacing(4),
-    },
 }));
 
 export function Helfer_SignUp() {
@@ -95,9 +89,13 @@ export function Helfer_SignUp() {
     };
 
     return (
-        <>
-        <Header />
-            <SignInContainer direction="column" justifyContent="space-between">
+        <Box sx={{
+            height: "100vh",
+            display: 'flex',
+            flexDirection: 'column',
+        }}>
+            <Header />
+            <Box flex="1" display="flex" justifyContent="center" alignItems="flex-start" sx={{ px: 2, pt: 1 }}>
                 <Card variant="outlined" sx={{ position: 'relative' }}>
                     <Button
                         component={Link}
@@ -189,6 +187,7 @@ export function Helfer_SignUp() {
                             fullWidth
                             variant="contained"
                             onClick={validateInputs}    
+                            sx={{ backgroundColor: Constants.primary_color }}
                         >
                             Registrieren
                         </Button>
@@ -222,7 +221,8 @@ export function Helfer_SignUp() {
                         Zurück
                     </Button> */}
                 </Card>
-            </SignInContainer>
-        </>
+            </Box>
+            <Footer />
+        </Box>
     );
 }

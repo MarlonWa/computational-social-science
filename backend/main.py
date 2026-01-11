@@ -362,9 +362,9 @@ def createRequestTable():
 #TEST DATA
 async def testUserData():
     users = [
-        #User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 100),
-        #User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
-        #User(name="Gustav", email="ub@hi.de", password="password", address= "testvill", helper=True, points = 10),
+        User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 100),
+        User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
+        User(name="Gustav", email="ub@hi.de", password="password", address= "testvill", helper=True, points = 10),
         User(name="Ella", email="ellaelli@hi.de", password="", address= "TUM", helper=False)
     ]
     #im Frontend wird zum Testen angenommen, dass ID1 ein Helfer ist und ID3 ein Hilfesuchender. Bitte nicht ändern

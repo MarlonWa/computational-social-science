@@ -31,7 +31,11 @@ export function Footer() {
                             {pages.map((page) => (
                                 <Box sx={{ flex: 1}} key={page.name}>
                                     <Button
-                                        sx={{ color: Constants.neutral_light, "&:hover": { color: Constants.neutral_light } }}
+                                        sx={{ 
+                                            fontSize: { xs: '0.7rem', md: '0.9rem' },
+                                            color: Constants.neutral_light, 
+                                            "&:hover": { color: Constants.neutral_light } 
+                                        }}
                                         component={Link}
                                         to={page.path}
                         >

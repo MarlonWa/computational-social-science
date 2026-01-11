@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 
 import { Header } from '../component/Header.jsx'
 import ForgotPassword from '../component/ForgotPassword.jsx';
+import { Footer } from '../component/Footer.jsx';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -29,13 +30,6 @@ const Card = styled(MuiCard)(({ theme }) => ({
     },
     boxShadow:
         Constants.shadow_login + ' 0px 5px 15px 0px, ' + Constants.shadow_login + ' 0px 15px 35px -5px',
-}));
-
-const SignInContainer = styled(Stack)(({ theme }) => ({
-    padding: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-        padding: theme.spacing(4),
-    },
 }));
 
 export function Helfer_Login() {
@@ -95,9 +89,13 @@ export function Helfer_Login() {
     };
 
     return (
-        <>
+        <Box sx={{
+            height: "100vh",
+            display: 'flex',
+            flexDirection: 'column',
+        }}>
             <Header />
-            <SignInContainer direction="column" justifyContent="space-between">
+            <Box flex="1" display="flex" justifyContent="center" alignItems="flex-start" sx={{ px: 2, pt: 1 }}>
                 <Card variant="outlined" sx={{ position: 'relative' }}>
                     <Button
                         component={Link}
@@ -119,7 +117,6 @@ export function Helfer_Login() {
                     {/* DEV LINE - TODO */}
 
                     <Link to="/helfer/1"> DEV: Login als HelferID 1 </Link>
-                    <br />
 
                     {/* title */}
                     <Typography
@@ -227,7 +224,8 @@ export function Helfer_Login() {
                         Zurück
                     </Button> */}
                 </Card>
-            </SignInContainer>
-        </>
+            </Box>
+            <Footer />
+        </Box>
     );
 }

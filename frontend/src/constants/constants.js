@@ -1,5 +1,6 @@
 const Constants = {
     //most buttons
+    primary_color_very_light : "#e6d4f5",
     primary_color_light : "#b588df",
     primary_color : "#9759d1ff", //buttons
     primary_color_dark : "#8c32d6", //hover
