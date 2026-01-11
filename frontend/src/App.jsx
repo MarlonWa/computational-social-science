@@ -50,7 +50,7 @@ function App() {
         <Route path="/hilfe/:user_id/request/:request_id" element={<Hilfe_Request_Details />} />
         <Route path="/hilfe/:user_id/new" element={<Hilfe_Request_New />} />
         <Route path="/hilfe/:user_id/chats" element={<Hilfe_Chats_All />} />
-        <Route path="/hilfe/:user_id/chat/:chat_id" element={<Hilfe_Chat />} />
+        <Route path="/hilfe/:user_id/request/:request_id/chat" element={<Hilfe_Chat />} />
 
         <Route path="/dev" element={<Dev />} />
       </Routes>

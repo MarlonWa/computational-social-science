@@ -41,7 +41,7 @@ export function Hilfe_Home() {
                         sx={{ 
                             width: '100%', 
                             py: 3, 
-                            fontSize: '3rem',
+                            fontSize: { xs: '2.4rem', sm: '2.8rem' },
                             fontWeight: 'bold',
                             mb: 4,
                             borderRadius: 2,
@@ -74,7 +74,7 @@ export function Hilfe_Home() {
                                         }
                                     }}
                                 >
-                                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#333' }}>
+                                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#333', fontSize: { xs: '1.8rem', sm: '2.5rem' } }}>
                                         {request.title}
                                     </Typography>
                                 </ListItemButton>

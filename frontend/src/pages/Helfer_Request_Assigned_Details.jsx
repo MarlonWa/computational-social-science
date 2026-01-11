@@ -66,105 +66,96 @@ export function Helfer_Request_Assigned_Details() {
 
     return (
         <>
-           {/*  <Header header_title={"Detailansicht: Anfrage in Bearbeitung"}/>
-            <h3> Details zur Anfrage x, aktuell in Bearbeitung von diesem Helfer </h3>
-            <Link to={`/helfer/${user_id}/myrequest/${request_id}/chat`}> zugehöriger Chat </Link>
-            <br />
-            <Link to={`/helfer/${user_id}/myrequests`}> Zurück zu meinen aktiven Anfragen </Link>
-            <br />
-            <p> Das ist die Detailansicht einer Anfrage, die gerade in Bearbeitung von diesem Helfer ist. Man kann auf den Chat zugreifen. </p> */}
-
-
-        <Box sx={{
-            height: "100vh",
-            display: 'flex',
-            flexDirection: 'column',
-        }}>
-            <Header header_title={"zugewiesene Anfrage"} additional_links={back_links} />
-
             <Box sx={{
-                flex: 1,
-                px: { xs: 1, sm: 3 },
-                pt: { xs: 1, sm: 3 },
+                height: "100vh",
                 display: 'flex',
-                justifyContent: 'center',
-                overflow: 'auto'
+                flexDirection: 'column',
             }}>
-                <Stack sx={{
-                    width: '100%',
-                    maxWidth: '900px',
-                    gap: { xs: 2, sm: 3 }
+                <Header header_title={"zugewiesene Anfrage"} additional_links={back_links} />
+
+                <Box sx={{
+                    flex: 1,
+                    px: { xs: 1, sm: 3 },
+                    pt: { xs: 1, sm: 3 },
+                    display: 'flex',
+                    justifyContent: 'center',
+                    overflow: 'auto'
                 }}>
-                    {/* Title Section */}
-                    <Paper sx={{
-                        p: { xs: 2, sm: 3 },
-                        backgroundColor: 'white',
-                        borderRadius: 2,
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                    <Stack sx={{
+                        width: '100%',
+                        maxWidth: '900px',
+                        gap: { xs: 2, sm: 3 }
                     }}>
-                        <Typography variant="h4" sx={{ fontWeight: 600, color: '#333', mb: 1 }}>
-                            {request.title}
-                        </Typography>
-                        {/* <Typography variant="body2" sx={{ color: '#666' }}>
-                            Von: {requestData.user} • {requestData.createdAt}
-                        </Typography> */}
-                    </Paper>
+                        {/* Title Section */}
+                        <Paper sx={{
+                            p: { xs: 2, sm: 3 },
+                            backgroundColor: 'white',
+                            borderRadius: 2,
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                        }}>
+                            <Typography variant="h4" sx={{ fontWeight: 600, color: '#333', mb: 1 }}>
+                                {request.title}
+                            </Typography>
+                            {/* <Typography variant="body2" sx={{ color: '#666' }}>
+                                Von: {requestData.user} • {requestData.createdAt}
+                            </Typography> */}
+                        </Paper>
 
-                    {/* Description Section */}
-                    <Paper sx={{
-                        p: { xs: 2, sm: 3 },
-                        backgroundColor: 'white',
-                        borderRadius: 2,
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
-                    }}>
-                        <Typography variant="h6" sx={{ fontWeight: 600, color: '#333', mb: 2 }}>
-                            Beschreibung
-                        </Typography>
-                        <Typography variant="body1" sx={{ color: '#555', lineHeight: 1.8 }}>
-                            {request.text}
-                        </Typography>
-                    </Paper>
+                        {/* Description Section */}
+                        <Paper sx={{
+                            p: { xs: 2, sm: 3 },
+                            backgroundColor: 'white',
+                            borderRadius: 2,
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+                        }}>
+                            <Typography variant="h6" sx={{ fontWeight: 600, color: '#333', mb: 2 }}>
+                                Beschreibung
+                            </Typography>
+                            <Typography variant="body1" sx={{ color: '#555', lineHeight: 1.8 }}>
+                                {request.text}
+                            </Typography>
+                        </Paper>
 
-                    {/* Action Buttons */}
-                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 2 }}>
-                        <Button
-                            component={Link}
-                            to={`/helfer/${user_id}/myrequests`}
-                            variant="outlined"
-                            startIcon={<ArrowBackIcon />}
-                            sx={{
-                                flex: 1,
-                                borderColor: '#999',
-                                color: '#333',
-                                '&:hover': {
-                                    borderColor: '#666',
-                                    backgroundColor: '#f5f5f5'
-                                }
-                            }}
-                        >
-                            Zurück zu meinen Anfragen
-                        </Button>
-                        <Button
-                            component={Link}
-                            to={`/helfer/${user_id}/myrequest/${request_id}/chat`}
-                            variant="contained"
-                            startIcon={<ChatIcon />}
-                            sx={{
-                                flex: 1,
-                                backgroundColor: accentColor,
-                                '&:hover': {
-                                    backgroundColor: '#7f19d2'
-                                }
-                            }}
-                        >
-                            zum  Chat
-                        </Button>
+                        {/* Action Buttons */}
+                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 2 }}>
+                            <Button
+                                component={Link}
+                                to={`/helfer/${user_id}/myrequests`}
+                                variant="outlined"
+                                startIcon={<ArrowBackIcon />}
+                                sx={{
+                                    flex: 1,
+                                    borderColor: '#999',
+                                    color: '#333',
+                                    '&:hover': {
+                                        borderColor: '#666',
+                                        backgroundColor: '#f5f5f5'
+                                    }
+                                }}
+                            >
+                                Zurück zu meinen Anfragen
+                            </Button>
+                            <Button
+                                component={Link}
+                                to={`/helfer/${user_id}/myrequest/${request_id}/chat`}
+                                variant="contained"
+                                startIcon={<ChatIcon />}
+                                sx={{
+                                    flex: 1,
+                                    backgroundColor: accentColor,
+                                    '&:hover': {
+                                        backgroundColor: '#7f19d2'
+                                    }
+                                }}
+                            >
+                                zum  Chat
+                            </Button>
+                        </Stack>
                     </Stack>
-                </Stack>
-            </Box>
+                </Box>
 
-            <Footer />
-        </Box>
+                <Footer />
+            </Box>
         </>
     );
 }
