@@ -266,7 +266,7 @@ async def testRequestData():
         Request(user_id=1, title="Anfrage numero 1", text = "Das ist ne Anfrage. yay"),
         Request(user_id=1, title="Anfrage numero 2", text = "blib blub yay"),
         Request(user_id=3, title="Anfrage numero 3", text = "Auch eine Anfrage."),
-        Request(user_id=2, title="Anfrage numero 4", text = "hallo")
+        Request(user_id=2, title="Anfrage numero 4", text = "Anfrageänderung zu Testzwecken.")
     ]
     #im Frontend wird zum Testen angenommen, dass Request 1 von UserID 1 ist und Request 3 von UserID 3. Bitte nicht ändern
     
