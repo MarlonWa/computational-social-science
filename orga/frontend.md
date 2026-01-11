@@ -1,12 +1,3 @@
-## our colour scheme ^^
-blue (header): #1976d2ff
-greyish (footer): #b2c2d2ff
-purple (buttons): #9759d1ff
-dark purple (hover color): #7f19d2ff
-pink (back buttons): #d159c7ff
-dark pink (hover color): #d1199eff
-
-
 ## Pages Design
 
 ~~Dev.jsx~~
