@@ -214,8 +214,12 @@ async def update_request_status(request_id: int, status: str):
     
     conn = get_db_connection()
     try:
-        conn.execute("UPDATE requests SET status = ? WHERE request_id = ?", 
-                     (status, request_id,))
+        if status == "closed":
+            conn.execute("UPDATE requests SET status = ?, helper_id = NULL WHERE request_id = ?", 
+                         (status, request_id,))
+        else:
+            conn.execute("UPDATE requests SET status = ? WHERE request_id = ?", 
+                         (status, request_id,))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED
@@ -269,6 +273,7 @@ async def get_scoreboard_status(user_id: int):
 
 #HELPER DATA
 #GET user
+# get all requests assigned to a specific helper (helper_id)
 @app.get("/helper/{helper_id}/requests") 
 async def get_requests_by_helper(helper_id: int):
     conn = get_db_connection()
@@ -282,8 +287,8 @@ async def get_requests_by_helper(helper_id: int):
 async def update_helper_for_request(request_id: int, helper_id: int):
     conn = get_db_connection()
     try:
-        conn.execute("UPDATE requests SET helper_id = ? WHERE request_id = ?", 
-                     (helper_id, request_id,))
+        conn.execute("UPDATE requests SET helper_id = ?, status = ? WHERE request_id = ?", 
+                     (helper_id, "in_progress", request_id,))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED
@@ -292,19 +297,19 @@ async def update_helper_for_request(request_id: int, helper_id: int):
         raise HTTPException(status_code=409, detail="Request not found")
 
 #PUT request
-@app.put("/helper/{helper_id}/remove")
+@app.put("/helper/{helper_id}/remove/{request_id}")
 #removes helper from request
 async def delete_helper_for_request(request_id: int):
     conn = get_db_connection()
     try:
-        conn.execute("UPDATE requests SET helper_id = NULL WHERE request_id = ?", 
-                     (request_id,))
+        conn.execute("UPDATE requests SET helper_id = NULL, status = ? WHERE request_id = ?", 
+                     ("open", request_id,))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED
     except IntegrityError:
         conn.close()
-        raise HTTPException(status_code=409, detail="Request not found") 
+        raise HTTPException(status_code=409, detail="Request not found")
 
 
 #SETUP DB
@@ -362,9 +367,9 @@ def createRequestTable():
 #TEST DATA
 async def testUserData():
     users = [
-        #User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 100),
-        #User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
-        #User(name="Gustav", email="ub@hi.de", password="password", address= "testvill", helper=True, points = 10),
+        User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 100),
+        User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
+        User(name="Gustav", email="ub@hi.de", password="password", address= "testvill", helper=True, points = 10),
         User(name="Ella", email="ellaelli@hi.de", password="", address= "TUM", helper=False)
     ]
     #im Frontend wird zum Testen angenommen, dass ID1 ein Helfer ist und ID3 ein Hilfesuchender. Bitte nicht ändern
