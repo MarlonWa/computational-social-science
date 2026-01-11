@@ -4,8 +4,8 @@ import { Header } from '../component/Header.jsx'
 import { Footer } from '../component/Footer.jsx';
 
 const pages = [
-  { name: 'ICH WILL HELFEN', path: '/helfer/login', color: "#9759d1ff" },
-  { name: 'ICH SUCHE HILFE', path: '/hilfe/login', color: "#d159c7ff" }
+  { name: 'ICH WILL HELFEN', path: '/helfer/login', color: "#9759d1ff", hoverColor: "#7f19d2" },
+  { name: 'ICH SUCHE HILFE', path: '/hilfe/login', color: "#d159c7ff", hoverColor: "#d1199e" },
 ]
 
 export function Home() { //DONE FOR NOW :)
@@ -45,10 +45,11 @@ export function Home() { //DONE FOR NOW :)
                 flex: 1,
                 borderRadius: 0,
                 fontSize: { xs: "2rem", md: "4rem" },
-                opacity: 0.85,
+                //opacity: 0.85,
                 "&:hover": {
-                  color: "white", // keep same bg
-                  opacity: 1,
+                  color: "white", // keep same text color on hover
+                  //opacity: 1,
+                  backgroundColor: page.hoverColor
                 },
               }}
               component={Link}
