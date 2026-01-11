@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { Footer } from '../component/Footer.jsx';
 import { Box, Button, Container, List, ListItem, ListItemButton, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
+const accentColor = "#9759d1ff";
+const hoverAccentColor = "#7f19d2ff";
 
 export function Hilfe_Home() {
     const { user_id } = useParams();
@@ -45,9 +47,13 @@ export function Hilfe_Home() {
                             fontWeight: 'bold',
                             mb: 4,
                             borderRadius: 2,
-                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                            boxShadow: '0 8px 25px rgba(102, 126, 234, 0.6)',
-                            '&:hover': { boxShadow: '0 12px 35px rgba(102, 126, 234, 0.8)' }
+                            /* background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                            boxShadow: '0 8px 25px rgba(102, 126, 234, 0.6)', */
+                            backgroundColor: accentColor,
+                            boxShadow: hoverAccentColor,
+                            //'&:hover': { boxShadow: "0 12px 35px " + hoverAccentColor }
+                            '&:hover': { backgroundColor: hoverAccentColor}
+                            //changed this to our default colors, possible to change back
                         }}
                     >
                         Neue Anfrage
@@ -69,7 +75,7 @@ export function Hilfe_Home() {
                                         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
                                         '&:hover': { 
                                             boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
-                                            transform: 'translateY(-2px)',
+                                            //transform: 'translateY(-2px)',
                                             transition: 'all 0.3s ease'
                                         }
                                     }}
