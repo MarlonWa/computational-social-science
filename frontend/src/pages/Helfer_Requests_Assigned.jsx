@@ -86,6 +86,8 @@ export function Helfer_Requests_Assigned() {
             <Header header_title={"Deine aktuellen Anfragen"} additional_links={back_links} />
             <Box sx={{ flex: 1, p: 3, maxWidth: 900, mx: 'auto' }}>
 
+            <Link to={`/helfer/${user_id}/myrequest/1`}> DEV: Link zu Anfrage 1 </Link>
+
                 {requests.length === 0 ? (
                     <>
                         <Alert severity="info">Keine aktiven Anfragen vorhanden.</Alert>

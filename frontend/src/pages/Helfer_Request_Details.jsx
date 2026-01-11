@@ -130,7 +130,7 @@ export function Helfer_Request_Details() {
                                 }
                             }}
                         >
-                            Zurück
+                            Zurück zu allen Anfragen
                         </Button>
                         <Button
                             component={Link}
