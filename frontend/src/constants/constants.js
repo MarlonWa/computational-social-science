@@ -10,6 +10,7 @@ const Constants = {
     secondary_color_light : "#f0ccec",
     secondary_color : "#d159c7ff",
     secondary_color_dark : "#d1199eff", //hover
+    secondary_color_text : "#831c66",
 
     //neutral colours (e.g. button backgrounds)
     neutral_light : "white",
