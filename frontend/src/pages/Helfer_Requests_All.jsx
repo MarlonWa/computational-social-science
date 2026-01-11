@@ -5,11 +5,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Box, Container, List, ListItem, ListItemButton, Typography, CircularProgress, Alert } from '@mui/material';
 import { Footer } from '../component/Footer.jsx';
-<<<<<<< HEAD
-import { Helfer_Home } from '../component/Helfer_Home.jsx';
-=======
 import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
->>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
 
 export function Helfer_Requests_All() {
     const { user_id } = useParams();
@@ -25,11 +21,7 @@ export function Helfer_Requests_All() {
     ]
 
     useEffect(() => {
-<<<<<<< HEAD
-        fetch(`http://localhost:8000/requests/open`)
-=======
         fetch(Constants.API_URL + `/requests/open`)
->>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("Keine Anfragen gefunden");
@@ -53,11 +45,7 @@ export function Helfer_Requests_All() {
             <CircularProgress />
             <br />
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-<<<<<<< HEAD
-                <Helfer_Home user_id={user_id} />
-=======
                 <Helfer_Back_Home user_id={user_id} />
->>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
             </Box>
         </Box>
     </>
@@ -69,11 +57,7 @@ export function Helfer_Requests_All() {
         <Alert severity="error" sx={{ m: 2 }}>{error}</Alert>
         <br />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-<<<<<<< HEAD
-            <Helfer_Home user_id={user_id} />
-=======
             <Helfer_Back_Home user_id={user_id} />
->>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
         </Box>
     </>
     );
@@ -83,11 +67,7 @@ export function Helfer_Requests_All() {
             <Header header_title={"Offene Anfragen"} additional_links={back_links} />
 
             <Container maxWidth="md" sx={{ flex: 1, py: 2 }}>
-<<<<<<< HEAD
-                <Helfer_Home user_id={user_id} />
-=======
                 <Helfer_Back_Home user_id={user_id} />
->>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
 
                 <List sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     {requests.map((request) => (
@@ -105,11 +85,7 @@ export function Helfer_Requests_All() {
                                         boxShadow: '0 2px 8px ' + Constants.shadow_black,
                                         transition: 'all 0.3s ease',
                                         '&:hover': {
-<<<<<<< HEAD
-                                            boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-=======
                                             boxShadow: '0 8px 16px ' + Constants.shadow_black,
->>>>>>> 565f5e6c4af7c83215e1646a9588f9f4d74ec0ef
                                             transform: 'translateY(-2px)'
                                         }
                                     }}
