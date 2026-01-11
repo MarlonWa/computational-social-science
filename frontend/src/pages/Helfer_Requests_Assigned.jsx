@@ -5,7 +5,7 @@ import { Footer } from '../component/Footer.jsx';
 import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Box, Typography, Card, CircularProgress, Alert, ButtonBase } from '@mui/material';
+import { Box, Container, List, ListItem, ListItemButton, Typography, CircularProgress, Alert } from '@mui/material';
 
 
 export function Helfer_Requests_Assigned() {
@@ -41,7 +41,7 @@ export function Helfer_Requests_Assigned() {
 
     if (loading) return (
     <>
-        <Header header_title={"AKTIVE ANFRAGEN"} additional_links={back_links} />
+        <Header header_title={"Aktive Anfragen"} additional_links={back_links} />
         <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
             <CircularProgress />
             <br />
@@ -54,7 +54,7 @@ export function Helfer_Requests_Assigned() {
 
     if (error) return (
     <>
-        <Header header_title={"AKTIVE ANFRAGEN: FEHLER"} additional_links={back_links} />
+        <Header header_title={"Aktive Anfragen: Fehler"} additional_links={back_links} />
         <Alert severity="error" sx={{ m: 2 }}>{error}</Alert>
         <br />
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -64,68 +64,44 @@ export function Helfer_Requests_Assigned() {
     );
 
     return (
-        <Box sx={{ height: "100vh", display: 'flex', flexDirection: 'column' }}>
-
+        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', }}>
             <Header header_title={"Deine aktuellen Anfragen"} additional_links={back_links} />
-            <Box sx={{ flex: 1, p: 3, maxWidth: 900, mx: 'auto' }}>
 
-            <Link to={`/helfer/${user_id}/myrequest/1`}> DEV: Link zu Anfrage 1 </Link>
+            <Container maxWidth="md" sx={{ flex: 1, py: 2 }}>
+                <Helfer_Back_Home user_id={user_id} />
 
-                {requests.length === 0 ? (
-                    <>
-                        <Alert severity="info">Keine aktiven Anfragen vorhanden.</Alert>
-                        <br />
-                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                            <Helfer_Back_Home user_id={user_id} />
-                        </Box>
-                    </>
-                ) : (
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        <Helfer_Back_Home user_id={user_id} />
-
-                        {requests.map((request) => (
-                            <Card
-                                key={request.request_id}
-                                component={Link}
+                <List sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    {requests.map((request) => (
+                        <ListItem key={request.request_id} disablePadding>
+                            <Link
                                 to={`/helfer/${user_id}/myrequest/${request.request_id}`}
-                                sx={{
-                                    py: 2,
-                                    px: 4,
-                                    cursor: 'pointer',
-                                    transition: 'all 0.3s ease',
-                                    '&:hover': {
-                                        boxShadow: '0 8px 16px ' + Constants.shadow_black,
-                                        transform: 'translateY(-2px)',
-                                        backgroundColor: Constants.neutral_light_darker
-                                    },
-                                    boxShadow: '0 4px 12px ' + Constants.shadow_black,
-                                    textDecoration: 'none'
-                                }}
+                                style={{ textDecoration: 'none', width: '100%' }}
                             >
-                                <Typography variant="h6" sx={{ fontWeight: 600, color: Constants.text_color_black, mb: 0.5 }}>
-                                    {request.title}
-                                </Typography>
-                                <Typography
-                                    variant="body2"
+                                <ListItemButton
                                     sx={{
-                                        color: Constants.text_color_dark_grey,
-                                        display: '-webkit-box',
-                                        WebkitLineClamp: 3,
-                                        WebkitBoxOrient: 'vertical',
-                                        overflow: 'hidden',
-                                        textOverflow: 'ellipsis'
+                                        p: 2.5,
+                                        backgroundColor: Constants.neutral_light,
+                                        borderRadius: 2,
+                                        borderLeft: '4px solid ' + Constants.primary_color,
+                                        boxShadow: '0 2px 8px ' + Constants.shadow_black,
+                                        transition: 'all 0.3s ease',
+                                        '&:hover': {
+                                            boxShadow: '0 8px 16px ' + Constants.shadow_black,
+                                            transform: 'translateY(-2px)'
+                                        }
                                     }}
                                 >
-                                    {request.text}
-                                </Typography>
-                            </Card>
-                        ))}
-                    </Box>
-                )}
-
-            </Box>
+                                    <Typography variant="h6" sx={{ fontWeight: '700', color: Constants.text_color_black }}>
+                                        {request.title}
+                                    </Typography>
+                                </ListItemButton>
+                            </Link>
+                        </ListItem>
+                    ))}
+                </List>
+            </Container>
 
             <Footer />
-        </Box >
+        </Box>
     );
 }

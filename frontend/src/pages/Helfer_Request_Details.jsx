@@ -132,22 +132,26 @@ export function Helfer_Request_Details() {
                         >
                             Zurück zu allen Anfragen
                         </Button>
+
                         <Button
-                            component={Link}
-                            to={`/`} /* TODO: anfrage annehmen? */
-                            variant="contained"
-                            startIcon={<ChatIcon />}
-                            sx={{
+                                variant="contained"
+                                onClick={() => {
+                                    fetch(Constants.API_URL + `/helper/${user_id}/${request_id}`, { method: 'PUT' })
+                                        .then(() => window.location.href = `/#/helfer/${user_id}/myrequests`)
+                                        .catch((err) => setError(err.message));
+                                }}
+                                sx={{
                                     flex: 1,
+                                    p: 1,
                                     backgroundColor: Constants.primary_color,
                                     '&:hover': {
                                         backgroundColor: Constants.primary_color_dark,
                                         color : Constants.neutral_light
                                     }
                                 }}
-                        >
-                            Anfrage annehmen
-                        </Button>
+                            >
+                                Anfrage annehmen
+                            </Button>
                     </Stack>
                 </Stack>
             </Box>

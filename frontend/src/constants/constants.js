@@ -1,5 +1,6 @@
 const Constants = {
     //most buttons
+    primary_color_very_light : "#e6d4f5",
     primary_color_light : "#b588df",
     primary_color : "#9759d1ff", //buttons
     primary_color_dark : "#8c32d6", //hover
@@ -9,6 +10,7 @@ const Constants = {
     secondary_color_light : "#f0ccec",
     secondary_color : "#d159c7ff",
     secondary_color_dark : "#d1199eff", //hover
+    secondary_color_text : "#831c66",
 
     //neutral colours (e.g. button backgrounds)
     neutral_light : "white",
@@ -33,8 +35,8 @@ const Constants = {
     header_color : "#4c79ccff",
     footer_color : "#b2c2d2ff",
 
-    API_URL : "https://css.wiesemann.dev"
-    //API_URL : "http://localhost:8000"  //for local testing
+    //API_URL : "https://css.wiesemann.dev"
+    API_URL : "http://localhost:8000"  //for local testing
 };
 
 export default Constants;
