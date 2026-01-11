@@ -24,6 +24,3 @@ backend/db.sqlite
 
 # vite config
 frontend/vite.config.js
-
-#final project build
-frontend/dist
