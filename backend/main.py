@@ -249,10 +249,19 @@ async def get_scoreboard():
 async def get_scoreboard_status(user_id: int):
     conn = get_db_connection()
     points = conn.execute("SELECT points FROM users WHERE user_id = ?", (user_id,)).fetchone()
-    rank = conn.execute("SELECT ROW_NUMBER() OVER (ORDER BY points DESC) as rank FROM users").fetchone()
+    rank = conn.execute("SELECT rank FROM (SELECT user_id, ROW_NUMBER() OVER (ORDER BY points DESC) AS rank FROM users) WHERE user_id = ?", (user_id,)).fetchone()
+    top3 = conn.execute("SELECT points FROM users ORDER BY points DESC LIMIT 3").fetchall()
     conn.close()
+
+    if len(top3) == 1:
+        top3 = [dict(top3[0]), {"points": 0}, {"points": 0}]
+    elif len(top3) == 2:
+        top3 = [dict(top3[0]), dict(top3[1]), {"points": 0}]
     
     return {
+        "top1": top3[0]["points"],
+        "top2": top3[1]["points"],
+        "top3": top3[2]["points"],
         "user_score" : points["points"],
         "user_rank" : rank["rank"]
     }
@@ -353,9 +362,9 @@ def createRequestTable():
 #TEST DATA
 async def testUserData():
     users = [
-        User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 100),
-        User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
-        User(name="Gustav", email="ub@hi.de", password="password", address= "testvill", helper=True, points = 10),
+        #User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 100),
+        #User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
+        #User(name="Gustav", email="ub@hi.de", password="password", address= "testvill", helper=True, points = 10),
         User(name="Ella", email="ellaelli@hi.de", password="", address= "TUM", helper=False)
     ]
     #im Frontend wird zum Testen angenommen, dass ID1 ein Helfer ist und ID3 ein Hilfesuchender. Bitte nicht ändern
