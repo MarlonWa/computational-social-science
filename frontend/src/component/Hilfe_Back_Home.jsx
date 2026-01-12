@@ -29,7 +29,7 @@ export function Hilfe_Back_Home({color_primary = Constants.secondary_color_text,
                     },
                     transition: 'all 0.2s ease',
                     width: 'auto',
-                    fontSize: { xs: '1.6rem', sm: '2.2rem' }
+                    fontSize: { xs: '1.6rem', sm: '2.0rem' }
                 }}
             >
                 ← Zurück zur Startseite
