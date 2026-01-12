@@ -113,7 +113,7 @@ export function Dev() {
                         <Link style={{ fontSize: "25px" }} to={`/hilfe/${default_hilfe}/chats`}> Hilfe_Chats_All</Link>
                         <br />
 
-                        <Link style={{ fontSize: "25px" }} to={`/hilfe/${default_hilfe}/chat/${default_chat}`}> Hilfe_Chat</Link>
+                        <Link style={{ fontSize: "25px" }} to={`/hilfe/${default_hilfe}/request/${default_hilfe_request}/chat`}> Hilfe_Chat</Link>
                         <br />
                         <br />
                         <Link style={{ fontSize: "25px" }} to={`/faq`}> FAQ</Link>

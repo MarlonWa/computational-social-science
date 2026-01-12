@@ -204,7 +204,7 @@ export function Hilfe_SignUp() {
                         </Typography>
 
                         <Typography variant='h6' sx={{ textAlign: 'center', fontSize: '1.1rem', color: Constants.header_color }} component={Link} to="/hilfe/login">
-                            Dann stattdessen hier drücken zum Anmelden
+                            Dann stattdessen hier drücken
                         </Typography>
                     </Box>
 
