@@ -143,6 +143,7 @@ async def get_requests():
     return [dict(r) for r in request]
 
 @app.get("/requests/{status}")
+#returns all requests from table "requests" by status
 async def get_open_requests(status: str):
     if(status not in request_status):
         raise HTTPException(status_code=406, detail="Invalid status")
@@ -298,7 +299,7 @@ async def update_helper_for_request(request_id: int, helper_id: int):
 
 #PUT request
 @app.put("/helper/{helper_id}/remove/{request_id}")
-#removes helper from request
+#removes a helper from a request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def delete_helper_for_request(helper_id: int, request_id: int):
     conn = get_db_connection()
     try:
