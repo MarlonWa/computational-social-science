@@ -1,6 +1,6 @@
 import Constants from '../constants/constants.js';
-import { Header } from "../component/Header.jsx";
-import { Footer } from "../component/Footer.jsx";
+import { Header } from '../component/Header.jsx';
+import { Footer } from '../component/Footer.jsx';
 import { Box } from "@mui/material";
 
 export function Datenschutz() {
