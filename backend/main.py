@@ -91,9 +91,9 @@ async def get_user(user_id: int):
     else: 
         raise HTTPException(status_code=404, detail="User not found")
 
-@app.get("/user/login/{email}")
+@app.post("/login")
 #returns a user from table "users" by user_id, returns HTTPStatus.NOT_FOUND if not found
-async def get_user(email: str):
+async def login(email: str, helper: bool):
     conn = get_db_connection()
     user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
     conn.close()
@@ -101,6 +101,7 @@ async def get_user(email: str):
         return {
             "user_id": user["user_id"],
             "password": user["password"],
+            "helper": user["helper"]
         }
     else: 
         raise HTTPException(status_code=404, detail="User not found")
@@ -122,18 +123,6 @@ async def create_user(user: User):
     except IntegrityError: 
         conn.close()
         raise HTTPException(status_code=409, detail="Email already used")
-
-@app.post("/login")
-#login user, returns HTTPStatus.ACCEPTED on success, HTTPStatus.CONFLICT on failure
-async def login(user: User):
-    conn = get_db_connection()
-    result = conn.execute("SELECT * FROM users WHERE email = ? AND password = ?", 
-                          (user.email, user.password,)).fetchone()
-    conn.close()
-    if(result):
-        return 
-    else:
-        raise HTTPException(status_code=409, detail="Invalid Login")
 
 #PUT user
 @app.put("/user/{user_id}")
@@ -605,7 +594,7 @@ async def testUserData():
         User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 100),
         User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
         User(name="Gustav", email="ub@hi.de", password="password", address= "testvill", helper=True, points = 10),
-        User(name="Ella", email="ellaelli@hi.de", password="", address= "TUM", helper=False)
+        User(name="Ella", email="ellaelli@hi.de", password="hihi", address= "TUM", helper=False)
     ]
     #im Frontend wird zum Testen angenommen, dass ID1 ein Helfer ist und ID3 ein Hilfesuchender. Bitte nicht ändern
     

@@ -68,9 +68,9 @@ export function Helfer_Login() {
             setEmailErrorMessage('');
         }
 
-        if (!password.value || password.value.length < 6) {
+        if (!password.value || password.value.length < 4) {
             setPasswordError(true);
-            setPasswordErrorMessage('Password must be at least 6 characters long.');
+            setPasswordErrorMessage('Password must be at least 4 characters long.');
             isValid = false;
         } else {
             setPasswordError(false);
@@ -89,7 +89,10 @@ export function Helfer_Login() {
     const backendCheck = async (email, password) => {
         try {
             const res = await fetch(
-                `${Constants.API_URL}/user/login/${encodeURIComponent(email)}`
+                
+                `${Constants.API_URL}/login?email=${encodeURIComponent(email)}&helper=true`,{
+                    method: 'POST',
+                }
             );
 
             if (!res.ok) {
@@ -107,6 +110,11 @@ export function Helfer_Login() {
                 setPasswordError(true);
                 setPasswordErrorMessage('Falsches Passwort');
                 setAlert("Falsches Passwort. Bitte versuche es erneut.");
+                return null;
+            }
+
+            if(!data.helper){
+                setAlert("Dieser Account ist kein Helfer-Account.");
                 return null;
             }
 

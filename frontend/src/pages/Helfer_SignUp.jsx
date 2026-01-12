@@ -58,9 +58,9 @@ export function Helfer_SignUp() {
             setEmailErrorMessage('');
         }
 
-        if (!password.value || password.value.length < 6) {
+        if (!password.value || password.value.length < 4) {
             setPasswordError(true);
-            setPasswordErrorMessage('Password must be at least 6 characters long.');
+            setPasswordErrorMessage('Password must be at least 4 characters long.');
             isValid = false;
         } else {
             setPasswordError(false);
