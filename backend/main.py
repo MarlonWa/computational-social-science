@@ -291,7 +291,7 @@ async def update_helper_for_request(request_id: int, helper_id: int):
                      (helper_id, "in_progress", request_id,))
         conn.commit()
         conn.close()
-        return HTTPStatus.CREATED
+        return HTTPStatus.OK
     except IntegrityError:
         conn.close()
         raise HTTPException(status_code=409, detail="Request not found")
@@ -299,7 +299,7 @@ async def update_helper_for_request(request_id: int, helper_id: int):
 #PUT request
 @app.put("/helper/{helper_id}/remove/{request_id}")
 #removes helper from request
-async def delete_helper_for_request(request_id: int):
+async def delete_helper_for_request(helper_id: int, request_id: int):
     conn = get_db_connection()
     try:
         conn.execute("UPDATE requests SET helper_id = NULL, status = ? WHERE request_id = ?", 
