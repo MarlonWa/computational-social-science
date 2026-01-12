@@ -28,7 +28,7 @@ export function Dev() {
 
     const handleRestart = async () => {
         try {
-            const response = await fetch('/reset', {
+            const response = await fetch(Constants.API_URL + '/reset', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
