@@ -90,7 +90,7 @@ export function Helfer_SignUp() {
             name: name_p,
             email: email_p,
             password: password_p,
-            address: "testvill",
+            address: "",
             helper: true,
         };
         try {
