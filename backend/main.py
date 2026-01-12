@@ -291,7 +291,7 @@ async def update_helper_for_request(request_id: int, helper_id: int):
                      (helper_id, "in_progress", request_id,))
         conn.commit()
         conn.close()
-        return HTTPStatus.OK
+        return HTTPStatus.CREATED
     except IntegrityError:
         conn.close()
         raise HTTPException(status_code=409, detail="Request not found")

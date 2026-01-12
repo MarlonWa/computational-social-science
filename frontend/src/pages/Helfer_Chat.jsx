@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { Header } from '../component/Header.jsx'
 import { Footer } from "../component/Footer.jsx";
 
+// Hardcoded - incase no Chat DB gonna get setup anymore
 const chat_title = "Laptop Internet-Einrichtung";
 
 const messages = [

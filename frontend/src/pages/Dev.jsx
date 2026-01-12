@@ -86,7 +86,7 @@ export function Dev() {
                 <Link to={`/hilfe/${default_hilfe}/chats`}> Hilfe_Chats_All</Link>
                 <br />
 
-                <Link to={`/hilfe/${default_hilfe}/chat/${default_chat}`}> Hilfe_Chat</Link>
+                <Link to={`/hilfe/${default_hilfe}/request/${default_hilfe_request}/chat`}> Hilfe_Chat</Link>
                 <h1>    </h1>
 
                 <Button
