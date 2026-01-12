@@ -25,7 +25,7 @@ const title_styling = {
   lineHeight: 1,
   color: Constants.neutral_light,
   textDecoration: 'none',
-  fontSize: { xs: '1.6rem', sm: '2.0rem' }
+  fontSize: { xs: '1.3rem', sm: '1.7rem' }
 }
 /** 
  * @param {string} header_title - Title to display in the header. 
@@ -127,7 +127,7 @@ export function Header({ header_title = "help@m", additional_links = []}) {
                 <Button
                   key={page.name}
                   onClick={handleCloseNavMenu}
-                  sx={{ fontSize: { xs: '1.1rem', sm: '1.5rem' }, my: 2, color: Constants.neutral_light, display: 'block', "&:hover": { color: Constants.neutral_light } }}
+                  sx={{ fontSize: { xs: '0.9rem', sm: '1.3rem' }, my: 2, color: Constants.neutral_light, display: 'block', "&:hover": { color: Constants.neutral_light } }}
                   component={Link}
                   to={page.path}
                 >
@@ -153,7 +153,7 @@ export function Header({ header_title = "help@m", additional_links = []}) {
                 <Button
                   key={page.name}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: Constants.neutral_light, display: 'block', "&:hover": { color: Constants.neutral_light } }}
+                  sx={{ fontSize: { xs: '0.9rem', sm: '1.3rem' }, my: 2, color: Constants.neutral_light, display: 'block', "&:hover": { color: Constants.neutral_light } }}
                   component={Link}
                   to={page.path}
                 >

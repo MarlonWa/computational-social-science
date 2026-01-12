@@ -44,15 +44,56 @@ export function Hilfe_Home() {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: Constants.neutral_light }}>
             <Header header_title={"Startseite"} />
+            <Box sx={{ position: 'relative', display: { xs: 'none', sm: 'block' } }}>
+                <Link to={`/hilfe/${user_id}/chats`} style={{ textDecoration: 'none' }}>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            position: 'absolute',
+                            top: {sm: 32 },
+                            right: {sm: 32 },
+                            fontSize: {sm: '3rem' },
+                            fontWeight: 'bold',
+                            padding: { sm: '40px 100px' },
+                            borderRadius: 2,    
+                            backgroundColor: Constants.primary_color,
+                            '&:hover': { backgroundColor: Constants.primary_color_dark }
+                        }}
+                    >
+                        Chats
+                    </Button>
+                </Link>
+            </Box>
 
             <Container maxWidth="md" sx={{ flex: 1, py: 4 }}>
+            <Box sx={{display: { xs: 'block', sm: 'none' }}}>
+                <Link to={`/hilfe/${user_id}/chats`} style={{ textDecoration: 'none' }}>
+                    <Button
+                        variant="contained"
+                        size="large"
+                        sx={{   
+                            fontSize: { xs: '1.8rem'}, 
+                            width: '100%',
+                            fontWeight: 'bold',
+                            py:2,
+                            mb:2,
+                            borderRadius: 2,
+                            backgroundColor: Constants.primary_color,
+                            '&:hover': { backgroundColor: Constants.primary_color_dark }
+                        }}
+                    >
+                        Chats
+                    </Button>
+                </Link>
+            </Box>
+
                 <Link to={`/hilfe/${user_id}/new`} style={{ textDecoration: 'none' }}>
                     <Button
                         variant="contained"
                         size="large"
                         sx={{
                             width: '100%',
-                            py : 2,
+                            py: 2,
                             fontSize: { xs: '1.8rem', sm: '2.8rem' },
                             fontWeight: 'bold',
                             //mb: 2,
@@ -70,7 +111,7 @@ export function Hilfe_Home() {
                     </Button>
                 </Link>
 
-                <Divider sx={{ my: 3 , fontSize: { xs: '1rem', sm: '1.5rem' }, textAlign: 'center' }}> oder </Divider>
+                <Divider sx={{ my: 3, fontSize: { xs: '1rem', sm: '1.5rem' }, textAlign: 'center' }}> oder </Divider>
 
                 <Link to="/faq" style={{ textDecoration: 'none' }}>
                     <Button
@@ -87,7 +128,7 @@ export function Hilfe_Home() {
                             border: 'none',
                             //borderColor: Constants.neutral_medium,
                             color: Constants.neutral_light,
-                            '&:hover': { backgroundColor: Constants.secondary_color_dark, color: Constants.neutral_light}
+                            '&:hover': { backgroundColor: Constants.secondary_color_dark, color: Constants.neutral_light }
                         }}
                     >
                         Hier geht's zu den häufigsten Fragen
