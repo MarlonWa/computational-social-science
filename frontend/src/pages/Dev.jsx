@@ -12,6 +12,8 @@ export function Dev() {
     const default_helfer_request = 1;
     const default_hilfe_request = 3;
     const default_chat = 1;
+    
+
     const toggleBackground = () => {
         const body = document.body;
         const gradient = 'linear-gradient(90deg, rgba(155, 42, 42, 1) 0%, rgba(199, 152, 87, 1) 17%, rgba(200, 198, 92, 1) 33%, rgba(96, 200, 108, 1) 57%, rgba(103, 191, 201, 1) 76%, rgba(155, 156, 203, 1) 89%, rgba(216, 83, 237, 1) 100%)';
@@ -24,12 +26,34 @@ export function Dev() {
         }
     };
 
+    const handleRestart = async () => {
+        try {
+            const response = await fetch('/reset', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.ok) {
+                console.log('Restart successful');
+            } else {
+                console.error('Restart failed');
+            }
+        } catch (error) {
+            console.error('Error calling restart API:', error);
+        }
+    };
+
     return (
         <>
             <Box height="100vh" display="flex" flexDirection="column" >
 
                 <Header header_title={"DEV PAGE"} />
 
+                <Button onClick={handleRestart} style={{backgroundColor : Constants.error, color: Constants.neutral_light, fontSize : "2rem"}}>
+                    Restart Database 
+                </Button>
+                <p> (dont click it yet - API not done) </p>
 
                 <Box flex={1} display="grid" gridTemplateColumns="1fr 1fr" gap={2} justifyContent="center" width="100vw" alignItems="center">
                     <Box>
