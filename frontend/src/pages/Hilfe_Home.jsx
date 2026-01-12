@@ -27,6 +27,17 @@ export function Hilfe_Home() {
             });
     }, [user_id]);
 
+    const getStatusColor = (status) => {
+        // map common status values (english/german) to colors
+        switch ((status || '').toString().toLowerCase()) {
+            case 'open': return Constants.text_color_black;
+            case 'in_progress': return Constants.text_color_black;
+            case 'closed': return Constants.neutral_medium_light;
+            default:
+                return Constants.text_color_black;
+        }
+    };
+
 
     if (error) return <><Header header_title={"STARTSEITE: FEHLER"} /> <p> Error: {error} </p> </>;
 
@@ -103,7 +114,7 @@ export function Hilfe_Home() {
                                         }
                                     }}
                                 >
-                                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: Constants.text_color_black, fontSize: { xs: '1.4rem', sm: '2.5rem' } }}>
+                                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: getStatusColor(request.status), fontSize: { xs: '1.4rem', sm: '2.5rem' }, textDecoration: request.status?.toLowerCase() === 'closed' ? 'line-through' : 'none' }}>
                                         {request.title}
                                     </Typography>
                                 </ListItemButton>
