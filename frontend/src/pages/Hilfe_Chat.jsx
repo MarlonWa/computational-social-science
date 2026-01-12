@@ -87,15 +87,13 @@ export function Hilfe_Chat() {
                                 alignSelf: 'center',
                                 fontSize: "1rem",
                                 fontWeight: '600',
-                                color: Constants.secondary_color,
-                                outlineColor: Constants.secondary_color_very_light,
-                                borderColor: Constants.secondary_color_very_light,
+                                color: Constants.secondary_color_text,
                                 backgroundColor: Constants.secondary_color_very_light,
-
+                                border: 'none',
                                 ":hover": {
-                                    color: Constants.secondary_color,
-                                    outlineColor: Constants.secondary_color,
-                                    borderColor: Constants.secondary_color,
+                                    backgroundColor: Constants.secondary_color_light,
+                                    transform: 'translateX(-4px)',
+                                    color: Constants.secondary_color_text,
                                 }
                             }}
                         >
@@ -116,15 +114,13 @@ export function Hilfe_Chat() {
                                 alignSelf: 'center',
                                 fontSize: "1rem",
                                 fontWeight: '600',
-                                color: Constants.secondary_color,
-                                outlineColor: Constants.secondary_color_very_light,
-                                borderColor: Constants.secondary_color_very_light,
+                                color: Constants.secondary_color_text,
                                 backgroundColor: Constants.secondary_color_very_light,
-
+                                border: 'none',
                                 ":hover": {
-                                    color: Constants.secondary_color,
-                                    outlineColor: Constants.secondary_color,
-                                    borderColor: Constants.secondary_color,
+                                    backgroundColor: Constants.secondary_color_light,
+                                    transform: 'translateX(4px)',
+                                    color: Constants.secondary_color_text,
                                 }
                             }}
                         >
@@ -162,15 +158,12 @@ export function Hilfe_Chat() {
                                     alignSelf: 'center',
                                     fontSize: '0.85rem',
                                     fontWeight: '600',
-                                    color: Constants.secondary_color,
-                                    outlineColor: Constants.secondary_color_very_light,
-                                    borderColor: Constants.secondary_color_very_light,
+                                    color: Constants.secondary_color_text,
                                     backgroundColor: Constants.secondary_color_very_light,
-
+                                    border: 'none',
                                     ":hover": {
-                                        color: Constants.secondary_color,
-                                        outlineColor: Constants.secondary_color,
-                                        borderColor: Constants.secondary_color,
+                                        backgroundColor: Constants.secondary_color_light,
+                                        color: Constants.secondary_color_text,
                                     }
                                 }}
                             >
@@ -188,15 +181,12 @@ export function Hilfe_Chat() {
                                     alignSelf: 'center',
                                     fontSize: '0.85rem',
                                     fontWeight: '600',
-                                    color: Constants.secondary_color,
-                                    outlineColor: Constants.secondary_color_very_light,
-                                    borderColor: Constants.secondary_color_very_light,
+                                    color: Constants.secondary_color_text,
                                     backgroundColor: Constants.secondary_color_very_light,
-
+                                    border: 'none',
                                     ":hover": {
-                                        color: Constants.secondary_color,
-                                        outlineColor: Constants.secondary_color,
-                                        borderColor: Constants.secondary_color,
+                                        backgroundColor: Constants.secondary_color_light,
+                                        color: Constants.secondary_color_text,
                                     }
                                 }}
                             >
