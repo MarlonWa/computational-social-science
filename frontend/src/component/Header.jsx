@@ -24,7 +24,8 @@ const title_styling = {
   textTransform: 'uppercase',
   lineHeight: 1,
   color: Constants.neutral_light,
-  textDecoration: 'none'
+  textDecoration: 'none',
+  fontSize: { xs: '1.6rem', sm: '2.0rem' }
 }
 /** 
  * @param {string} header_title - Title to display in the header. 
@@ -51,7 +52,7 @@ export function Header({ header_title = "help@m", additional_links = []}) {
 
   return (
     <>
-      <Box sx={{ py: 2, px: 1 }} >
+      <Box sx={{ py: 1, px: 1 }} >
 
         <AppBar position="static" sx={{ backgroundColor: Constants.header_color }}>
           <Toolbar disableGutters
@@ -126,7 +127,7 @@ export function Header({ header_title = "help@m", additional_links = []}) {
                 <Button
                   key={page.name}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: Constants.neutral_light, display: 'block', "&:hover": { color: Constants.neutral_light } }}
+                  sx={{ fontSize: { xs: '1.1rem', sm: '1.5rem' }, my: 2, color: Constants.neutral_light, display: 'block', "&:hover": { color: Constants.neutral_light } }}
                   component={Link}
                   to={page.path}
                 >
