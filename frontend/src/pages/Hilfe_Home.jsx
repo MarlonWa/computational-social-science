@@ -54,7 +54,7 @@ export function Hilfe_Home() {
                             right: {sm: 32 },
                             fontSize: {sm: '3rem' },
                             fontWeight: 'bold',
-                            padding: { sm: '40px 100px' },
+                            padding: { sm: '30px 50px' },
                             borderRadius: 2,    
                             backgroundColor: Constants.primary_color,
                             '&:hover': { backgroundColor: Constants.primary_color_dark }
