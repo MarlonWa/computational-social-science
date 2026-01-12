@@ -12,6 +12,7 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { Header } from '../component/Header.jsx'
 import { Footer } from '../component/Footer.jsx';
+import Alert from '@mui/material/Alert';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -34,21 +35,11 @@ export function Hilfe_SignUp() {
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
     const [nameError, setNameError] = useState(false);
     const [nameErrorMessage, setNameErrorMessage] = useState('');
+    const [alert, setAlert] = useState("");
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async () => {
         event.preventDefault();
-        if (nameError || emailError || passwordError) {
-            return;
-        }
-        const data = new FormData(event.currentTarget);
-        console.log({
-            name: data.get('name'),
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
 
-    const validateInputs = () => {
         const name = document.getElementById('name');
         const email = document.getElementById('email');
         const password = document.getElementById('password');
@@ -82,7 +73,52 @@ export function Hilfe_SignUp() {
             setNameErrorMessage('');
         }
 
-        return isValid;
+        if (!isValid) return;
+
+        const userId = await backendCreate(email.value, password.value, name.value);
+
+        if (userId) {
+            window.location.href = `/${Constants.PAGES_PREFIX}/#/hilfe/${userId}`;
+        }
+    };
+
+    const backendCreate = async (email_p, password_p, name_p) => {
+        const userPayload = {
+            name: name_p,
+            email: email_p,
+            password: password_p,
+            address: "testvill",
+            helper: false,
+        };
+        try {
+            const res = await fetch(
+                `${Constants.API_URL}/user`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(userPayload),
+                }
+            );
+
+            if (res.status !== 201) {
+                if (res.status === 409) {
+                    setEmailError(true);
+                    setAlert("Diese E-Mail wird bereits verwendet. Bitte gehe zur Anmeldeseite.");
+                } else {
+                    setAlert("Unbekannter Fehler beim Einloggen. Code: " + res.status);
+                }
+                return null;
+            }
+
+            const data = await res.json();
+
+            return data.user_id;
+        } catch (err) {
+            setAlert(err.message);
+            return null;
+        }
     };
 
     return (
@@ -92,15 +128,19 @@ export function Hilfe_SignUp() {
             flexDirection: 'column',
         }}>
             <Header />
+            <Alert severity="error" sx={{ display: alert == '' ? 'none' : 'flex' }}>
+                {alert}
+            </Alert>
             <Box flex="1" display="flex" justifyContent="center" alignItems="flex-start" sx={{ px: 2, pt: 1 }}>
                 <Card variant="outlined" sx={{ position: 'relative', p: 3, gap: 1 }}>
                     {/* title */}
                     <Typography
                         component="h1"
                         variant="h4"
-                        sx={{ width: '100%', 
-                            fontSize: {xs: '2rem', sm: '2.2rem'}, 
-                            fontWeight: 'bold' ,
+                        sx={{
+                            width: '100%',
+                            fontSize: { xs: '2rem', sm: '2.2rem' },
+                            fontWeight: 'bold',
                             py: 2
                         }}
                     >
@@ -170,7 +210,6 @@ export function Hilfe_SignUp() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            onClick={validateInputs}
                             sx={{
                                 mt: 1,
                                 fontSize: '1rem',

@@ -1,5 +1,5 @@
 import Constants from '../constants/constants.js';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import { Header } from '../component/Header.jsx'
 import ForgotPassword from '../component/ForgotPassword.jsx';
 import { Footer } from '../component/Footer.jsx';
+import Alert from '@mui/material/Alert';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -37,6 +38,7 @@ export function Helfer_Login() {
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [passwordError, setPasswordError] = useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+    const [alert, setAlert] = useState("");
 
     // following also forgot password stuff; see below - TODO
     /* const [open, setOpen] = useState(false);
@@ -49,19 +51,9 @@ export function Helfer_Login() {
         setOpen(false);
     }; */
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (emailError || passwordError) {
-            return;
-        }
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'), 
-            password: data.get('password'),
-        });
-    };
 
-    const validateInputs = () => {
+    const handleSubmit = async () => {
+        event.preventDefault();
         const email = document.getElementById('email');
         const password = document.getElementById('password');
 
@@ -85,8 +77,47 @@ export function Helfer_Login() {
             setPasswordErrorMessage('');
         }
 
-        return isValid;
+        if (!isValid) return;
+
+        const userId = await backendCheck(email.value, password.value);
+
+        if (userId) {
+            window.location.href = `/${Constants.PAGES_PREFIX}/#/helfer/${userId}`;
+        }
     };
+
+    const backendCheck = async (email, password) => {
+        try {
+            const res = await fetch(
+                `${Constants.API_URL}/user/login/${encodeURIComponent(email)}`
+            );
+
+            if (!res.ok) {
+                if (res.status === 404) {
+                    setAlert("Kein Benutzer mit dieser E-Mail gefunden. Musst du dich erst registrieren?");
+                } else {
+                    setAlert("Unbekannter Fehler beim Einloggen. Code: " + res.status);
+                }
+                return null;
+            }
+
+            const data = await res.json();
+
+            if (data.password !== password) {
+                setPasswordError(true);
+                setPasswordErrorMessage('Falsches Passwort');
+                setAlert("Falsches Passwort. Bitte versuche es erneut.");
+                return null;
+            }
+
+            setPasswordError(false);
+            return data.user_id;
+        } catch (err) {
+            setAlert(err.message);
+            return null;
+        }
+    };
+
 
     return (
         <Box sx={{
@@ -95,6 +126,9 @@ export function Helfer_Login() {
             flexDirection: 'column',
         }}>
             <Header />
+            <Alert severity="error" sx={{ display: alert == '' ? 'none' : 'flex' }}>
+                {alert}
+            </Alert>
             <Box flex="1" display="flex" justifyContent="center" alignItems="flex-start" sx={{ px: 2, pt: 1 }}>
                 <Card variant="outlined" sx={{ position: 'relative' }}>
                     <Button
@@ -129,7 +163,7 @@ export function Helfer_Login() {
 
                     <Box
                         component="form"
-                        onSubmit={handleSubmit}
+                        onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}
                         noValidate
                         sx={{
                             display: 'flex',
@@ -179,12 +213,11 @@ export function Helfer_Login() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            onClick={validateInputs}
                             sx={{ backgroundColor: Constants.primary_color }}
                         >
                             Anmelden
                         </Button>
-                        
+
 
                         {/* <Link
                             component="button"
@@ -198,7 +231,7 @@ export function Helfer_Login() {
                     </Box>
 
 
-                    <Divider sx={{py: 2}}>oder</Divider>
+                    <Divider sx={{ py: 2 }}>oder</Divider>
 
 
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>

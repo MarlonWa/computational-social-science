@@ -26,6 +26,18 @@ class Request(BaseModel):
     text: str = ""
     status: str = "open"
 
+class Chat(BaseModel):
+    chat_id: int = 0
+    helper_id: int = 0
+    help_id : int = 0
+    request_id: int = 0
+    
+class Message(BaseModel):
+    message_id: int = 0
+    chat_id: int = 0
+    user_id: int = 0
+    message_text : str = ""
+
 request_status = ["open", "closed", "in_progress"]
 
 #load environment variables like the DB name
@@ -79,17 +91,34 @@ async def get_user(user_id: int):
     else: 
         raise HTTPException(status_code=404, detail="User not found")
 
+@app.get("/user/login/{email}")
+#returns a user from table "users" by user_id, returns HTTPStatus.NOT_FOUND if not found
+async def get_user(email: str):
+    conn = get_db_connection()
+    user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
+    conn.close()
+    if user:
+        return {
+            "user_id": user["user_id"],
+            "password": user["password"],
+        }
+    else: 
+        raise HTTPException(status_code=404, detail="User not found")
+
 #POST User 
-@app.post("/user")
+@app.post("/user", status_code=HTTPStatus.CREATED)
 #creates a new user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def create_user(user: User):
     conn = get_db_connection()
     try: 
-        conn.execute("INSERT INTO users (name, email, password, address, helper, points) VALUES (?, ?, ?, ?, ?, ?)", 
-                 (user.name, user.email, user.password, user.address, user.helper,user.points))
+        cursor = conn.execute("INSERT INTO users (name, email, password, address, helper) VALUES (?, ?, ?, ?, ?)", 
+                 (user.name, user.email, user.password, user.address, user.helper))
         conn.commit()
+        uid = cursor.lastrowid
         conn.close()
-        return HTTPStatus.CREATED
+        return {
+            "user_id": uid
+        }
     except IntegrityError: 
         conn.close()
         raise HTTPException(status_code=409, detail="Email already used")
@@ -102,9 +131,9 @@ async def login(user: User):
                           (user.email, user.password,)).fetchone()
     conn.close()
     if(result):
-        return HTTPStatus.ACCEPTED
+        return 
     else:
-        raise HTTPException(status_code=409, detail="Email already used")
+        raise HTTPException(status_code=409, detail="Invalid Login")
 
 #PUT user
 @app.put("/user/{user_id}")
@@ -176,7 +205,7 @@ async def get_user_requests(user_id: int):
     conn.close()
     return [dict(r) for r in request]
 
-#POST User 
+#POST request
 @app.post("/request")
 #creates a new request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def create_request(request: Request):
@@ -239,6 +268,150 @@ async def delete_request(request_id: int):
     return HTTPStatus.ACCEPTED
 
 
+#CHAT DATA
+#GET chat 
+@app.get("/chats")
+#returns all chats from table "chats"
+async def get_chats():
+    conn = get_db_connection()
+    chat = conn.execute("SELECT * FROM chats").fetchall()
+    conn.close()
+    return [dict(r) for r in chat]
+    
+@app.get("/chat/{chat_id}")
+#returns a chat from table "chats" by chat_id, returns HTTPStatus.NOT_FOUND if not found
+async def get_chat(chat_id: int):
+    conn = get_db_connection()
+    chat = conn.execute("SELECT * FROM chats WHERE chat_id = ?", (chat_id,)).fetchone()
+    conn.close()
+    if(chat):
+        return dict(chat)
+    else: 
+        raise HTTPException(status_code=404, detail="chat not found")
+    
+@app.get("/user/{user_id}/chats")
+#returns all chats from a specific creator (user_id)
+async def get_user_chats(user_id: int):
+    conn = get_db_connection()
+    chat = conn.execute("SELECT * FROM chats WHERE helper_id = ? OR help_id = ?", (user_id, user_id,)).fetchall()
+    conn.close()
+    return [dict(r) for r in chat]
+
+#POST chat
+@app.post("/chat")
+#creates a new chat in table "chats", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
+async def create_chat(chat: Chat):
+    conn = get_db_connection()
+    try: 
+        conn.execute("INSERT INTO chats (helper_id, help_id, request_id) VALUES (?, ?, ?)", 
+                 (chat.helper_id, chat.help_id, chat.request_id,))
+        conn.commit()
+        conn.close()
+        return HTTPStatus.CREATED
+    except IntegrityError: 
+        conn.close()
+        raise HTTPException(status_code=409, detail="chat not found")
+
+#PUT chat
+@app.put("/chat/{chat_id}")
+#updates a chat in table "chats", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
+async def update_chat(chat_id: int, chat: Chat):
+    conn = get_db_connection()
+    try:
+        conn.execute("UPDATE chats SET helper_id = ? WHERE chat_id = ?", 
+                     (chat.helper_id, chat_id,))
+        conn.commit()
+        conn.close()
+        return HTTPStatus.CREATED
+    except IntegrityError:
+        conn.close()
+        raise HTTPException(status_code=409, detail="chat not found")
+
+#DELETE chat
+@app.delete("/chat/{chat_id}")
+#deletes a chat from table "chats", returns HTTPStatus.ACCEPTED
+async def delete_chat(chat_id: int):
+    conn = get_db_connection()
+    chat = conn.execute("DELETE FROM chats WHERE chat_id = ?", (chat_id,)).fetchone()
+    conn.commit()
+    conn.close()
+    return HTTPStatus.ACCEPTED
+
+
+#MESSAGE DATA
+#GET message 
+@app.get("/messages")
+#returns all messages from table "messages"
+async def get_messages():
+    conn = get_db_connection()
+    message = conn.execute("SELECT * FROM messages").fetchall()
+    conn.close()
+    return [dict(r) for r in message]
+    
+@app.get("/message/{message_id}")
+#returns a message from table "messages" by message_id, returns HTTPStatus.NOT_FOUND if not found
+async def get_message(message_id: int):
+    conn = get_db_connection()
+    message = conn.execute("SELECT * FROM messages WHERE message_id = ?", (message_id,)).fetchone()
+    conn.close()
+    if(message):
+        return dict(message)
+    else: 
+        raise HTTPException(status_code=404, detail="message not found")
+
+@app.get("/message/chat/{chat_id}")
+#returns a message from table "messages" by message_id, returns HTTPStatus.NOT_FOUND if not found
+async def get_chat_message(chat_id: int):
+    conn = get_db_connection()
+    message = conn.execute("SELECT * FROM messages WHERE chat_id = ?", (chat_id,)).fetchall()
+    conn.close()
+    if(message):
+        return [dict(r) for r in message]
+    else: 
+        raise HTTPException(status_code=404, detail="message not found")
+
+#POST message
+@app.post("/message")
+#creates a new message in table "messages", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
+async def create_message(message: Message):
+    conn = get_db_connection()
+    try: 
+        conn.execute("INSERT INTO messages (chat_id, user_id, message_text) VALUES (?, ?, ?)", 
+                 (message.chat_id, message.user_id, message.message_text,))
+        conn.commit()
+        conn.close()
+        return HTTPStatus.CREATED
+    except IntegrityError: 
+        conn.close()
+        raise HTTPException(status_code=409, detail="message not found")
+
+#PUT message
+@app.put("/message/{message_id}")
+#updates a message in table "messages", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
+async def update_message(message_id: int, message: Message):
+    conn = get_db_connection()
+    try:
+        conn.execute("UPDATE messages SET message_text = ? WHERE message_id = ?", 
+                     (message.message_text, message_id,))
+        conn.commit()
+        conn.close()
+        return HTTPStatus.CREATED
+    except IntegrityError:
+        conn.close()
+        raise HTTPException(status_code=409, detail="message not found")
+
+#DELETE message
+@app.delete("/message/{message_id}")
+#deletes a message from table "messages", returns HTTPStatus.ACCEPTED
+async def delete_message(message_id: int):
+    conn = get_db_connection()
+    message = conn.execute("DELETE FROM messages WHERE message_id = ?", (message_id,)).fetchone()
+    conn.commit()
+    conn.close()
+    return HTTPStatus.ACCEPTED
+
+
+
 #SCOREBOARD DATA
 @app.get("/scoreboard/")
 #get global scoreboard
@@ -274,7 +447,7 @@ async def get_scoreboard_status(user_id: int):
 
 #HELPER DATA
 #GET user
-# get all requests assigned to a specific helper (helper_id)
+# get all chats assigned to a specific helper (helper_id)
 @app.get("/helper/{helper_id}/requests") 
 async def get_requests_by_helper(helper_id: int):
     conn = get_db_connection()
@@ -313,14 +486,40 @@ async def delete_helper_for_request(helper_id: int, request_id: int):
         raise HTTPException(status_code=409, detail="Request not found")
 
 
+
 #SETUP DB
-def createDB():
+@app.post("/reset")
+#Reset Database
+async def resetDB():
     #delete old DB if exists
     if os.path.exists(DB_NAME):
         os.remove(DB_NAME)
     
     createUserTable()
     createRequestTable()
+    createChatTable()
+    createMessageTable()
+
+    await testUserData()
+    await testRequestData()
+    await testChatData()
+    await testMessageData()
+
+    print("Neue DB erstellt")
+
+
+#SETUP DB WITHOUT TEST DATA
+@app.post("/cleanreset")
+#Reset Database
+async def resetDB():
+    #delete old DB if exists
+    if os.path.exists(DB_NAME):
+        os.remove(DB_NAME)
+    
+    createUserTable()
+    createRequestTable()
+    createChatTable()
+    createMessageTable()
 
     print("Neue DB erstellt")
 
@@ -365,6 +564,41 @@ def createRequestTable():
 
     print("Neue Request erstellt")
 
+def createChatTable():
+    conn = get_db_connection()
+
+    conn.execute("""
+        CREATE TABLE chats (
+            chat_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            helper_id INTEGER NOT NULL,
+            help_id INTEGER NOT NULL,
+            request_id INTEGER NOT NULL
+        );
+    """)
+
+    conn.commit()
+    conn.close()
+
+    print("Neue Chats erstellt")
+    
+def createMessageTable():
+    conn = get_db_connection()
+
+    conn.execute("""
+        CREATE TABLE messages (
+            message_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            chat_id INTEGER NOT NULL,
+            user_id INTEGER NOT NULL,
+            message_text TEXT,
+            date_time DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
+    """)
+
+    conn.commit()
+    conn.close()
+
+    print("Neue Messages erstellt")
+
 #TEST DATA
 async def testUserData():
     users = [
@@ -393,11 +627,39 @@ async def testRequestData():
         await create_request(r)
         
     print("Test Request created")
+    
+async def testChatData():
+    chats = [
+        Chat(helper_id=1, help_id = 2, request_id = 1),
+        Chat(helper_id=3, help_id = 2, request_id = 2),
+    ]
+    
+    for c in chats:
+        await create_chat(c)
+        
+    print("Test Chat created")
+
+async def testMessageData():
+    messages = [
+        Message(chat_id=1, user_id = 2, message_text="hi"),
+        Message(chat_id=1, user_id = 1, message_text="hi back"),
+        
+        Message(chat_id=2, user_id = 2, message_text="hello"),
+        Message(chat_id=2, user_id = 3, message_text="hello back"),
+    ]
+    
+    for m in messages:
+        await create_message(m)
+        
+    print("Test Chat created")
 
 
 #on_event is deprecated but should still work, otherwise use "lifespan"; just ignore it
-@app.on_event("startup") 
-async def startup():
-    createDB()
-    await testUserData()
-    await testRequestData()
+# @app.on_event("startup") 
+# async def startup():
+    # await resetDB()
+    # await testUserData()
+    # await testRequestData()
+    # await testChatData()
+    # await testMessageData()
+    
