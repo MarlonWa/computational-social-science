@@ -61,7 +61,7 @@ async def get_users():
     return [dict(u) for u in users]
 
 @app.get("/user/{user_id}")
-#returns a user from table "users" by user_id
+#returns a user from table "users" by user_id, returns HTTPStatus.NOT_FOUND if not found
 async def get_user(user_id: int):
     conn = get_db_connection()
     user = conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone()
@@ -81,7 +81,7 @@ async def get_user(user_id: int):
 
 #POST User 
 @app.post("/user")
-#creates a new user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.BAD_REQUEST on failure (e.g. email already exists)
+#creates a new user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def create_user(user: User):
     conn = get_db_connection()
     try: 
@@ -95,7 +95,7 @@ async def create_user(user: User):
         raise HTTPException(status_code=409, detail="Email already used")
 
 @app.post("/login")
-#login user, returns HTTPStatus.ACCEPTED on success, HTTPStatus.BAD_REQUEST on failure
+#login user, returns HTTPStatus.ACCEPTED on success, HTTPStatus.CONFLICT on failure
 async def login(user: User):
     conn = get_db_connection()
     result = conn.execute("SELECT * FROM users WHERE email = ? AND password = ?", 
@@ -108,7 +108,7 @@ async def login(user: User):
 
 #PUT user
 @app.put("/user/{user_id}")
-#updates a user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.BAD_REQUEST on failure
+#updates a user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def update_user(user_id: int, user: User):
     conn = get_db_connection()
     try:
@@ -143,6 +143,7 @@ async def get_requests():
     return [dict(r) for r in request]
 
 @app.get("/requests/{status}")
+#returns all requests from table "requests" by status
 async def get_open_requests(status: str):
     if(status not in request_status):
         raise HTTPException(status_code=406, detail="Invalid status")
@@ -177,7 +178,7 @@ async def get_user_requests(user_id: int):
 
 #POST User 
 @app.post("/request")
-#creates a new request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.IM_USED on failure
+#creates a new request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def create_request(request: Request):
     conn = get_db_connection()
     try: 
@@ -192,7 +193,7 @@ async def create_request(request: Request):
 
 #PUT request
 @app.put("/request/{request_id}")
-#updates a request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.IM_USED on failure
+#updates a request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def update_request(request_id: int, request: Request):
     conn = get_db_connection()
     try:
@@ -207,7 +208,7 @@ async def update_request(request_id: int, request: Request):
 
 #PUT request
 @app.put("/request/status/{request_id}/{status}")
-#updates a request status in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.NOT_ACCEPTABLE on failure
+#updates a request status in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def update_request_status(request_id: int, status: str):
     if(status not in request_status):
         raise HTTPException(status_code=406, detail="Invalid status")
@@ -283,7 +284,7 @@ async def get_requests_by_helper(helper_id: int):
 
 #PUT request
 @app.put("/helper/{helper_id}/{request_id}")
-#updates a request helper in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.IM_USED on failure
+#updates a request helper in table "requests", returns HTTPStatus.OK on success, HTTPStatus.CONFLICT on failure
 async def update_helper_for_request(request_id: int, helper_id: int):
     conn = get_db_connection()
     try:
@@ -298,7 +299,7 @@ async def update_helper_for_request(request_id: int, helper_id: int):
 
 #PUT request
 @app.put("/helper/{helper_id}/remove/{request_id}")
-#removes helper from request
+#removes a helper from a request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def delete_helper_for_request(helper_id: int, request_id: int):
     conn = get_db_connection()
     try:

@@ -15,6 +15,7 @@ const Constants = {
     //neutral colours (e.g. button backgrounds)
     neutral_light : "white",
     neutral_light_darker : "#f0f0f0",
+    neutral_medium_light : "#dcdcdc",
     neutral_medium : "#a0a0a0",
 
     //coloursss
