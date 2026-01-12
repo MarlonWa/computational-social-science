@@ -1,10 +1,12 @@
-//import * as Constants from '../constants/constants.js';
+//import Constants from '../constants/constants.js';
 //not sure if we need
 
 import './App.css'
 import {Home} from './pages/Home.jsx'
 import {FAQ} from './pages/FAQ.jsx'
 import {Dev} from './pages/Dev.jsx'
+import {Datenschutz} from './pages/Datenschutz.jsx'
+import {Impressum} from './pages/Impressum.jsx'
 
 import {Helfer_Login} from './pages/Helfer_Login.jsx'
 import {Helfer_SignUp} from './pages/Helfer_SignUp.jsx'
@@ -56,6 +58,8 @@ function App() {
         <Route path="/hilfe/:user_id/request/:request_id/chat" element={<Hilfe_Chat />} />
 
         <Route path="/dev" element={<Dev />} />
+        <Route path="/datenschutz" element={<Datenschutz />} />
+        <Route path="/impressum" element={<Impressum />} />
       </Routes>
     </Router>
   )

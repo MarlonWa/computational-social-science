@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom'
 
 const pages = [
   {name: 'FAQ', path: '/faq'},
-  {name: 'Datenschutzerklärung', path: '/dev'},
-  {name: 'Impressum', path: '/dev'},
+  {name: 'Datenschutzerklärung', path: '/datenschutz'},
+  {name: 'Impressum', path: '/impressum'},
 ]
 
 
