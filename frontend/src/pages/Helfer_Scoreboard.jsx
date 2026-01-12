@@ -154,7 +154,9 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
                             }}
                         >
                             Du hast {points} Punkte!
+                            <br />
                         </Box>
+                        {points !== 0 && (
                         <Box
                             component="h1"
                             sx={{
@@ -165,6 +167,7 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
                         >
                             Platz {rank}
                         </Box>
+                        )}
                         {rank === 1 && (
                             <Box
                                 component="p"

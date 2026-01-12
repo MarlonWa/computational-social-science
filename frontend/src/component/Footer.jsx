@@ -32,7 +32,7 @@ export function Footer() {
                                 <Box sx={{ flex: 1}} key={page.name}>
                                     <Button
                                         sx={{ 
-                                            fontSize: { xs: '0.7rem', md: '0.9rem' },
+                                            fontSize: { xs: '0.7rem', md: '1.1rem' },
                                             color: Constants.neutral_light, 
                                             "&:hover": { color: Constants.neutral_light } 
                                         }}
