@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import React from 'react';
 import { Header } from '../component/Header.jsx';
 import { PhoneTutorial } from '../component/PhoneTutorial.jsx';

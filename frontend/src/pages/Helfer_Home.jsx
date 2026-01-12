@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 import { Footer } from '../component/Footer.jsx'
@@ -19,43 +20,78 @@ export function Helfer_Home() {
             height: "100vh",
             display: 'flex',
             flexDirection: 'column',
-        }}> 
+        }}>
             <Header header_title={"Startseite"} />
-            
-            <Box sx={{ 
+
+            <Box sx={{ marginBottom: '1rem' }}>
+                <Box sx={{
+                    fontSize: {xs: '2rem', sm: '2.7rem'},
+                    fontWeight: 600,
+                    color: Constants.text_color_dark_grey,
+                    textAlign: 'center',
+                    marginTop: '2rem',
+                }}>
+                    Willkommen zurück!
+                </Box>
+            </Box>
+
+            <Box sx={{
                 flex: 1,
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '2rem',
-            }}>  
+                position: 'relative',
+            }}>
+                {/* <Link to={`/helfer/${user_id}/profile`} style={{ position: 'absolute', top: '1rem', right: '1rem' }}>
+                                    <Button
+                                        sx={{
+                                            minWidth: '56px',
+                                            height: '56px',
+                                            borderRadius: '50%',
+                                            backgroundColor: Constants.primary_color,
+                                            color: Constants.neutral_light,
+                                            '&:hover': {
+                                                backgroundColor: Constants.primary_color_dark,
+                                            },
+                                        }}
+                                    >
+                                        <AccountCircle sx={{ fontSize: '2rem' }} />
+                                    </Button>
+                                </Link> */}
+
+
                 <Box sx={{
                     display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: '1.5rem',
-                    maxWidth: '600px',
-                    width: '100%',
+                    gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                    gap: { xs: '1rem', sm: '2rem' },
+                    maxWidth: '1200px',
+                    width: {xs:'90%', sm: '100%'},
                 }}>
                     {buttonItems.map((item, index) => (
-                        <Link 
+                        <Link
                             key={index}
                             to={`/helfer/${user_id}/${item.path}`}
                         >
                             <Button
                                 fullWidth
                                 sx={{
-                                    backgroundColor: '#9759d1',
-                                    color: 'white',
-                                    padding: '1.5rem 1rem',
-                                    fontSize: '1.2rem',
-                                    fontWeight: 400,
+                                    backgroundColor: Constants.primary_color,
+                                    color: Constants.neutral_light,
+                                    p: { xs: "1rem", sm: "1.5rem" },
+                                    fontSize: { xs: '1.5rem', sm: '3rem' },
+                                    fontWeight: 500,
                                     textTransform: 'none',
-                                    borderRadius: '8px',
+                                    borderRadius: '12px',
                                     transition: 'all 0.3s ease',
+                                    height: { xs: '10vh', sm: '30vh' },
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
                                     '&:hover': {
-                                        backgroundColor: '#7f41b3',
-                                        boxShadow: '0 8px 16px rgba(151, 89, 209, 0.3)',
-                                        transform: 'translateY(-2px)',
+                                        backgroundColor: Constants.primary_color_dark,
+                                        boxShadow: '0 12px 24px ' + Constants.shadow_black,
+                                        transform: 'translateY(-4px)',
                                     },
                                 }}
                             >
@@ -65,7 +101,6 @@ export function Helfer_Home() {
                     ))}
                 </Box>
             </Box>
-            
             <Footer />
         </Box>
     );

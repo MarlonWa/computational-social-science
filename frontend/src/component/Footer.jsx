@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,18 +8,16 @@ import { Link } from 'react-router-dom'
 
 const pages = [
   {name: 'FAQ', path: '/faq'},
-  {name: 'Datenschutzerklärung', path: '/dev'},
-  {name: 'Impressum', path: '/dev'},
+  {name: 'Datenschutzerklärung', path: '/datenschutz'},
+  {name: 'Impressum', path: '/impressum'},
 ]
 
 
 export function Footer() {
-    const FOOTER_BACKGROUND_COLOR = '#b2c2d2ff'; // Change this to customize the footer color
-
     return (
         <>
             <Box sx={{ pt: 2, height: {xs: '40px', md: '50px'}}}>
-                <AppBar position="static" sx={{ backgroundColor: FOOTER_BACKGROUND_COLOR }}>
+                <AppBar position="static" sx={{ backgroundColor: Constants.footer_color }}>
                     <Toolbar 
                         sx={{
                             minHeight: { xs: '40px', md: '50px' },
@@ -32,7 +31,11 @@ export function Footer() {
                             {pages.map((page) => (
                                 <Box sx={{ flex: 1}} key={page.name}>
                                     <Button
-                                        sx={{ color: 'white', "&:hover": { color: "white" } }}
+                                        sx={{ 
+                                            fontSize: { xs: '0.7rem', md: '1.1rem' },
+                                            color: Constants.neutral_light, 
+                                            "&:hover": { color: Constants.neutral_light } 
+                                        }}
                                         component={Link}
                                         to={page.path}
                         >

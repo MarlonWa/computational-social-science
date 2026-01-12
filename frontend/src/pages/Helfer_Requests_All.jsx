@@ -1,3 +1,4 @@
+import Constants from '../constants/constants.js';
 import { Link } from 'react-router-dom'
 import { Header } from '../component/Header.jsx'
 import { useParams } from "react-router-dom";
@@ -20,7 +21,7 @@ export function Helfer_Requests_All() {
     ]
 
     useEffect(() => {
-        fetch(`http://localhost:8000/requests/open`)
+        fetch(Constants.API_URL + `/requests/open`)
             .then((res) => {
                 if (!res.ok) {
                     throw new Error("Keine Anfragen gefunden");
@@ -78,18 +79,18 @@ export function Helfer_Requests_All() {
                                 <ListItemButton
                                     sx={{
                                         p: 2.5,
-                                        backgroundColor: '#fff',
+                                        backgroundColor: Constants.neutral_light,
                                         borderRadius: 2,
-                                        borderLeft: '4px solid #9759d1ff',
-                                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+                                        borderLeft: '4px solid ' + Constants.primary_color,
+                                        boxShadow: '0 2px 8px ' + Constants.shadow_black,
                                         transition: 'all 0.3s ease',
                                         '&:hover': {
-                                            boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+                                            boxShadow: '0 8px 16px ' + Constants.shadow_black,
                                             transform: 'translateY(-2px)'
                                         }
                                     }}
                                 >
-                                    <Typography variant="h6" sx={{ fontWeight: '700', color: '#1a1a1a' }}>
+                                    <Typography variant="h6" sx={{ fontWeight: '700', color: Constants.text_color_black }}>
                                         {request.title}
                                     </Typography>
                                 </ListItemButton>

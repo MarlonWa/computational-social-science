@@ -1,11 +1,12 @@
+import Constants from '../constants/constants.js';
 import { Link } from 'react-router-dom'
 import { Button, Box } from "@mui/material";
 import { Header } from '../component/Header.jsx'
 import { Footer } from '../component/Footer.jsx';
 
 const pages = [
-  { name: 'ICH WILL HELFEN', path: '/helfer/login', color: "#9759d1ff", hoverColor: "#7f19d2" },
-  { name: 'ICH SUCHE HILFE', path: '/hilfe/login', color: "#d159c7ff", hoverColor: "#d1199e" },
+  { name: 'ICH WILL HELFEN', path: '/helfer/login', color: Constants.primary_color, hoverColor: Constants.primary_color_dark },
+  { name: 'ICH SUCHE HILFE', path: '/hilfe/login', color: Constants.secondary_color, hoverColor: Constants.secondary_color_dark },
 ]
 
 export function Home() { //DONE FOR NOW :)
@@ -43,11 +44,11 @@ export function Home() { //DONE FOR NOW :)
               sx={{
                 backgroundColor: page.color,
                 flex: 1,
-                borderRadius: 0,
+                borderRadius: "40px",
                 fontSize: { xs: "2rem", md: "4rem" },
                 //opacity: 0.85,
                 "&:hover": {
-                  color: "white", // keep same text color on hover
+                  color: Constants.text_color_white, // keep same text color on hover
                   //opacity: 1,
                   backgroundColor: page.hoverColor
                 },

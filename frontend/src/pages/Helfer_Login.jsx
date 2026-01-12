@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import Constants from '../constants/constants.js';
+import { use, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -14,6 +15,8 @@ import { Link } from 'react-router-dom';
 
 import { Header } from '../component/Header.jsx'
 import ForgotPassword from '../component/ForgotPassword.jsx';
+import { Footer } from '../component/Footer.jsx';
+import Alert from '@mui/material/Alert';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -27,14 +30,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
         maxWidth: '450px',
     },
     boxShadow:
-        'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px',
-}));
-
-const SignInContainer = styled(Stack)(({ theme }) => ({
-    padding: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-        padding: theme.spacing(4),
-    },
+        Constants.shadow_login + ' 0px 5px 15px 0px, ' + Constants.shadow_login + ' 0px 15px 35px -5px',
 }));
 
 export function Helfer_Login() {
@@ -42,6 +38,7 @@ export function Helfer_Login() {
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [passwordError, setPasswordError] = useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+    const [alert, setAlert] = useState("");
 
     // following also forgot password stuff; see below - TODO
     /* const [open, setOpen] = useState(false);
@@ -54,19 +51,9 @@ export function Helfer_Login() {
         setOpen(false);
     }; */
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (emailError || passwordError) {
-            return;
-        }
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'), 
-            password: data.get('password'),
-        });
-    };
 
-    const validateInputs = () => {
+    const handleSubmit = async () => {
+        event.preventDefault();
         const email = document.getElementById('email');
         const password = document.getElementById('password');
 
@@ -81,22 +68,76 @@ export function Helfer_Login() {
             setEmailErrorMessage('');
         }
 
-        if (!password.value || password.value.length < 6) {
+        if (!password.value || password.value.length < 4) {
             setPasswordError(true);
-            setPasswordErrorMessage('Password must be at least 6 characters long.');
+            setPasswordErrorMessage('Password must be at least 4 characters long.');
             isValid = false;
         } else {
             setPasswordError(false);
             setPasswordErrorMessage('');
         }
 
-        return isValid;
+        if (!isValid) return;
+
+        const userId = await backendCheck(email.value, password.value);
+
+        if (userId) {
+            window.location.href = `/${Constants.PAGES_PREFIX}/#/helfer/${userId}`;
+        }
     };
 
+    const backendCheck = async (email, password) => {
+        try {
+            const res = await fetch(
+                
+                `${Constants.API_URL}/login?email=${encodeURIComponent(email)}&helper=true`,{
+                    method: 'POST',
+                }
+            );
+
+            if (!res.ok) {
+                if (res.status === 404) {
+                    setAlert("Kein Benutzer mit dieser E-Mail gefunden. Musst du dich erst registrieren?");
+                } else {
+                    setAlert("Unbekannter Fehler beim Einloggen. Code: " + res.status);
+                }
+                return null;
+            }
+
+            const data = await res.json();
+
+            if (data.password !== password) {
+                setPasswordError(true);
+                setPasswordErrorMessage('Falsches Passwort');
+                setAlert("Falsches Passwort. Bitte versuche es erneut.");
+                return null;
+            }
+
+            if(!data.helper){
+                setAlert("Dieser Account ist kein Helfer-Account.");
+                return null;
+            }
+
+            setPasswordError(false);
+            return data.user_id;
+        } catch (err) {
+            setAlert(err.message);
+            return null;
+        }
+    };
+
+
     return (
-        <>
+        <Box sx={{
+            height: "100vh",
+            display: 'flex',
+            flexDirection: 'column',
+        }}>
             <Header />
-            <SignInContainer direction="column" justifyContent="space-between">
+            <Alert severity="error" sx={{ display: alert == '' ? 'none' : 'flex' }}>
+                {alert}
+            </Alert>
+            <Box flex="1" display="flex" justifyContent="center" alignItems="flex-start" sx={{ px: 2, pt: 1 }}>
                 <Card variant="outlined" sx={{ position: 'relative' }}>
                     <Button
                         component={Link}
@@ -118,7 +159,6 @@ export function Helfer_Login() {
                     {/* DEV LINE - TODO */}
 
                     <Link to="/helfer/1"> DEV: Login als HelferID 1 </Link>
-                    <br />
 
                     {/* title */}
                     <Typography
@@ -131,7 +171,7 @@ export function Helfer_Login() {
 
                     <Box
                         component="form"
-                        onSubmit={handleSubmit}
+                        onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}
                         noValidate
                         sx={{
                             display: 'flex',
@@ -154,7 +194,7 @@ export function Helfer_Login() {
                                 required
                                 fullWidth
                                 variant="outlined"
-                                color={emailError ? 'error' : 'primary'}
+                                color={emailError ? Constants.error : Constants.neutral_medium}
                             />
                         </FormControl>
                         <FormControl>
@@ -170,7 +210,7 @@ export function Helfer_Login() {
                                 required
                                 fullWidth
                                 variant="outlined"
-                                color={passwordError ? 'error' : 'primary'}
+                                color={passwordError ? Constants.error : Constants.neutral_medium}
                             />
                         </FormControl>
 
@@ -181,11 +221,11 @@ export function Helfer_Login() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            onClick={validateInputs}
+                            sx={{ backgroundColor: Constants.primary_color }}
                         >
                             Anmelden
                         </Button>
-                        
+
 
                         {/* <Link
                             component="button"
@@ -199,7 +239,7 @@ export function Helfer_Login() {
                     </Box>
 
 
-                    <Divider sx={{py: 2}}>oder</Divider>
+                    <Divider sx={{ py: 2 }}>oder</Divider>
 
 
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -225,7 +265,8 @@ export function Helfer_Login() {
                         Zurück
                     </Button> */}
                 </Card>
-            </SignInContainer>
-        </>
+            </Box>
+            <Footer />
+        </Box>
     );
 }

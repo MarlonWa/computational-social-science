@@ -1,4 +1,3 @@
-import Constants from '../constants/constants.js';
 import { Link } from 'react-router-dom';
 import { Box, ButtonBase } from '@mui/material';
 
@@ -8,14 +7,14 @@ import { Box, ButtonBase } from '@mui/material';
  * @param {string} color_secondary1 - Background color for the button
  * @param {string} color_secondary2 - Background color for the button on hover
  * @param {number} user_id - ID of the user to construct the link
- * @returns A back button component linking to the help seeking's home page
+ * @returns A back button component linking to the helper's home page
  */
-export function Hilfe_Back_Home({color_primary = Constants.secondary_color_text, color_secondary1 = Constants.secondary_color_very_light, color_secondary2 = Constants.secondary_color_light, user_id}) {
+export function Helfer_Home({color_primary = "#1976d2", color_secondary1 = '#e3f2fd', color_secondary2 = '#bbdefb', user_id}) {
     return (
         <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
             <ButtonBase
                 component={Link}
-                to={`/hilfe/${user_id}`}
+                to={`/helfer/${user_id}`}
                 sx={{
                     p: 1.5,     
                     backgroundColor: color_secondary1,
@@ -28,8 +27,7 @@ export function Hilfe_Back_Home({color_primary = Constants.secondary_color_text,
                         color: color_primary,
                     },
                     transition: 'all 0.2s ease',
-                    width: 'auto',
-                    fontSize: { xs: '1.6rem', sm: '2.0rem' }
+                    width: 'auto'
                 }}
             >
                 ← Zurück zur Startseite

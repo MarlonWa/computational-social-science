@@ -1,105 +1,171 @@
+import Constants from '../constants/constants.js';
 import { Header } from '../component/Header.jsx'
+import { Footer } from '../component/Footer.jsx';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Button from '@mui/material/Button'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { lightGreen } from '@mui/material/colors';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography'
 import { Hilfe_Back_Home } from '../component/Hilfe_Back_Home.jsx';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom';
 import { Stack } from '@mui/material';
-const accentColor = '#9759d1ff';
+import { useState } from 'react';
+import { Box } from '@mui/material';
 
 //TODO: add FAQ
-const theme = createTheme({
-palette: {
-  mygreen: {
-    light: lightGreen[300],
-    main: lightGreen[500],
-    dark: lightGreen[700],
-    contrastText: "white",
-  },
-},
-});
 
 export function Hilfe_Request_New() {
   const { user_id } = useParams();
+  const navigate = useNavigate();
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+
+  const [titleError, setTitleError] = useState(false);
+  const [titleErrorMessage, setTitleErrorMessage] = useState('');
+  const [textError, setTextError] = useState(false);
+  const [textErrorMessage, setTextErrorMessage] = useState('');
 
   //breakpoints by screen size
   const isXs = useMediaQuery("(max-height: 600px)");      // smol
   const isSm = useMediaQuery("(min-height: 601px) and (max-height: 800px)");  // mid
 
   // main textfield row counts
-/*   const minRows = isXs ? 6 : isSm ? 10 : 16;
-  const maxRows = isXs ? 6 : isSm ? 15 : 20; */
+  //  const minRows = isXs ? 6 : isSm ? 10 : 16;
+  //  const maxRows = isXs ? 6 : isSm ? 15 : 20;
 
-//adjusted row counts because of bigger font sizes
-  const minRows = isXs ? 4 : isSm ? 6 : 9;
-  const maxRows = isXs ? 4 : isSm ? 9 : 11;
+  //adjusted row counts because of bigger font sizes
+  const minRows = isXs ? 2 : isSm ? 4 : 7;
+  const maxRows = isXs ? 3 : isSm ? 8 : 10; //who has this small screen anyway
+
+  function validateInputs() {
+    let valid = true;
+    if (!title || title.trim() === '') {
+      setTitleError(true);
+      setTitleErrorMessage('Bitte geben Sie einen Titel ein.');
+      valid = false;
+    } else {
+      setTitleError(false);
+      setTitleErrorMessage('');
+    }
+
+    if (!text || text.trim() === '') {
+      setTextError(true);
+      setTextErrorMessage('Bitte beschreiben Sie Ihr Problem.');
+      valid = false;
+    } else {
+      setTextError(false);
+      setTextErrorMessage('');
+    }
+
+    return valid;
+  }
+
+  async function sendRequest() {
+    if (!validateInputs()) return;
+
+    try {
+      const res = await fetch(`${Constants.API_URL}/request`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: Number(user_id), title: title.slice(0, 100), text })
+      });
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || 'Request failed');
+      }
+      // on success redirect back to help overview
+      //TODO: maybe show a success message?
+      navigate(`/hilfe/${user_id}`);
+    } catch (e) {
+      console.error(e);
+      alert('Fehler beim Erstellen der Anfrage');
+    }
+  }
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: Constants.neutral_light }}>
         <Header header_title={"Anfrage erstellen"}/>
 
-        <Container maxWidth="lg">
-          <Typography 
+      <Container maxWidth="lg" sx={{ flex: 1 }}>
+        <Typography
           variant="h3"
           noWrap
-          sx={{ my: 3, fontSize: { xs: '2.3rem', sm: '2.8rem' }, fontWeight: '600' }}
-          >
-            Anfrage stellen: </Typography>
+          sx={{ my: 3, fontSize: { xs: '2.0rem', sm: '2.5rem' }, fontWeight: '600' }}
+        >
+          Anfrage stellen: </Typography>
 
-          <TextField
-            id="outlined-multiline-static"
-            label={"Beschreiben Sie hier Ihr Problem"}
-            fullWidth
-            slotProps={{
-              inputLabel: {
-                sx: { color: '#292929ff', fontSize: { xs: '1.7rem', sm: '2.2rem' }}
-              },
-              input: {
-                sx: { fontSize: { xs: '1.6rem', sm: '2.1rem' } }
+        <TextField
+          id="request-title"
+          label={"Titel der Anfrage"}
+          fullWidth
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          error={titleError}
+          helperText={titleErrorMessage}
+          slotProps={{
+            inputLabel: {
+              sx: { color: Constants.text_field_label, fontSize: { xs: '1.3rem', sm: '1.9rem' } }
+            },
+            input: {
+              sx: { fontSize: { xs: '1.3rem', sm: '1.9rem' } },
+              maxLength: 100
+            }
+          }}
+          sx={{ my: 2 }}
+        />
+
+        <TextField
+          id="outlined-multiline-static"
+          label={"Beschreiben Sie hier Ihr Problem"}
+          fullWidth
+          slotProps={{
+            inputLabel: {
+              sx: { color: Constants.text_field_label, fontSize: { xs: '1.4rem', sm: '1.8rem' } }
+            },
+            input: {
+              sx: { fontSize: { xs: '1.55rem', sm: '1.8rem' } }
+            }
+          }}
+          multiline
+          minRows={minRows}
+          maxRows={maxRows}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          error={textError}
+          helperText={textErrorMessage}
+        />
+
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={2}
+          sx={{
+            my: 2,
+            alignItems: { xs: 'center', sm: 'flex-start' }
+          }}
+        >
+          <Hilfe_Back_Home user_id={user_id} />
+
+          <Button
+            onClick={sendRequest}
+            variant="contained"
+            sx={{
+              flex: 1,
+              p: 1,
+              fontSize: { xs: '1.6rem', sm: '2.2rem', fontWeight: '600' },
+              backgroundColor: Constants.primary_color,
+              '&:hover': {
+                backgroundColor: Constants.primary_color_dark,
+                color: Constants.text_color_white
               }
             }}
-            multiline
-            minRows={minRows}
-            maxRows={maxRows}
-            />
-
-          <Stack 
-            direction={{ xs: 'column', sm: 'row' }} 
-            spacing={2} 
-            sx={{ 
-              mb: 2,
-              alignItems: { xs: 'center', sm: 'flex-start' }
-            }}
           >
-            <Hilfe_Back_Home user_id={user_id} />
-
-            <Button
-              component={Link}
-              to={`/hilfe/${user_id}`} //TODO: this button should send the stuff and then redirect
-              variant="contained"
-                /* startIcon={<ChatIcon />} */
-                sx={{
-                    flex: 1,
-                    p: 1,
-                    fontSize: { xs: '1.6rem', sm: '2.2rem', fontWeight: '600' },
-                    backgroundColor: accentColor,
-                    '&:hover': {
-                        backgroundColor: '#7f19d2',
-                        color: 'white'
-                    }
-                }}
-            >
-                absenden
-            </Button>
+            absenden
+          </Button>
         </Stack>
-        </Container>
-      </ThemeProvider>
+      </Container>
+      <Footer/>
+      </Box>
     </>
   )
 }
