@@ -55,9 +55,9 @@ export function Hilfe_SignUp() {
             setEmailErrorMessage('');
         }
 
-        if (!password.value || password.value.length < 6) {
+        if (!password.value || password.value.length < 4) {
             setPasswordError(true);
-            setPasswordErrorMessage('Password must be at least 6 characters long.');
+            setPasswordErrorMessage('Password must be at least 4 characters long.');
             isValid = false;
         } else {
             setPasswordError(false);
@@ -87,7 +87,7 @@ export function Hilfe_SignUp() {
             name: name_p,
             email: email_p,
             password: password_p,
-            address: "testvill",
+            address: "",
             helper: false,
         };
         try {

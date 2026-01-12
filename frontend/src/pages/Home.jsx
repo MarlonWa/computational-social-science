@@ -44,7 +44,7 @@ export function Home() { //DONE FOR NOW :)
               sx={{
                 backgroundColor: page.color,
                 flex: 1,
-                borderRadius: 0,
+                borderRadius: "40px",
                 fontSize: { xs: "2rem", md: "4rem" },
                 //opacity: 0.85,
                 "&:hover": {
