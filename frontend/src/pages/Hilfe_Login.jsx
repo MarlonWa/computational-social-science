@@ -12,6 +12,7 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { Header } from '../component/Header.jsx'
 import { Footer } from '../component/Footer.jsx';
+import Alert from '@mui/material/Alert';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -32,20 +33,10 @@ export function Hilfe_Login() {
     const [emailErrorMessage, setEmailErrorMessage] = useState('');
     const [passwordError, setPasswordError] = useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+    const [alert, setAlert] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async () => {
         event.preventDefault();
-        if (emailError || passwordError) {
-            return;
-        }
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
-
-    const validateInputs = () => {
         const email = document.getElementById('email');
         const password = document.getElementById('password');
 
@@ -69,7 +60,45 @@ export function Hilfe_Login() {
             setPasswordErrorMessage('');
         }
 
-        return isValid;
+        if (!isValid) return;
+
+        const userId = await backendCheck(email.value, password.value);
+
+        if (userId) {
+            window.location.href = `/${Constants.PAGES_PREFIX}/#/hilfe/${userId}`;
+        }
+    };
+
+    const backendCheck = async (email, password) => {
+        try {
+            const res = await fetch(
+                `${Constants.API_URL}/user/login/${encodeURIComponent(email)}`
+            );
+
+            if (!res.ok) {
+                if (res.status === 404) {
+                    setAlert("Kein Benutzer mit dieser E-Mail gefunden. Musst du dich erst registrieren?");
+                } else {
+                    setAlert("Unbekannter Fehler beim Einloggen. Code: " + res.status);
+                }
+                return null;
+            }
+
+            const data = await res.json();
+
+            if (data.password !== password) {
+                setPasswordError(true);
+                setPasswordErrorMessage('Falsches Passwort');
+                setAlert("Falsches Passwort. Bitte versuche es erneut.");
+                return null;
+            }
+
+            setPasswordError(false);
+            return data.user_id;
+        } catch (err) {
+            setAlert(err.message);
+            return null;
+        }
     };
 
     return (
@@ -79,17 +108,20 @@ export function Hilfe_Login() {
             flexDirection: 'column',
         }}>
             <Header />
+            <Alert severity="error" sx={{ display: alert == '' ? 'none' : 'flex' }}>
+                {alert}
+            </Alert>
             <Box flex="1" display="flex" justifyContent="center" alignItems="flex-start" sx={{ px: 2, pt: 1 }}>
                 <Card variant="outlined" sx={{ position: 'relative', p: 3, gap: 1 }}>
                     {/* DEV LINE - TODO */}
 
                     <Link to="/hilfe/3"> DEV: Login als Hilfesuchender ID 3 </Link>
-                    
+
                     {/* title */}
                     <Typography
                         component="h1"
                         variant="h4"
-                        sx={{ width: '100%', fontSize: {xs: '1.9rem', sm: '2.2rem'}, fontWeight: 'bold' }}
+                        sx={{ width: '100%', fontSize: { xs: '1.9rem', sm: '2.2rem' }, fontWeight: 'bold' }}
                     >
                         Für Hilfe anmelden
                     </Typography>
@@ -143,7 +175,6 @@ export function Hilfe_Login() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            onClick={validateInputs}
                             sx={{
                                 mt: 1,
                                 fontSize: '1rem',

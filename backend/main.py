@@ -79,17 +79,34 @@ async def get_user(user_id: int):
     else: 
         raise HTTPException(status_code=404, detail="User not found")
 
+@app.get("/user/login/{email}")
+#returns a user from table "users" by user_id, returns HTTPStatus.NOT_FOUND if not found
+async def get_user(email: str):
+    conn = get_db_connection()
+    user = conn.execute("SELECT * FROM users WHERE email = ?", (email,)).fetchone()
+    conn.close()
+    if user:
+        return {
+            "user_id": user["user_id"],
+            "password": user["password"],
+        }
+    else: 
+        raise HTTPException(status_code=404, detail="User not found")
+
 #POST User 
-@app.post("/user")
+@app.post("/user", status_code=HTTPStatus.CREATED)
 #creates a new user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def create_user(user: User):
     conn = get_db_connection()
     try: 
-        conn.execute("INSERT INTO users (name, email, password, address, helper, points) VALUES (?, ?, ?, ?, ?, ?)", 
-                 (user.name, user.email, user.password, user.address, user.helper,user.points))
+        cursor = conn.execute("INSERT INTO users (name, email, password, address, helper) VALUES (?, ?, ?, ?, ?)", 
+                 (user.name, user.email, user.password, user.address, user.helper))
         conn.commit()
+        uid = cursor.lastrowid
         conn.close()
-        return HTTPStatus.CREATED
+        return {
+            "user_id": uid
+        }
     except IntegrityError: 
         conn.close()
         raise HTTPException(status_code=409, detail="Email already used")
