@@ -500,6 +500,27 @@ async def resetDB():
     createChatTable()
     createMessageTable()
 
+    await testUserData()
+    await testRequestData()
+    await testChatData()
+    await testMessageData()
+
+    print("Neue DB erstellt")
+
+
+#SETUP DB WITHOUT TEST DATA
+@app.post("/cleanreset")
+#Reset Database
+async def resetDB():
+    #delete old DB if exists
+    if os.path.exists(DB_NAME):
+        os.remove(DB_NAME)
+    
+    createUserTable()
+    createRequestTable()
+    createChatTable()
+    createMessageTable()
+
     print("Neue DB erstellt")
 
 def createUserTable():
