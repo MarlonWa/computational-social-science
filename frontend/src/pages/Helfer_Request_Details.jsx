@@ -137,7 +137,7 @@ export function Helfer_Request_Details() {
                                 variant="contained"
                                 onClick={() => {
                                     fetch(Constants.API_URL + `/helper/${user_id}/${request_id}`, { method: 'PUT' })
-                                        .then(() => window.location.href = `/#/helfer/${user_id}/myrequests`)
+                                        .then(() => window.location.href = `/${Constants.PAGES_PREFIX}/#/helfer/${user_id}/myrequests`)
                                         .catch((err) => setError(err.message));
                                 }}
                                 sx={{

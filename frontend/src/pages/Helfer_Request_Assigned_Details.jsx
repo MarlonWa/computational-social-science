@@ -161,7 +161,7 @@ export function Helfer_Request_Assigned_Details() {
                                 variant="contained"
                                 onClick={() => {
                                     fetch(Constants.API_URL + `/helper/${user_id}/remove/${request_id}`, { method: 'PUT' })
-                                        .then(() => window.location.href = `/#/helfer/${user_id}/myrequests`)
+                                        .then(() => window.location.href = `/${Constants.PAGES_PREFIX}/#/helfer/${user_id}/myrequests`)
                                         .catch((err) => setError(err.message));
                                 }}
                                 sx={{
@@ -180,7 +180,7 @@ export function Helfer_Request_Assigned_Details() {
                                 variant="contained"
                                 onClick={() => {
                                     fetch(Constants.API_URL + `/request/status/${request_id}/closed`, { method: 'PUT' })
-                                        .then(() => window.location.href = `/#/helfer/${user_id}/myrequests`)
+                                        .then(() => window.location.href = `/${Constants.PAGES_PREFIX}/#/helfer/${user_id}/myrequests`)
                                         .catch((err) => setError(err.message));
                                 }}
                                 sx={{
