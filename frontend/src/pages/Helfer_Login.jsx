@@ -61,7 +61,7 @@ export function Helfer_Login() {
 
         if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
             setEmailError(true);
-            setEmailErrorMessage('Please enter a valid email address.');
+            setEmailErrorMessage('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
             isValid = false;
         } else {
             setEmailError(false);
@@ -70,7 +70,7 @@ export function Helfer_Login() {
 
         if (!password.value || password.value.length < 4) {
             setPasswordError(true);
-            setPasswordErrorMessage('Password must be at least 4 characters long.');
+            setPasswordErrorMessage('Ihr Passwort muss mindestens 4 Zeichen lang sein.');
             isValid = false;
         } else {
             setPasswordError(false);
