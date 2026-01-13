@@ -250,7 +250,7 @@ export function Hilfe_SignUp() {
                     <Button
                         component={Link}
                         to="/"
-                        variant="outlined"
+                        variant="contained"
                         size="large"
 
                         sx={{
