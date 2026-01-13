@@ -58,24 +58,8 @@ The helper side is allowed to have a more complicated UI, since it's being used 
 
 ### Backend:
 
-- main.py
-  - Description: 
-      FastApi application that accesses the SQLite database.
-      Database contains tables "requests" and "users".
-      Supports all basic CRUD operations for both "users" and "requests".
-  - BaseModels:
-    - User:
-      - user_id
-      - first_name
-      - last_name
-      - email
-      - password 
-      - address
-      - helper
-    - Request:
-      - request_id
-      - user_id
-      - title
-      - text
-  - Functions
-    - ###### See main.py for a description of individual functions and methods
+- requirementsPip.txt: Required dependencies used by the Python package manager for our project.
+
+- database.py: Creates and returns an sqlite3 database connection using the DB_NAME environment variable
+
+- main.py: FASTAPI backend for a simple web application connecting those needing help on digital questions and those able to offer it. Exposes CRUD HTTP endpoints for users, requests, chats, messages, scoreboards, and helper assignments. Includes DB initialisation and test data, backed by an SQLite database. Please see comments in main.py for code-level documentation. 
