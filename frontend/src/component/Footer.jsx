@@ -7,18 +7,18 @@ import '@fontsource-variable/roboto-mono';
 import { Link } from 'react-router-dom'
 
 const pages = [
-  {name: 'FAQ', path: '/faq'},
-  {name: 'Datenschutzerklärung', path: '/datenschutz'},
-  {name: 'Impressum', path: '/impressum'},
+    { name: 'FAQ', path: '/faq' },
+    { name: 'Datenschutzerklärung', path: '/datenschutz' },
+    { name: 'Impressum', path: '/impressum' },
 ]
 
 
 export function Footer() {
     return (
         <>
-            <Box sx={{ pt: 2, height: {xs: '40px', md: '50px'}}}>
+            <Box sx={{ pt: 2, height: { xs: '40px', md: '50px' } }}>
                 <AppBar position="static" sx={{ backgroundColor: Constants.footer_color }}>
-                    <Toolbar 
+                    <Toolbar
                         sx={{
                             minHeight: { xs: '40px', md: '50px' },
                             height: '100%',
@@ -27,32 +27,32 @@ export function Footer() {
                             alignItems: "center",
                         }}
                     >
-                            <Box sx={{ flex: 1, display: 'flex', justifyContent: 'left' }}>
-                                <img src="/favicon.ico" alt="help@m logo" style={{ marginLeft: {xs: '2px', sm: '16px'}, height: {xs: '16px', sm: '48px'}, width: {xs: '16px',sm: '48px'}}} />
-                            </Box>
+                        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'left' }}>
+                            <img src={`${Constants.API_URL}/images/favicon.png`} alt="help@m logo" style={{ marginLeft: { xs: '2px', sm: '16px' }, height: { xs: '16px', sm: '48px' }, width: { xs: '16px', sm: '48px' } }} />
+                        </Box>
                         <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
-                            
+
 
                             {pages.map((page) => (
-                                <Box sx={{ flex: 1}} key={page.name}>
+                                <Box sx={{ flex: 1 }} key={page.name}>
                                     <Button
-                                        sx={{ 
+                                        sx={{
                                             fontSize: { xs: '0.7rem', md: '1.1rem' },
-                                            color: Constants.neutral_light, 
-                                            "&:hover": { color: Constants.neutral_light } 
+                                            color: Constants.neutral_light,
+                                            "&:hover": { color: Constants.neutral_light }
                                         }}
                                         component={Link}
                                         to={page.path}
-                        >
-                            {page.name}
-                        </Button>
+                                    >
+                                        {page.name}
+                                    </Button>
+                                </Box>
+                            ))}
                         </Box>
-                    ))}
-                    </Box>
 
-                </Toolbar>
-            </AppBar>
-        </Box>
+                    </Toolbar>
+                </AppBar>
+            </Box>
         </>
-  );
+    );
 }
