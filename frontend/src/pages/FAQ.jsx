@@ -2,7 +2,7 @@ import Constants from '../constants/constants.js';
 import React from 'react';
 import { Header } from '../component/Header.jsx';
 import { PhoneTutorial } from '../component/PhoneTutorial.jsx';
-import { appInstallationTutorial } from '../data/tutorials.js';
+import { appInstallationTutorial, appUninstallTutorial, wifiConnectionTutorial, passwordTutorial } from '../data/tutorials.js';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -265,25 +265,25 @@ export function FAQ() {
             data: appInstallationTutorial
         },
         {
-            id: 'passwort',
+            id: 'password-security',
             title: 'Sicheres Passwort',
             description: 'Lerne, wie du deine Konten schützt.',
             icon: <LockIcon sx={{ fontSize: 40, color: '#1976d2' }} />,
-            data: appInstallationTutorial // TODO: Ersetze mit eigenem Tutorial
+            data: passwordTutorial  // NEU: Eigenes Tutorial
         },
         {
             id: 'wlan',
             title: 'WLAN verbinden',
             description: 'So kommst du sicher ins Internet.',
             icon: <WifiIcon sx={{ fontSize: 40, color: '#2e7d32' }} />,
-            data: appInstallationTutorial // TODO: Ersetze mit eigenem Tutorial
+            data: wifiConnectionTutorial  // NEU: Eigenes Tutorial!
         },
         {
             id: 'app-delete',
             title: 'App deinstallieren',
             description: 'So löschst du Programme von deinem Gerät.',
             icon: <DeleteIcon sx={{ fontSize: 40, color: '#d32f2f' }} />,
-            data: appInstallationTutorial // TODO: Ersetze mit eigenem Tutorial
+            data: appUninstallTutorial  // NEU: Eigenes Tutorial!
         }
     ];
 
