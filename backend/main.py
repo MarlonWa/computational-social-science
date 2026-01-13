@@ -685,3 +685,27 @@ async def testMessageData():
     # await testChatData()
     # await testMessageData()
 
+
+
+# favicon
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    from fastapi.responses import FileResponse
+    return FileResponse("favicon.ico", media_type="image/x-icon")
+
+# Image endpoint for frontend usage
+@app.get("/images/{image_name}", include_in_schema=False)
+async def get_image(image_name: str):
+    from fastapi.responses import FileResponse
+    import mimetypes
+    
+    # Security: only allow files from images folder
+    if ".." in image_name:
+        raise HTTPException(status_code=400, detail="Invalid image name")
+    
+    file_path = f"images/{image_name}"
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="Image not found")
+    
+    mime_type, _ = mimetypes.guess_type(file_path)
+    return FileResponse(file_path, media_type=mime_type)
