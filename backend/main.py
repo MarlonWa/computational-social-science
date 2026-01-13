@@ -430,21 +430,21 @@ async def get_scoreboard():
 #get User scorerank and score
 async def get_scoreboard_status(user_id: int):
     conn = get_db_connection()
-    points = conn.execute("SELECT points FROM users WHERE user_id = ?", (user_id,)).fetchone()
+    user = conn.execute("SELECT * FROM users WHERE user_id = ?", (user_id,)).fetchone()
     rank = conn.execute("SELECT rank FROM (SELECT user_id, ROW_NUMBER() OVER (ORDER BY points DESC) AS rank FROM users) WHERE user_id = ?", (user_id,)).fetchone()
-    top3 = conn.execute("SELECT points FROM users ORDER BY points DESC LIMIT 3").fetchall()
+    top3 = conn.execute("SELECT * FROM users ORDER BY points DESC LIMIT 3").fetchall()
     conn.close()
 
     if len(top3) == 1:
-        top3 = [dict(top3[0]), {"points": 0}, {"points": 0}]
+        top3 = [dict(top3[0]), dict(top3[0]), dict(top3[0])]
     elif len(top3) == 2:
-        top3 = [dict(top3[0]), dict(top3[1]), {"points": 0}]
+        top3 = [dict(top3[0]), dict(top3[1]), dict(top3[1])]
     
     return {
-        "top1": top3[0]["points"],
-        "top2": top3[1]["points"],
-        "top3": top3[2]["points"],
-        "user_score" : points["points"],
+        "top1": top3[0],
+        "top2": top3[1],
+        "top3": top3[2],
+        "user" : user,
         "user_rank" : rank["rank"]
     }
 
@@ -669,7 +669,7 @@ async def testMessageData():
     
 
 
-# favicon
+""" # favicon
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
     from fastapi.responses import FileResponse
@@ -690,4 +690,4 @@ async def get_image(image_name: str):
         raise HTTPException(status_code=404, detail="Image not found")
     
     mime_type, _ = mimetypes.guess_type(file_path)
-    return FileResponse(file_path, media_type=mime_type)
+    return FileResponse(file_path, media_type=mime_type) """

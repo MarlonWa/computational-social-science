@@ -8,10 +8,10 @@ import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
 
 export function Helfer_Scoreboard() {  // DONE FOR NOW :)
     const { user_id } = useParams();
-    const [points, setPoints] = useState(0);
-    const [points1, setPoints1] = useState(0);
-    const [points2, setPoints2] = useState(0);
-    const [points3, setPoints3] = useState(0);
+    const [thisUser, setUser] = useState({ "points": 0 });
+    const [top1, setTop1] = useState(0);
+    const [top2, setTop2] = useState(0);
+    const [top3, setTop3] = useState(0);
     const [rank, setRank] = useState(0);
     const [error, setError] = useState(null);
 
@@ -27,7 +27,9 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
                 if (!res.ok) throw new Error("User nicht gefunden");
                 return res.json();
             })
-            .then((data) => setPoints(data.points))
+            .then((data) => {
+                setUser(data)
+            })
             .catch((err) => setError(err.message));
     }, [user_id]);
 
@@ -38,9 +40,9 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
                 return res.json();
             })
             .then((data) => {
-                setPoints1(data.top1);
-                setPoints2(data.top2);
-                setPoints3(data.top3);
+                setTop1(data.top1);
+                setTop2(data.top2);
+                setTop3(data.top3);
                 setRank(data.user_rank);
             })
             .catch((err) => setError(err.message));
@@ -120,17 +122,17 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
                         >
                             <Box sx={rankingItemSx}>
                                 <Box component="p" sx={textSx}>
-                                    <strong>🥇 Top 1:</strong> {points1} Punkte
+                                    <strong>🥇 {top1.name}:</strong> {top1.points} Punkte
                                 </Box>
                             </Box>
                             <Box sx={rankingItemSx}>
                                 <Box component="p" sx={textSx}>
-                                    <strong>🥈 Top 2:</strong> {points2} Punkte
+                                    <strong>🥈 {top2.name}:</strong> {top2.points} Punkte
                                 </Box>
                             </Box>
                             <Box sx={rankingItemSx}>
                                 <Box component="p" sx={textSx}>
-                                    <strong>🥉 Top 3:</strong> {points3} Punkte
+                                    <strong>🥉 {top3.name}  :</strong> {top3.points} Punkte
                                 </Box>
                             </Box>
                         </Box>
@@ -153,10 +155,10 @@ export function Helfer_Scoreboard() {  // DONE FOR NOW :)
                                 mb: 0.5,
                             }}
                         >
-                            Du hast {points} Punkte!
+                            Du hast {thisUser?.points} Punkte!
                             <br />
                         </Box>
-                        {points !== 0 && (
+                        {thisUser?.points !== 0 && (
                         <Box
                             component="h1"
                             sx={{
