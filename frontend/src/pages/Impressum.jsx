@@ -12,7 +12,7 @@ export function Impressum() {
                     <h1>Impressum</h1>
                     <Box maxWidth={600} textAlign="center" padding={3} borderRadius={2} sx={{ backgroundColor: Constants.primary_color_very_light, boxShadow: `0 4px 8px 0 ${Constants.shadow_black}`, fontSize: '1.4rem' }}>
                         <p> help@m </p>
-                        <p> (hoffentlich irgendwann von it@m)</p>
+                        <p> (hoffentlich irgendwann von it@M)</p>
                         <p> Adresse: München </p>
                     </Box>
                 </Box>
