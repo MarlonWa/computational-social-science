@@ -53,7 +53,7 @@ export function Dev() {
                 <Button onClick={handleRestart} style={{backgroundColor : Constants.error, color: Constants.neutral_light, fontSize : "2rem"}}>
                     Restart Database 
                 </Button>
-                <p> (dont click it yet - API not done) </p>
+                <p> (be careful with clicking this, requests and users gone afterwards !) </p>
 
                 <Box flex={1} display="grid" gridTemplateColumns="1fr 1fr" gap={2} justifyContent="center" width="100vw" alignItems="center">
                     <Box>

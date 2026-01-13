@@ -613,12 +613,13 @@ def createMessageTable():
 #TEST DATA
 async def testUserData():
     users = [
-        User(name="Blib", email="blibblub@hi.de", password="password", address= "testvill", helper=True, points = 100),
-        User(name="Max", email="max@hi.de", password="1234", address= "Passing", helper=True, points = 20),
-        User(name="Gustav", email="ub@hi.de", password="password", address= "testvill", helper=True, points = 10),
-        User(name="Ella", email="ellaelli@hi.de", password="hihi", address= "TUM", helper=False)
+        User(name="Anna Schmidt", email="anna.schmidt@email.de", password="AnnaS2024!", address="Marienplatz 12, München", helper=True, points=85),
+        User(name="Peter Müller", email="peter.mueller@gmx.de", password="PeterM123", address="Hauptstraße 45, Augsburg", helper=True, points=62),
+        User(name="Claudia Wagner", email="c.wagner@web.de", password="Claudia!99", address="Bahnhofstraße 8, Nürnberg", helper=True, points=41),
+        User(name="Hans Becker", email="hans.becker@t-online.de", password="HansBecker2024", address="Gartenweg 23, Regensburg", helper=False, points=5),
+        User(name="Gisela Hoffmann", email="gisela.h@gmx.net", password="Gisela123!", address="Rosenstraße 17, Passau", helper=False, points=3),
+        User(name="Wolfgang Klein", email="w.klein@yahoo.de", password="Wolfgang!2024", address="Kirchplatz 9, Landshut", helper=False, points=0)
     ]
-    #im Frontend wird zum Testen angenommen, dass ID1 ein Helfer ist und ID3 ein Hilfesuchender. Bitte nicht ändern
     
     for u in users:
         await create_user(u)
@@ -627,42 +628,59 @@ async def testUserData():
 
 async def testRequestData():
     requests = [
-        Request(user_id=1, title="Anfrage numero 1", text = "Das ist ne Anfrage. yay"),
-        Request(user_id=1, title="Anfrage numero 2", text = "blib blub yay"),
-        Request(user_id=3, title="Anfrage numero 3", text = "Auch eine Anfrage."),
-        Request(user_id=2, title="Anfrage numero 4", text = "Anfrageänderung zu Testzwecken.")
+        Request(user_id=4, helper_id=1, title="Hilfe beim WLAN einrichten", text="Ich komme nicht ins Internet. Mein Router blinkt rot und ich weiß nicht, was ich tun soll.", status="in_progress"),
+        Request(user_id=5, title="WhatsApp installieren", text="Meine Enkelin hat mir geschrieben, dass ich WhatsApp brauche. Wie bekomme ich das auf mein Handy?", status="open"),
+        Request(user_id=6, title="E-Mail-Anhang öffnen", text="Ich habe eine wichtige E-Mail mit einem PDF bekommen, aber ich kann es nicht öffnen. Können Sie mir helfen?", status="open"),
+        Request(user_id=4, helper_id=2, title="Passwort vergessen", text="Ich habe mein E-Mail-Passwort vergessen und komme nicht mehr rein. Was kann ich tun?", status="closed"),
+        Request(user_id=5, helper_id=3, title="Smartphone zu langsam", text="Mein Handy ist sehr langsam geworden. Viele Apps reagieren nicht mehr richtig.", status="in_progress")
     ]
-    #im Frontend wird zum Testen angenommen, dass Request 1 von UserID 1 ist und Request 3 von UserID 3. Bitte nicht ändern
     
     for r in requests:
         await create_request(r)
         
-    print("Test Request created")
+    print("Test Requests created")
     
 async def testChatData():
     chats = [
-        Chat(helper_id=1, help_id = 2, request_id = 1),
-        Chat(helper_id=3, help_id = 2, request_id = 2),
+        Chat(helper_id=1, help_id=4, request_id=1),
+        Chat(helper_id=2, help_id=4, request_id=4),
+        Chat(helper_id=3, help_id=5, request_id=5),
     ]
     
     for c in chats:
         await create_chat(c)
         
-    print("Test Chat created")
+    print("Test Chats created")
 
 async def testMessageData():
     messages = [
-        Message(request_id=1, user_id = 2, message_text="hi"),
-        Message(request_id=1, user_id = 1, message_text="hi back"),
+        # Chat 1: Anna hilft Hans mit WLAN
+        Message(request_id=1, user_id=4, message_text="Hallo Anna, vielen Dank, dass Sie mir helfen möchten!"),
+        Message(request_id=1, user_id=1, message_text="Guten Tag Hans! Gerne helfe ich Ihnen. Können Sie mir sagen, welche Farbe die Lampe am Router hat?"),
+        Message(request_id=1, user_id=4, message_text="Die Lampe blinkt rot. Ist das schlecht?"),
+        Message(request_id=1, user_id=1, message_text="Das bedeutet meist, dass keine Internetverbindung besteht. Versuchen Sie bitte, den Router für 30 Sekunden auszuschalten und dann wieder einzuschalten."),
+        Message(request_id=1, user_id=4, message_text="Okay, ich probiere das jetzt mal..."),
+        Message(request_id=1, user_id=4, message_text="Es funktioniert! Die Lampe ist jetzt grün. Vielen Dank!"),
+        Message(request_id=1, user_id=1, message_text="Sehr gut! Das freut mich. Falls Sie noch Fragen haben, melden Sie sich gerne."),
         
-        Message(request_id=2, user_id = 2, message_text="hello"),
-        Message(request_id=2, user_id = 3, message_text="hello back"),
+        # Chat 2: Peter hilft Hans mit Passwort (abgeschlossen)
+        Message(request_id=2, user_id=4, message_text="Hallo Peter, ich komme nicht mehr in meine E-Mails..."),
+        Message(request_id=2, user_id=2, message_text="Hallo Hans! Kein Problem, das kriegen wir hin. Welcher E-Mail-Anbieter ist das?"),
+        Message(request_id=2, user_id=4, message_text="Das ist T-Online."),
+        Message(request_id=2, user_id=2, message_text="Okay, gehen Sie auf die T-Online Webseite und klicken Sie auf 'Passwort vergessen'. Dann bekommen Sie eine SMS oder E-Mail zum Zurücksetzen."),
+        Message(request_id=2, user_id=4, message_text="Ah verstehe! Das hat geklappt, ich habe jetzt ein neues Passwort. Danke!"),
+        
+        # Chat 3: Claudia hilft Gisela mit langsamem Handy
+        Message(request_id=3, user_id=5, message_text="Hallo Claudia, mein Handy ist so langsam geworden..."),
+        Message(request_id=3, user_id=3, message_text="Hallo Gisela! Das können wir zusammen anschauen. Wie viel Speicherplatz haben Sie noch frei?"),
+        Message(request_id=3, user_id=5, message_text="Wie sehe ich das denn?"),
+        Message(request_id=3, user_id=3, message_text="Gehen Sie in die Einstellungen und dann auf 'Speicher'. Dort steht, wie viel Platz noch frei ist."),
     ]
     
     for m in messages:
         await create_message(m)
         
-    print("Test Chat created")
+    print("Test Messages created")
 
 
 #on_event is deprecated but should still work, otherwise use "lifespan"; just ignore it
@@ -673,4 +691,28 @@ async def testMessageData():
     # await testRequestData()
     # await testChatData()
     # await testMessageData()
+
+
+
+# favicon
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    from fastapi.responses import FileResponse
+    return FileResponse("favicon.ico", media_type="image/x-icon")
+
+# Image endpoint for frontend usage
+@app.get("/images/{image_name}", include_in_schema=False)
+async def get_image(image_name: str):
+    from fastapi.responses import FileResponse
+    import mimetypes
     
+    # Security: only allow files from images folder
+    if ".." in image_name:
+        raise HTTPException(status_code=400, detail="Invalid image name")
+    
+    file_path = f"images/{image_name}"
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="Image not found")
+    
+    mime_type, _ = mimetypes.guess_type(file_path)
+    return FileResponse(file_path, media_type=mime_type)
