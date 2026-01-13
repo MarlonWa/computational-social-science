@@ -111,21 +111,21 @@ export function FAQ() {
         topic: "Betriebssystem",
         icon: <SettingsIcon sx={{ color: '#1976d2' }} />,
         question: "Was ist eigentlich ein Betriebssystem?",
-        answer: "Das Betriebssystem ist das Hauptprogramm deines Geräts (z.B. Android bei Samsung oder iOS beim iPhone). Es verwaltet alle anderen Apps und sorgt dafür, dass Hardware und Software zusammenarbeiten."
+        answer: "Das Betriebssystem ist das Hauptprogramm deines Geräts. Es verwaltet alle anderen Apps und sorgt dafür, dass Hardware und Software zusammenarbeiten. Beispiele für Betriebssysteme sind Windows, macOS oder auch Android und iOS bei Smartphones."
     },
     {
         id: 2,
         topic: "Update",
         icon: <UpdateIcon sx={{ color: '#2e7d32' }} />,
         question: "Warum muss ich ständig Updates machen?",
-        answer: "Updates verbessern die Sicherheit und fügen neue Funktionen hinzu. Sie schließen 'Sicherheitslücken', damit Hacker keine Chance haben, und sorgen dafür, dass dein Gerät flüssig läuft."
+        answer: "Updates verbessern die Sicherheit, fügen oft neue Funktionen hinzu oder beheben Fehler im Programm. So läuft dein Gerät immer optimal und sicher und geben Menschen, die Schaden anrichten wollen keine Chance. "
     },
     {
         id: 3,
         topic: "Browser",
         icon: <LanguageIcon sx={{ color: '#0288d1' }} />,
         question: "Wozu brauche ich einen Browser?",
-        answer: "Ein Browser (wie Chrome, Safari oder Firefox) ist dein Zugang zum Internet. Mit ihm kannst du Webseiten aufrufen und im Netz surfen."
+        answer: "Ein Browser (wie Chrome, Safari oder Firefox) ist dein Zugang zum Internet. Mit ihm kannst du Webseiten aufrufen und im Netz surfen um Inhalte wie Nachrichten zu lesen oder online einzukaufen. Manche Dinge wie WhatsApp oder andere Apps funktioneren auch ohne Browser da sie das Internet im Hintergrund benutzen."
     },
     {
         id: 4,
@@ -174,7 +174,7 @@ export function FAQ() {
         topic: "Hardware",
         icon: <RouterIcon sx={{ color: '#fbc02d' }} />,
         question: "Was versteht man unter Hardware?",
-        answer: "Hardware ist alles an deinem Gerät, was du anfassen kannst: Der Bildschirm, das Gehäuse, der Akku oder auch die Kabel und Stecker."
+        answer: "Hardware ist alles an deinem Gerät, was du anfassen kannst: Der Bildschirm, das Gehäuse, der Akku oder auch Kabel und Stecker."
     },
     {
         id: 11,
@@ -216,14 +216,14 @@ export function FAQ() {
         topic: "Künstliche Intelligenz",
         icon: <SmartToyIcon sx={{ color: '#9c27b0' }} />,
         question: "Was genau ist KI?",
-        answer: "KI (Künstliche Intelligenz) sind Computerprogramme, die Probleme lösen können, für die man früher menschliche Intelligenz brauchte, wie z.B. das Erkennen von Gesichtern oder das Übersetzen von Sprachen."
+        answer: "KI (Künstliche Intelligenz) sind Computerprogramme, die Probleme lösen können, für die man früher menschliche Intelligenz brauchte. KI kann mitdenken und dazulernen so können sie Menschen bei Ihrer Arbeit helfen, z.B Texte verfassen, Fragen beantworten oder auch Sprachen übersetzen."
     },
     {
         id: 17,
         topic: "Cloud",
         icon: <CloudQueueIcon sx={{ color: '#03a9f4' }} />,
         question: "Was ist eigentlich 'die Cloud'?",
-        answer: "Die Cloud ist Speicherplatz im Internet. Deine Daten liegen auf sicheren Servern der Anbieter. So kannst du von jedem Gerät aus auf deine Fotos zugreifen, solange du Internet hast."
+        answer: "Die Cloud ist ein Speicherplatz im Internet. Deine Daten liegen auf sicheren Computern von Anbietern. So kannst du von jedem Gerät aus auf deine Fotos zugreifen, solange du Internet hast. Ein anderer Vorteil ist, dass Daten nicht so leicht verloren gehen."
     },
     {
         id: 18,
