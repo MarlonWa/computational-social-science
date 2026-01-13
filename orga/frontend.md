@@ -12,8 +12,8 @@
 ~~Helfer_Requests_Assigned.jsx~~
 ~~Helfer_Scoreboard.jsx~~
 ~~Helfer_SignUp.jsx~~
-Hilfe_Chat.jsx
-Hilfe_Chats_All.jsx
+~~Hilfe_Chat.jsx~~
+~~Hilfe_Chats_All.jsx~~
 ~~Hilfe_Home.jsx~~
 ~~Hilfe_Login.jsx~~
 ~~Hilfe_Request_Details.jsx~~
