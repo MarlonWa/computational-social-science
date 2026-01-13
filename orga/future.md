@@ -7,8 +7,14 @@ Bei uns leider aktuell gar nicht vorhanden. Jeder Nutzer kann auf alles zugreife
 ## Anfragen bearbeiten
 Eine "Anfragen bearbeiten"-Funktion gibt es aktuell noch nicht
 
-## constant font sizes
-Colors are uniform, because they are in the constants.js file and can be modified there. Text sizes are not globally uniform
+## konstante font sizes
+Farben sind bereits konsistent, da diese in constants.js verändert werden können. Textgrößen sind noch nicht konsistent
 
 ## Passwort zurücksetzen
 Auch diese Funktion existiert aktuell noch nicht
+
+## Service classes
+Aktuell werden die meisten API-calls in den .jsx Dateien selbst aufgerufen. Für schöneren Code können sie in die /frontend/service Dateien als Methoden erstellt werden.
+
+## Punkteverteilung
+Aktuell 1 Punkt pro abgeschlossener Anfrage
