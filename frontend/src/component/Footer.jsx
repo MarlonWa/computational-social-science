@@ -27,7 +27,12 @@ export function Footer() {
                             alignItems: "center",
                         }}
                     >
+                            <Box sx={{ flex: 1, display: 'flex', justifyContent: 'left' }}>
+                                <img src="/favicon.ico" alt="help@m logo" style={{ marginLeft: {xs: '2px', sm: '16px'}, height: {xs: '16px', sm: '48px'}, width: {xs: '16px',sm: '48px'}}} />
+                            </Box>
                         <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
+                            
+
                             {pages.map((page) => (
                                 <Box sx={{ flex: 1}} key={page.name}>
                                     <Button

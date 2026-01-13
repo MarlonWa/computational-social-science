@@ -44,7 +44,7 @@ export function Hilfe_Login() {
 
         if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
             setEmailError(true);
-            setEmailErrorMessage('Please enter a valid email address.');
+            setEmailErrorMessage('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
             isValid = false;
         } else {
             setEmailError(false);
@@ -53,7 +53,7 @@ export function Hilfe_Login() {
 
         if (!password.value || password.value.length < 4) {
             setPasswordError(true);
-            setPasswordErrorMessage('Password must be at least 4 characters long.');
+            setPasswordErrorMessage('Ihr Passwort muss mindestens 4 Zeichen lang sein.');
             isValid = false;
         } else {
             setPasswordError(false);
@@ -72,9 +72,9 @@ export function Hilfe_Login() {
     const backendCheck = async (email, password) => {
         try {
             const res = await fetch(
-                `${Constants.API_URL}/login?email=${encodeURIComponent(email)}&helper=false`,{
-                    method: 'POST',
-                }
+                `${Constants.API_URL}/login?email=${encodeURIComponent(email)}&helper=false`, {
+                method: 'POST',
+            }
             );
 
             if (!res.ok) {
@@ -95,7 +95,7 @@ export function Hilfe_Login() {
                 return null;
             }
 
-            if(data.helper){
+            if (data.helper) {
                 setAlert("Dieser Account ist als Helfer registriert. Bitte benutze die Helfer-Anmeldeseite.");
                 return null;
             }
@@ -128,7 +128,7 @@ export function Hilfe_Login() {
                     <Typography
                         component="h1"
                         variant="h4"
-                        sx={{ width: '100%', fontSize: { xs: '1.9rem', sm: '2.2rem' }, fontWeight: 'bold' }}
+                        sx={{ width: '100%', fontSize: { xs: '2rem', sm: '2.3rem' }, fontWeight: 'bold' }}
                     >
                         Für Hilfe anmelden
                     </Typography>
@@ -145,7 +145,7 @@ export function Hilfe_Login() {
                         }}
                     >
                         <FormControl>
-                            <FormLabel htmlFor="email" sx={{ fontSize: '1rem', fontWeight: 500, pb: .2, pt: 2 }}>Email</FormLabel>
+                            <FormLabel htmlFor="email" sx={{ color: "black", fontSize: '1.1rem', fontWeight: 600, pb: .2, pt: 2 }}>Email</FormLabel>
                             <TextField
                                 error={emailError}
                                 helperText={emailErrorMessage}
@@ -162,7 +162,7 @@ export function Hilfe_Login() {
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel htmlFor="password" sx={{ fontSize: '1rem', fontWeight: 500, pb: .2 }}>Passwort</FormLabel>
+                            <FormLabel htmlFor="password" sx={{ color: "black", fontSize: '1.1rem', fontWeight: 600, pb: .2 }}>Passwort</FormLabel>
                             <TextField
                                 error={passwordError}
                                 helperText={passwordErrorMessage}
@@ -184,7 +184,7 @@ export function Hilfe_Login() {
                             variant="contained"
                             sx={{
                                 mt: 1,
-                                fontSize: '1rem',
+                                fontSize: '1.1rem',
                                 fontWeight: "600",
                                 color: Constants.primary_color,
                                 outlineColor: Constants.primary_color_very_light,
@@ -209,12 +209,12 @@ export function Hilfe_Login() {
 
 
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Typography variant='h6' sx={{ textAlign: 'center', fontSize: '1.1rem', fontWeight: '600', }}>
+                        <Typography variant='h6' sx={{ textAlign: 'center', fontSize: '1.4rem', fontWeight: '600', }}>
 
                             Noch nie registriert?
                         </Typography>
 
-                        <Typography variant='h6' sx={{ textAlign: 'center', fontSize: '1.1rem', color: Constants.header_color }} component={Link} to="/hilfe/signup">
+                        <Typography variant='h6' sx={{ textAlign: 'center', fontSize: '1.2rem', color: Constants.header_color }} component={Link} to="/hilfe/signup">
                             Dann stattdessen hier drücken
                         </Typography>
                     </Box>
@@ -222,23 +222,23 @@ export function Hilfe_Login() {
                     <Button
                         component={Link}
                         to="/"
-                        variant="outlined"
+                        variant="contained"
                         size="large"
 
                         sx={{
                             alignSelf: 'center',
-                            fontSize: '1rem',
+                            fontSize: '1.1rem',
                             fontWeight: '600',
                             marginTop: '25px',
-                            color: Constants.secondary_color,
-                            outlineColor: Constants.secondary_color_very_light,
-                            borderColor: Constants.secondary_color_very_light,
-                            backgroundColor: Constants.secondary_color_very_light,
+                            color: Constants.primary_color,
+                            outlineColor: Constants.primary_color_very_light,
+                            borderColor: Constants.primary_color_very_light,
+                            backgroundColor: Constants.primary_color_very_light,
 
                             ":hover": {
-                                color: Constants.secondary_color,
-                                outlineColor: Constants.secondary_color,
-                                borderColor: Constants.secondary_color,
+                                color: Constants.primary_color,
+                                outlineColor: Constants.primary_color,
+                                borderColor: Constants.primary_color,
                             }
                         }}
                     >

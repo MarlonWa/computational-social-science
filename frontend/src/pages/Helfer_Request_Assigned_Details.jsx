@@ -180,6 +180,7 @@ export function Helfer_Request_Assigned_Details() {
                                 variant="contained"
                                 onClick={() => {
                                     fetch(Constants.API_URL + `/request/status/${request_id}/closed`, { method: 'PUT' })
+                                        .then(() => fetch(Constants.API_URL + `/user/point/${user_id}`, {method: 'PUT'}))
                                         .then(() => window.location.href = `/${Constants.PAGES_PREFIX}/#/helfer/${user_id}/myrequests`)
                                         .catch((err) => setError(err.message));
                                 }}

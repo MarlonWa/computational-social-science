@@ -149,6 +149,21 @@ async def delete_user(user_id: int):
     conn.close()
     return HTTPStatus.ACCEPTED
 
+#add 1 point for finished help
+@app.put("/user/point/{user_id}")
+#adds 1 point to user in table "users", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
+async def add_point(user_id: int):
+    conn = get_db_connection()
+    try:
+        conn.execute("UPDATE users SET points = points + 1 WHERE user_id = ?", 
+                     (user_id,))
+        conn.commit()
+        conn.close()
+        return HTTPStatus.CREATED
+    except IntegrityError:
+        conn.close()
+        raise HTTPException(status_code=409, detail="User not found")
+
 
 #REQUEST DATA
 #GET request 
