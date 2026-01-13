@@ -72,9 +72,9 @@ export function Hilfe_Login() {
     const backendCheck = async (email, password) => {
         try {
             const res = await fetch(
-                `${Constants.API_URL}/login?email=${encodeURIComponent(email)}&helper=false`,{
-                    method: 'POST',
-                }
+                `${Constants.API_URL}/login?email=${encodeURIComponent(email)}&helper=false`, {
+                method: 'POST',
+            }
             );
 
             if (!res.ok) {
@@ -95,7 +95,7 @@ export function Hilfe_Login() {
                 return null;
             }
 
-            if(data.helper){
+            if (data.helper) {
                 setAlert("Dieser Account ist als Helfer registriert. Bitte benutze die Helfer-Anmeldeseite.");
                 return null;
             }
@@ -230,15 +230,15 @@ export function Hilfe_Login() {
                             fontSize: '1rem',
                             fontWeight: '600',
                             marginTop: '25px',
-                            color: Constants.secondary_color,
-                            outlineColor: Constants.secondary_color_very_light,
-                            borderColor: Constants.secondary_color_very_light,
-                            backgroundColor: Constants.secondary_color_very_light,
+                            color: Constants.primary_color,
+                            outlineColor: Constants.primary_color_very_light,
+                            borderColor: Constants.primary_color_very_light,
+                            backgroundColor: Constants.primary_color_very_light,
 
                             ":hover": {
-                                color: Constants.secondary_color,
-                                outlineColor: Constants.secondary_color,
-                                borderColor: Constants.secondary_color,
+                                color: Constants.primary_color,
+                                outlineColor: Constants.primary_color,
+                                borderColor: Constants.primary_color,
                             }
                         }}
                     >
