@@ -174,7 +174,7 @@ export function FAQ() {
         topic: "Hardware",
         icon: <RouterIcon sx={{ color: '#fbc02d' }} />,
         question: "Was versteht man unter Hardware?",
-        answer: "Hardware ist alles an deinem Gerät, was du anfassen kannst: Der Bildschirm, das Gehäuse, der Akku oder auch Kabel und Stecker."
+        answer: "Hardware ist alles an deinem Gerät, was du anfassen kannst: Der Bildschirm, das Gehäuse, die Festplatte, der Akku oder auch Kabel und Stecker."
     },
     {
         id: 11,
@@ -202,7 +202,7 @@ export function FAQ() {
         topic: "GPS",
         icon: <LocationOnIcon sx={{ color: '#e91e63' }} />,
         question: "Wie weiß mein Handy, wo ich bin?",
-        answer: "GPS steht für Global Positioning System. Satelliten im Weltraum senden Signale an dein Handy, damit Apps wie Google Maps deinen Standort punktgenau auf der Karte anzeigen können."
+        answer: "Dein Handy nutzt das Satelliten-basierte GPS. GPS steht für Global Positioning System. Satelliten im Weltraum senden Signale an dein Handy, damit Apps wie Google Maps deinen Standort punktgenau auf der Karte anzeigen können."
     },
     {
         id: 15,
