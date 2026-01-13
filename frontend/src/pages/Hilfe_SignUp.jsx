@@ -48,7 +48,7 @@ export function Hilfe_SignUp() {
 
         if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
             setEmailError(true);
-            setEmailErrorMessage('Please enter a valid email address.');
+            setEmailErrorMessage('Bitte geben Sie eine gültige E-Mail-Adresse ein.');
             isValid = false;
         } else {
             setEmailError(false);
@@ -57,7 +57,7 @@ export function Hilfe_SignUp() {
 
         if (!password.value || password.value.length < 4) {
             setPasswordError(true);
-            setPasswordErrorMessage('Password must be at least 4 characters long.');
+            setPasswordErrorMessage('Ihr Passwort muss mindestens 4 Zeichen lang sein.');
             isValid = false;
         } else {
             setPasswordError(false);
@@ -66,7 +66,7 @@ export function Hilfe_SignUp() {
 
         if (!name.value || name.value.length < 1) {
             setNameError(true);
-            setNameErrorMessage('Name is required.');
+            setNameErrorMessage('Ihr Name ist erforderlich.');
             isValid = false;
         } else {
             setNameError(false);
@@ -131,15 +131,15 @@ export function Hilfe_SignUp() {
             <Alert severity="error" sx={{ display: alert == '' ? 'none' : 'flex' }}>
                 {alert}
             </Alert>
-            <Box flex="1" display="flex" justifyContent="center" alignItems="flex-start" sx={{ px: 2, pt: 1 }}>
-                <Card variant="outlined" sx={{ position: 'relative', p: 3, gap: 1 }}>
+            <Box flex="1" display="flex" justifyContent="center" alignItems="flex-start" sx={{ px: 2, pt: 2 }}>
+                <Card variant="outlined" sx={{ position: 'relative', px: 4, pt:1, pb: 3, gap: 1 }}>
                     {/* title */}
                     <Typography
                         component="h1"
                         variant="h4"
                         sx={{
                             width: '100%',
-                            fontSize: { xs: '2rem', sm: '2.2rem' },
+                            fontSize: { xs: '2rem', sm: '2.3rem' },
                             fontWeight: 'bold',
                             py: 2
                         }}
@@ -159,7 +159,7 @@ export function Hilfe_SignUp() {
                         }}
                     >
                         <FormControl>
-                            <FormLabel htmlFor="name" sx={{ fontSize: '1rem', fontWeight: 500, pb: .2 }}>Ihr Name</FormLabel>
+                            <FormLabel htmlFor="name" sx={{color: "black" , fontSize: '1.1rem', fontWeight: 600, pb: .2 }}>Ihr Name</FormLabel>
                             <TextField
                                 autoComplete="name"
                                 name="name"
@@ -173,7 +173,7 @@ export function Hilfe_SignUp() {
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel htmlFor="email" sx={{ fontSize: '1rem', fontWeight: 500, pb: .2 }}>Email</FormLabel>
+                            <FormLabel htmlFor="email" sx={{color: "black",  fontSize: '1.1rem', fontWeight: 600, pb: .2 }}>Email</FormLabel>
                             <TextField
                                 error={emailError}
                                 helperText={emailErrorMessage}
@@ -190,7 +190,7 @@ export function Hilfe_SignUp() {
                             />
                         </FormControl>
                         <FormControl>
-                            <FormLabel htmlFor="password" sx={{ fontSize: '1rem', fontWeight: 500, pb: .2 }}>Passwort</FormLabel>
+                            <FormLabel htmlFor="password" sx={{color: "black",  fontSize: '1.1rem', fontWeight: 600, pb: .2 }}>Passwort</FormLabel>
                             <TextField
                                 error={passwordError}
                                 helperText={passwordErrorMessage}
@@ -212,7 +212,7 @@ export function Hilfe_SignUp() {
                             variant="contained"
                             sx={{
                                 mt: 1,
-                                fontSize: '1rem',
+                                fontSize: '1.1rem',
                                 fontWeight: "600",
                                 color: Constants.primary_color,
                                 outlineColor: Constants.primary_color_very_light,
@@ -233,16 +233,16 @@ export function Hilfe_SignUp() {
                     </Box>
 
 
-                    <Divider sx={{ py: 1, fontSize: '1.2rem' }}>oder</Divider>
+                    <Divider sx={{ py: 1, fontSize: '1.3rem' }}>oder</Divider>
 
 
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Typography variant='h6' sx={{ textAlign: 'center', fontSize: '1.1rem', fontWeight: '600', }}>
+                        <Typography variant='h6' sx={{ textAlign: 'center', fontSize: '1.4rem', fontWeight: '600', }}>
 
                             Schonmal registriert?
                         </Typography>
 
-                        <Typography variant='h6' sx={{ textAlign: 'center', fontSize: '1.1rem', color: Constants.header_color }} component={Link} to="/hilfe/login">
+                        <Typography variant='h6' sx={{ textAlign: 'center', fontSize: '1.2rem', color: Constants.header_color }} component={Link} to="/hilfe/login">
                             Dann stattdessen hier drücken
                         </Typography>
                     </Box>
@@ -255,7 +255,7 @@ export function Hilfe_SignUp() {
 
                         sx={{
                             alignSelf: 'center',
-                            fontSize: '1rem',
+                            fontSize: '1.1rem',
                             fontWeight: '600',
                             marginTop: '25px',
                             color: Constants.primary_color,
