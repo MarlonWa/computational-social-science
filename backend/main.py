@@ -27,16 +27,16 @@ class Request(BaseModel):
     status: str = "open"
 
 class Chat(BaseModel):
-    chat_id: int = 0
     helper_id: int = 0
     help_id : int = 0
     request_id: int = 0
     
 class Message(BaseModel):
     message_id: int = 0
-    chat_id: int = 0
+    request_id: int = 0
     user_id: int = 0
     message_text : str = ""
+    date_time: str = ""
 
 request_status = ["open", "closed", "in_progress"]
 
@@ -273,31 +273,14 @@ async def delete_request(request_id: int):
 
 
 #CHAT DATA
+
+
 #GET chat 
 @app.get("/chats")
 #returns all chats from table "chats"
 async def get_chats():
     conn = get_db_connection()
     chat = conn.execute("SELECT * FROM chats").fetchall()
-    conn.close()
-    return [dict(r) for r in chat]
-    
-@app.get("/chat/{chat_id}")
-#returns a chat from table "chats" by chat_id, returns HTTPStatus.NOT_FOUND if not found
-async def get_chat(chat_id: int):
-    conn = get_db_connection()
-    chat = conn.execute("SELECT * FROM chats WHERE chat_id = ?", (chat_id,)).fetchone()
-    conn.close()
-    if(chat):
-        return dict(chat)
-    else: 
-        raise HTTPException(status_code=404, detail="chat not found")
-    
-@app.get("/user/{user_id}/chats")
-#returns all chats from a specific creator (user_id)
-async def get_user_chats(user_id: int):
-    conn = get_db_connection()
-    chat = conn.execute("SELECT * FROM chats WHERE helper_id = ? OR help_id = ?", (user_id, user_id,)).fetchall()
     conn.close()
     return [dict(r) for r in chat]
 
@@ -315,15 +298,34 @@ async def create_chat(chat: Chat):
     except IntegrityError: 
         conn.close()
         raise HTTPException(status_code=409, detail="chat not found")
+    
+@app.get("/chat/{request_id}")
+#returns a chat from table "chats" by request_id, returns HTTPStatus.NOT_FOUND if not found
+async def get_chat(request_id: int):
+    conn = get_db_connection()
+    chat = conn.execute("SELECT * FROM chats WHERE request_id = ?", (request_id,)).fetchone()
+    conn.close()
+    if(chat):
+        return dict(chat)
+    else: 
+        raise HTTPException(status_code=404, detail="chat not found")
+    
+@app.get("/user/{user_id}/chats")
+#returns all chats from a specific creator (user_id)
+async def get_user_chats(user_id: int):
+    conn = get_db_connection()
+    chat = conn.execute("SELECT * FROM chats WHERE helper_id = ? OR help_id = ?", (user_id, user_id,)).fetchall()
+    conn.close()
+    return [dict(r) for r in chat]
 
 #PUT chat
-@app.put("/chat/{chat_id}")
+@app.put("/chat/{request_id}")
 #updates a chat in table "chats", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
-async def update_chat(chat_id: int, chat: Chat):
+async def update_chat(request_id: int, chat: Chat):
     conn = get_db_connection()
     try:
-        conn.execute("UPDATE chats SET helper_id = ? WHERE chat_id = ?", 
-                     (chat.helper_id, chat_id,))
+        conn.execute("UPDATE chats SET helper_id = ? WHERE request_id = ?", 
+                     (chat.helper_id, request_id,))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED
@@ -332,17 +334,19 @@ async def update_chat(chat_id: int, chat: Chat):
         raise HTTPException(status_code=409, detail="chat not found")
 
 #DELETE chat
-@app.delete("/chat/{chat_id}")
+@app.delete("/chat/{request_id}")
 #deletes a chat from table "chats", returns HTTPStatus.ACCEPTED
-async def delete_chat(chat_id: int):
+async def delete_chat(request_id: int):
     conn = get_db_connection()
-    chat = conn.execute("DELETE FROM chats WHERE chat_id = ?", (chat_id,)).fetchone()
+    chat = conn.execute("DELETE FROM chats WHERE request_id = ?", (request_id,)).fetchone()
     conn.commit()
     conn.close()
     return HTTPStatus.ACCEPTED
 
 
 #MESSAGE DATA
+
+
 #GET message 
 @app.get("/messages")
 #returns all messages from table "messages"
@@ -363,11 +367,11 @@ async def get_message(message_id: int):
     else: 
         raise HTTPException(status_code=404, detail="message not found")
 
-@app.get("/message/chat/{chat_id}")
-#returns a message from table "messages" by message_id, returns HTTPStatus.NOT_FOUND if not found
-async def get_chat_message(chat_id: int):
+@app.get("/messages/{request_id}")
+#returns all messages from table "messages" by request_id, returns HTTPStatus.NOT_FOUND if not found
+async def get_chat_messages(request_id: int):
     conn = get_db_connection()
-    message = conn.execute("SELECT * FROM messages WHERE chat_id = ?", (chat_id,)).fetchall()
+    message = conn.execute("SELECT * FROM messages WHERE request_id = ?", (request_id,)).fetchall()
     conn.close()
     if(message):
         return [dict(r) for r in message]
@@ -375,16 +379,20 @@ async def get_chat_message(chat_id: int):
         raise HTTPException(status_code=404, detail="message not found")
 
 #POST message
-@app.post("/message")
+@app.post("/message", status_code=HTTPStatus.CREATED)
 #creates a new message in table "messages", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def create_message(message: Message):
     conn = get_db_connection()
     try: 
-        conn.execute("INSERT INTO messages (chat_id, user_id, message_text) VALUES (?, ?, ?)", 
-                 (message.chat_id, message.user_id, message.message_text,))
+        if not conn.execute("SELECT * FROM requests WHERE request_id = ?", (message.request_id,)).fetchone():
+            conn.close()
+            raise HTTPException(status_code=404, detail="Request not found")
+        
+        conn.execute("INSERT INTO messages (request_id, user_id, message_text) VALUES (?, ?, ?)", 
+                 (message.request_id, message.user_id, message.message_text,))
         conn.commit()
         conn.close()
-        return HTTPStatus.CREATED
+        return 
     except IntegrityError: 
         conn.close()
         raise HTTPException(status_code=409, detail="message not found")
@@ -573,10 +581,9 @@ def createChatTable():
 
     conn.execute("""
         CREATE TABLE chats (
-            chat_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            request_id INTEGER PRIMARY KEY NOT NULL,
             helper_id INTEGER NOT NULL,
-            help_id INTEGER NOT NULL,
-            request_id INTEGER NOT NULL
+            help_id INTEGER NOT NULL
         );
     """)
 
@@ -591,7 +598,7 @@ def createMessageTable():
     conn.execute("""
         CREATE TABLE messages (
             message_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            chat_id INTEGER NOT NULL,
+            request_id INTEGER NOT NULL,
             user_id INTEGER NOT NULL,
             message_text TEXT,
             date_time DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -645,11 +652,11 @@ async def testChatData():
 
 async def testMessageData():
     messages = [
-        Message(chat_id=1, user_id = 2, message_text="hi"),
-        Message(chat_id=1, user_id = 1, message_text="hi back"),
+        Message(request_id=1, user_id = 2, message_text="hi"),
+        Message(request_id=1, user_id = 1, message_text="hi back"),
         
-        Message(chat_id=2, user_id = 2, message_text="hello"),
-        Message(chat_id=2, user_id = 3, message_text="hello back"),
+        Message(request_id=2, user_id = 2, message_text="hello"),
+        Message(request_id=2, user_id = 3, message_text="hello back"),
     ]
     
     for m in messages:

@@ -1,42 +1,69 @@
 import Constants from '../constants/constants.js';
 import { Link, useParams } from "react-router-dom";
-import { Box, Paper, TextField, IconButton, Stack, Chip, Typography, Button } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useState } from 'react';
+import { Box, Paper, TextField, Stack, Chip, Typography, Button } from '@mui/material';
+import { useState, useEffect, useRef } from 'react';
 import { Header } from '../component/Header.jsx'
 import { Footer } from "../component/Footer.jsx";
+import * as ChatServices from '../service/ChatServics.js';
+import Alert from '@mui/material/Alert';
 
-// Hardcoded - incase no Chat DB gonna get setup anymore
+//TODO
 const chat_title = "Facebook gelöscht";
-
-const messages = [
-    { id: 1, sender: 'Du', text: 'Hallo,. ich bruche Hilfe mit meinem Interrnt', timestamp: '10:31' },
-    { id: 2, sender: 'Helfer', text: 'Gerne! Lass mich dir helfen. Was ist das Problem?', timestamp: '10:32' },
-    { id: 3, sender: 'Du', text: 'Meinlaptop verbindet sich  nicgt mit dem Internet', timestamp: '10:33' },
-]; //added some typos, because elderly people sometimes dont type perfectly
 
 export function Hilfe_Chat() {
     const { user_id, request_id } = useParams();
     const [input, setInput] = useState('');
-    const [chat, setChat] = useState(messages);
+    const [messages, setMessages] = useState([]);
+    const [alert, setAlert] = useState('');
+    const messagesEndRef = useRef(null);
 
     const back_links = [
         { name: 'Meine Startseite', path: `/hilfe/${user_id}` },
     ]
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (input.trim()) {
-            const newMessage = {
-                id: chat.length + 1,
-                sender: 'Du',
-                text: input,
-                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
-            setChat([...chat, newMessage]);
-            setInput('');
+            const status = await ChatServices.postMessage(request_id, user_id, input);
+            if (status !== 201) {
+                if (status === 404) {
+                    setAlert('Die zum Chat zugehörige Anfrage wurde nicht gefunden. Bitte laden Sie die Seite neu.');
+                    return;
+                }
+                else {
+                    setAlert('Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut.');
+                    return;
+                }
+            }
+            else {
+                setInput('');
+                setAlert('');
+                await reload();
+            }
         }
     };
+
+    const reload = async () => {
+        const fetched_messages = await ChatServices.getMessages(request_id);
+
+        if (fetched_messages.length > 0) {
+            setMessages(fetched_messages);
+            setAlert('');
+        }
+        else if (fetched_messages === 408) {
+            setAlert('Die Antwort des Servers hat zu lange gedauert. Bitte versuchen Sie es erneut.');
+        }
+        else {
+            setAlert('Fehler beim Laden der Nachrichten. Bitte versuchen Sie es erneut.');
+        }
+    };
+
+    useEffect(() => {
+        reload();
+    }, [user_id, request_id]);
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
 
     return (
         <Box sx={{
@@ -46,6 +73,9 @@ export function Hilfe_Chat() {
         }}>
 
             <Header header_title={"Chat"} additional_links={back_links} />
+            <Alert severity="error" sx={{ display: alert == '' ? 'none' : 'flex' }}>
+                {alert}
+            </Alert>
 
             <Box sx={{
                 flex: 1,
@@ -142,11 +172,11 @@ export function Hilfe_Chat() {
                         flexShrink: 0,
                         gap: 1
                     }}>
-                        <Typography alignSelf='center' variant="h2" color={Constants.text_color_dark_grey} sx={{ py:1, fontSize: '1.5rem', fontWeight: '600' }}>
+                        <Typography alignSelf='center' variant="h2" color={Constants.text_color_dark_grey} sx={{ py: 1, fontSize: '1.5rem', fontWeight: '600' }}>
                             - {chat_title} -
                         </Typography>
 
-                        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
 
                             <Button
                                 component={Link}
@@ -219,10 +249,10 @@ export function Hilfe_Chat() {
                         }
                     }}>
                         <Stack spacing={2}>
-                            {chat.map((msg) => (
-                                <Box key={msg.id} sx={{
+                            {messages.map((msg) => (
+                                <Box key={msg.message_id} sx={{
                                     display: 'flex',
-                                    justifyContent: msg.sender === 'Du' ? 'flex-end' : 'flex-start',
+                                    justifyContent: msg.user_id == user_id ? 'flex-end' : 'flex-start',
                                     alignItems: 'flex-end',
                                     gap: 0.5
                                 }}>
@@ -230,34 +260,35 @@ export function Hilfe_Chat() {
                                         sx={{
                                             p: { xs: 1.5, sm: 2 },
                                             maxWidth: { xs: '85%', sm: '60%' },
-                                            background: msg.sender === 'Du'
+                                            background: msg.user_id == user_id
                                                 ? Constants.primary_color
                                                 : Constants.neutral_light,
-                                            color: msg.sender === 'Du' ? Constants.neutral_light : Constants.text_color_dark_grey,
-                                            borderRadius: msg.sender === 'Du' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                                            color: msg.user_id == user_id ? Constants.neutral_light : Constants.text_color_dark_grey,
+                                            borderRadius: msg.user_id == user_id ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
                                             boxShadow: '0 3px 9px ' + Constants.shadow_black
                                         }}
                                     >
                                         <Box sx={{ fontWeight: '500', mb: 0.5, fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-                                            {msg.sender}
+                                            {msg.user_id == user_id ? 'Du' : 'Helfer'}
                                         </Box>
                                         <Box sx={{ fontSize: { xs: '0.95rem', sm: '1rem' }, lineHeight: 1.5 }}>
-                                            {msg.text}
+                                            {msg.message_text}
                                         </Box>
                                         <Chip
-                                            label={msg.timestamp}
+                                            label={msg.date_time}
                                             size="small"
                                             sx={{
                                                 mt: 1,
                                                 fontSize: '0.7rem',
-                                                backgroundColor: msg.sender === 'Du' ? Constants.primary_color_light : Constants.neutral_light_darker,
-                                                color: msg.sender === 'Du' ? Constants.neutral_light : Constants.neutral_medium,
+                                                backgroundColor: msg.user_id == user_id ? Constants.primary_color_light : Constants.neutral_light_darker,
+                                                color: msg.user_id == user_id ? Constants.neutral_light : Constants.neutral_medium,
                                                 height: 'auto'
                                             }}
                                         />
                                     </Paper>
                                 </Box>
                             ))}
+                            <div ref={messagesEndRef} />
                         </Stack>
                     </Paper>
 
@@ -272,10 +303,16 @@ export function Hilfe_Chat() {
                         <Stack direction="row" spacing={0.5} alignItems="flex-end">
                             <TextField
                                 fullWidth
-                                
+
                                 placeholder="Nachricht..."
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && !e.shiftKey) {
+                                        e.preventDefault();
+                                        handleSendMessage();
+                                    }
+                                }}
                                 multiline
                                 minRows={1}
                                 maxRows={4}

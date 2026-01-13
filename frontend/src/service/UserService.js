@@ -1,8 +1,9 @@
+import Constants from '../constants/constants.js'
 import User from '../class/User.js'
 import Request  from '../class/Request.js';
 
 //FastAPI URL 
-const url = "http://127.0.0.1:8000/user/"
+const url = Constants.API_URL + "/user/"
 
 //Get User by user_id
 async function getUser(id) {
