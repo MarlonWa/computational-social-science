@@ -89,10 +89,10 @@ export function Helfer_Login() {
     const backendCheck = async (email, password) => {
         try {
             const res = await fetch(
-                
-                `${Constants.API_URL}/login?email=${encodeURIComponent(email)}&helper=true`,{
-                    method: 'POST',
-                }
+
+                `${Constants.API_URL}/login?email=${encodeURIComponent(email)}&helper=true`, {
+                method: 'POST',
+            }
             );
 
             if (!res.ok) {
@@ -113,7 +113,7 @@ export function Helfer_Login() {
                 return null;
             }
 
-            if(!data.helper){
+            if (!data.helper) {
                 setAlert("Dieser Account ist kein Helfer-Account.");
                 return null;
             }
@@ -216,12 +216,26 @@ export function Helfer_Login() {
 
                         {/* <ForgotPassword open={open} handleClose={handleClose} /> */}  {/* imported from component! - not working yet TODO*/}
 
-
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ backgroundColor: Constants.primary_color }}
+                            sx={{
+                                mt: 1,
+                                fontSize: '1rem',
+                                fontWeight: "600",
+                                color: Constants.primary_color,
+                                outlineColor: Constants.primary_color_very_light,
+                                borderColor: Constants.primary_color_very_light,
+                                backgroundColor: Constants.primary_color_very_light,
+
+                                ":hover": {
+                                    color: Constants.primary_color,
+                                    outlineColor: Constants.primary_color,
+                                    borderColor: Constants.primary_color,
+                                }
+
+                            }}
                         >
                             Anmelden
                         </Button>

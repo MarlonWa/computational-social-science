@@ -225,7 +225,22 @@ export function Helfer_SignUp() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ backgroundColor: Constants.primary_color }}
+                            sx={{
+                                mt: 1,
+                                fontSize: '1rem',
+                                fontWeight: "600",
+                                color: Constants.primary_color,
+                                outlineColor: Constants.primary_color_very_light,
+                                borderColor: Constants.primary_color_very_light,
+                                backgroundColor: Constants.primary_color_very_light,
+
+                                ":hover": {
+                                    color: Constants.primary_color,
+                                    outlineColor: Constants.primary_color,
+                                    borderColor: Constants.primary_color,
+                                }
+
+                            }}
                         >
                             Registrieren
                         </Button>

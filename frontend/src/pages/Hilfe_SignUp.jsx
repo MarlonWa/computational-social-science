@@ -250,7 +250,7 @@ export function Hilfe_SignUp() {
                     <Button
                         component={Link}
                         to="/"
-                        variant="outlined"
+                        variant="contained"
                         size="large"
 
                         sx={{
@@ -258,15 +258,15 @@ export function Hilfe_SignUp() {
                             fontSize: '1rem',
                             fontWeight: '600',
                             marginTop: '25px',
-                            color: Constants.secondary_color,
-                            outlineColor: Constants.secondary_color_very_light,
-                            borderColor: Constants.secondary_color_very_light,
-                            backgroundColor: Constants.secondary_color_very_light,
+                            color: Constants.primary_color,
+                            outlineColor: Constants.primary_color_very_light,
+                            borderColor: Constants.primary_color_very_light,
+                            backgroundColor: Constants.primary_color_very_light,
 
                             ":hover": {
-                                color: Constants.secondary_color,
-                                outlineColor: Constants.secondary_color,
-                                borderColor: Constants.secondary_color,
+                                color: Constants.primary_color,
+                                outlineColor: Constants.primary_color,
+                                borderColor: Constants.primary_color,
                             }
                         }}
                     >
