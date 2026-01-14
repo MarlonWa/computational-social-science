@@ -109,8 +109,14 @@ export async function getTitle(request_id) {
         return data.title;
 
     } catch (error) {
-        console.error(error.message);
-        return 0;
+        if (error.name === 'AbortError') {
+            console.error('Request timed out');
+            return 408
+        }
+        else{
+            console.error(error.message);
+            return 0;
+        }
     }
 
 }

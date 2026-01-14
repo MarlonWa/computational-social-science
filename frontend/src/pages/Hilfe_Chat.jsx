@@ -40,28 +40,49 @@ export function Hilfe_Chat() {
         }
     };
 
-    const reload = async () => {
-        setInfo('');
-        setAlert('');
-
-        const fetched_title = await ChatServices.getTitle(request_id);
-        setChatTitle(fetched_title);
-
+    const load_msgs = async () => {
         const fetched_messages = await ChatServices.getMessages(request_id);
 
         if (fetched_messages.length > 0) {
             setMessages(fetched_messages);
+            return 0;
         }
         else if (fetched_messages === 404) {
             setMessages([]);
             setInfo('Es sind noch keine Nachrichten in diesem Chat vorhanden. Senden Sie die erste Nachricht, um zu beginnen.');
-            return;
+            return 1;
         }
         else if (fetched_messages === 408) {
+            setInfo('');
+            setAlert('Die Antwort des Servers hat zu lange gedauert. Bitte versuchen Sie es erneut.');
+            return 2;
+        }
+        else {
+            setInfo('');
+            setAlert('Fehler beim Laden der Nachrichten. Bitte versuchen Sie es erneut.');
+            return 2;
+        }
+    }
+
+    const reload = async () => {
+        const code = await load_msgs();
+
+        const fetched_title = await ChatServices.getTitle(request_id);
+
+        if (typeof fetched_title === 'string' && fetched_title.trim() !== '') {
+            setChatTitle(fetched_title);
+            if (code === 0) {
+                setInfo('');
+                setAlert('');
+            }
+        }
+        else if (fetched_messages === 408) {
+            setInfo('');
             setAlert('Die Antwort des Servers hat zu lange gedauert. Bitte versuchen Sie es erneut.');
         }
         else {
-            setAlert('Fehler beim Laden der Nachrichten. Bitte versuchen Sie es erneut.');
+            setInfo('');
+            setAlert('Fehler beim Laden der Anfrage. Bitte versuchen Sie es erneut.');
         }
     };
 
