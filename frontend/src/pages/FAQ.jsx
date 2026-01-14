@@ -118,14 +118,14 @@ export function FAQ() {
         topic: "Update",
         icon: <UpdateIcon sx={{ color: '#2e7d32' }} />,
         question: "Warum muss ich ständig Updates machen?",
-        answer: "Updates verbessern die Sicherheit, fügen oft neue Funktionen hinzu oder beheben Fehler im Programm. So läuft dein Gerät immer optimal und sicher und geben Menschen, die Schaden anrichten wollen keine Chance. "
+        answer: "Updates verbessern die Sicherheit, fügen oft neue Funktionen hinzu oder beheben Fehler im Programm. So läuft dein Gerät immer optimal und sicher und geben Menschen, die Schaden anrichten wollen, keine Chance. "
     },
     {
         id: 3,
         topic: "Browser",
         icon: <LanguageIcon sx={{ color: '#0288d1' }} />,
         question: "Wozu brauche ich einen Browser?",
-        answer: "Ein Browser (wie Chrome, Safari oder Firefox) ist dein Zugang zum Internet. Mit ihm kannst du Webseiten aufrufen und im Netz surfen um Inhalte wie Nachrichten zu lesen oder online einzukaufen. Manche Dinge wie WhatsApp oder andere Apps funktioneren auch ohne Browser da sie das Internet im Hintergrund benutzen."
+        answer: "Ein Browser (wie Chrome, Safari oder Firefox) ist dein Zugang zum Internet. Mit ihm kannst du Webseiten aufrufen und im Netz surfen um Inhalte wie Nachrichten zu lesen oder online einzukaufen. Manche Dinge wie WhatsApp oder andere Apps funktioneren auch ohne Browser, da sie das Internet im Hintergrund benutzen."
     },
     {
         id: 4,
@@ -195,7 +195,7 @@ export function FAQ() {
         topic: "Megabyte & Gigabyte",
         icon: <SdCardIcon sx={{ color: '#fbc02d' }} />,
         question: "Was bedeuten MB und GB?",
-        answer: "Das sind Maßeinheiten für digitalen Platz. 1.000 Megabyte (MB) sind etwa 1 Gigabyte (GB). Je mehr GB dein Handy hat, desto mehr Fotos, Videos und Apps kannst du speichern."
+        answer: "Das sind Maßeinheiten für digitalen Speicherplatz und die Größe von Daten. 1.000 Megabyte (MB) sind etwa 1 Gigabyte (GB). Je mehr GB dein Handy oder dein Computer hat, desto mehr Fotos, Videos und Apps kannst du speichern."
     },
     {
         id: 14,
@@ -216,7 +216,7 @@ export function FAQ() {
         topic: "Künstliche Intelligenz",
         icon: <SmartToyIcon sx={{ color: '#9c27b0' }} />,
         question: "Was genau ist KI?",
-        answer: "KI (Künstliche Intelligenz) sind Computerprogramme, die Probleme lösen können, für die man früher menschliche Intelligenz brauchte. KI kann mitdenken und dazulernen so können sie Menschen bei Ihrer Arbeit helfen, z.B Texte verfassen, Fragen beantworten oder auch Sprachen übersetzen."
+        answer: "KI (Künstliche Intelligenz) sind Computerprogramme, die Probleme lösen können, für die man früher menschliche Intelligenz brauchte. KI kann mitdenken und dazulernen, so können sie Menschen bei Ihrer Arbeit helfen, z.B Texte verfassen, Fragen beantworten oder auch Sprachen übersetzen."
     },
     {
         id: 17,

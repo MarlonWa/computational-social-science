@@ -2,9 +2,6 @@ import Constants from "../constants/constants";
 
 const url = Constants.API_URL;
 
-const controller = new AbortController();
-const timeoutId = setTimeout(() => controller.abort(), 5000);
-
 export async function postMessage(request_id, user_id, message_text) {
     try {
         const payload = {
@@ -38,7 +35,96 @@ export async function postMessage(request_id, user_id, message_text) {
     }
 }
 
+export async function getChats(user_id) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    try {
+        const res = await fetch(url + `/user/${encodeURIComponent(user_id)}/chats`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (res.status !== 200) {
+            return res.status;
+        }
+
+        const data = await res.json();
+        console.log("getChats data: ", data);
+
+        const chats = [];
+
+        for (const index in data) {
+            if (data[index].message_text === null || data[index].status === 'closed') {
+                continue;
+            }
+            chats.push({
+                request_id: data[index].request_id,
+                title: data[index].title,
+                user: "not here yet TODO",
+                lastMessage: data[index].message_text,
+                status: data[index].status
+            });
+        }
+
+        console.log("chats: ", chats);
+
+        return chats;
+
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            console.error('Request timed out');
+            return 408
+        } else {
+            console.error('Fetch error: ', error.message);
+            return 0;
+        }
+    }
+}
+
+export async function getTitle(request_id) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    try {
+        const res = await fetch(url + `/request/${encodeURIComponent(request_id)}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (res.status !== 200) {
+            return res.status;
+        }
+
+        const data = await res.json();
+
+        return data.title;
+
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            console.error('Request timed out');
+            return 408
+        }
+        else{
+            console.error(error.message);
+            return 0;
+        }
+    }
+
+}
+
+
 export async function getMessages(request_id) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
     try {
         const res = await fetch(url + `/messages/${encodeURIComponent(request_id)}`, {
             method: "GET",
@@ -47,7 +133,7 @@ export async function getMessages(request_id) {
             },
             signal: controller.signal,
         });
-        
+
         clearTimeout(timeoutId);
 
         if (res.status !== 200) {

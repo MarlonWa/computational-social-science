@@ -7,7 +7,7 @@ Bei uns leider aktuell gar nicht vorhanden. Jeder Nutzer kann auf alles zugreife
 ## Anfragen bearbeiten
 Eine "Anfragen bearbeiten"-Funktion gibt es aktuell noch nicht
 
-## konstante font sizes
+## Konstante font sizes
 Farben sind bereits konsistent, da diese in constants.js verändert werden können. Textgrößen sind noch nicht konsistent
 
 ## Passwort zurücksetzen
