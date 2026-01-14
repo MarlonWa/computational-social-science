@@ -178,7 +178,7 @@ export async function getPartner(request_id, uid) {
         }
 
         const data = await res.json();
-        const other_id = data.user_id === uid ? data.helper_id : data.user_id;
+        const other_id = data.user_id == uid ? data.helper_id : data.user_id;
 
         // fetch name
 
