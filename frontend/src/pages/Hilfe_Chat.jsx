@@ -118,7 +118,7 @@ export function Hilfe_Chat() {
     useEffect(() => {
         setTimeout(() => {
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-        }, 500);
+        }, 60);
     }, [latestMsgId, user_id, request_id]);
 
     useEffect(() => {
