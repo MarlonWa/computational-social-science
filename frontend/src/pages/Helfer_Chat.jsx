@@ -8,15 +8,13 @@ import { Footer } from "../component/Footer.jsx";
 import * as ChatServices from '../service/ChatServics.js';
 import Alert from '@mui/material/Alert';
 
-//TODO
-const chat_title = "Laptop Internet-Einrichtung";
-
-
 export function Helfer_Chat() {
     const { user_id, request_id } = useParams();
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState([]);
+    const [chat_title, setChatTitle] = useState('');
     const [alert, setAlert] = useState('');
+    const [info, setInfo] = useState('');
     const messagesEndRef = useRef(null);
 
     const back_links = [
@@ -39,18 +37,26 @@ export function Helfer_Chat() {
             }
             else {
                 setInput('');
-                setAlert('');
                 await reload();
             }
         }
     };
 
     const reload = async () => {
+        setAlert('');
+        setInfo('');
+        const fetched_title = await ChatServices.getTitle(request_id);
+        setChatTitle(fetched_title);
+
         const fetched_messages = await ChatServices.getMessages(request_id);
 
         if (fetched_messages.length > 0) {
             setMessages(fetched_messages);
-            setAlert('');
+        }
+        else if (fetched_messages === 404) {
+            setMessages([]);
+            setInfo('Es sind noch keine Nachrichten in diesem Chat vorhanden. Senden Sie die erste Nachricht, um zu beginnen.');
+            return;
         }
         else if (fetched_messages === 408) {
             setAlert('Die Antwort des Servers hat zu lange gedauert. Bitte versuchen Sie es erneut.');
@@ -79,6 +85,9 @@ export function Helfer_Chat() {
             <Header header_title={"Chat"} additional_links={back_links} />
             <Alert severity="error" sx={{ display: alert == '' ? 'none' : 'flex' }}>
                 {alert}
+            </Alert>
+            <Alert severity="info" sx={{ display: info == '' ? 'none' : 'flex' }}>
+                {info}
             </Alert>
 
             <Box sx={{
@@ -168,7 +177,7 @@ export function Helfer_Chat() {
                                         sx={{
                                             p: { xs: 1.5, sm: 2 },
                                             maxWidth: { xs: '85%', sm: '60%' },
-                                        background: msg.user_id == user_id
+                                            background: msg.user_id == user_id
                                                 ? Constants.primary_color
                                                 : Constants.neutral_light,
                                             color: msg.user_id == user_id ? Constants.neutral_light : Constants.text_color_dark_grey,
@@ -214,6 +223,12 @@ export function Helfer_Chat() {
                                 placeholder="Nachricht..."
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' && !e.shiftKey) {
+                                        e.preventDefault();
+                                        handleSendMessage();
+                                    }
+                                }}
                                 multiline
                                 minRows={1}
                                 maxRows={4}

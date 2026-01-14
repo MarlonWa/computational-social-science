@@ -5,22 +5,38 @@ import { useParams } from "react-router-dom";
 import { Box, Paper, Stack, Typography, Badge, Chip } from '@mui/material';
 import { Footer } from "../component/Footer.jsx";
 import { Helfer_Back_Home } from '../component/Helfer_Back_Home.jsx';
-
-//TODO HARDCODED - rm
-const chats = [
-    { id: 1, request_id: 1, title: 'Laptopinternet Einrichtug', user: 'Maria Schmidt', lastMessage: 'Mein Laptpp verbindet sicnicht mit dem Intrrnet',lastTime: '14:22'},
-    { id: 3, request_id: 3, title: 'Email Einrivhtung', user: 'Anna Weber', lastMessage: 'Kannstdu mir morgen hrlfen?',  lastTime: '10:33'},
-    { id: 2, request_id: 2, title: 'Smartphone Bedienung', user: 'Hans Müller', lastMessage: 'Vielen Dank für deine Hilfe!', lastTime: 'Gestern' },
-]; //added some typos so we can have a laugh :>
+import React, { useEffect, useState } from 'react';
+import * as ChatServices from '../service/ChatServics.js';
 
 export function Helfer_Chats_All() {
     const { user_id } = useParams();
+    const [chats, setChats] = useState([]);
+    const [alert, setAlert] = useState('');
 
     const back_links = [
         { name: 'Meine Startseite', path: `/helfer/${user_id}` },
         { name: 'Meine Requests', path: `/helfer/${user_id}/myrequests` },
         { name: 'Meine Chats', path: `/helfer/${user_id}/chats` },
     ];
+
+    const reload = async () => {
+        const fetched_chats = await ChatServices.getChats(user_id);
+
+        if (fetched_chats.length > 0) {
+            setChats(fetched_chats);
+            setAlert('');
+        }
+        else if (fetched_chats === 408) {
+            setAlert('Die Antwort des Servers hat zu lange gedauert. Bitte versuchen Sie es erneut.');
+        }
+        else {
+            setAlert('Fehler beim Laden der Chats. Bitte versuchen Sie es erneut.');
+        }
+    };
+
+    useEffect(() => {
+            reload();
+        }, [user_id]);
 
     return (
         <Box sx={{ height: "100vh", display: 'flex', flexDirection: 'column' }}>

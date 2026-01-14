@@ -25,11 +25,6 @@ class Request(BaseModel):
     title: str = ""
     text: str = ""
     status: str = "open"
-
-class Chat(BaseModel):
-    helper_id: int = 0
-    help_id : int = 0
-    request_id: int = 0
     
 class Message(BaseModel):
     message_id: int = 0
@@ -271,77 +266,33 @@ async def delete_request(request_id: int):
     conn.close()
     return HTTPStatus.ACCEPTED
 
-
-#CHAT DATA
-
-
-#GET chat 
-@app.get("/chats")
-#returns all chats from table "chats"
-async def get_chats():
-    conn = get_db_connection()
-    chat = conn.execute("SELECT * FROM chats").fetchall()
-    conn.close()
-    return [dict(r) for r in chat]
-
-#POST chat
-@app.post("/chat")
-#creates a new chat in table "chats", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
-async def create_chat(chat: Chat):
-    conn = get_db_connection()
-    try: 
-        conn.execute("INSERT INTO chats (helper_id, help_id, request_id) VALUES (?, ?, ?)", 
-                 (chat.helper_id, chat.help_id, chat.request_id,))
-        conn.commit()
-        conn.close()
-        return HTTPStatus.CREATED
-    except IntegrityError: 
-        conn.close()
-        raise HTTPException(status_code=409, detail="chat not found")
-    
-@app.get("/chat/{request_id}")
-#returns a chat from table "chats" by request_id, returns HTTPStatus.NOT_FOUND if not found
-async def get_chat(request_id: int):
-    conn = get_db_connection()
-    chat = conn.execute("SELECT * FROM chats WHERE request_id = ?", (request_id,)).fetchone()
-    conn.close()
-    if(chat):
-        return dict(chat)
-    else: 
-        raise HTTPException(status_code=404, detail="chat not found")
     
 @app.get("/user/{user_id}/chats")
-#returns all chats from a specific creator (user_id)
+#return chat overview for a person (request_id, last message, title, status)
 async def get_user_chats(user_id: int):
     conn = get_db_connection()
-    chat = conn.execute("SELECT * FROM chats WHERE helper_id = ? OR help_id = ?", (user_id, user_id,)).fetchall()
+    requests = conn.execute(
+    """ 
+    SELECT
+        r.request_id,
+        m.message_text,
+        r.title,
+        r.status
+    FROM requests r
+    LEFT JOIN (
+            SELECT *,
+                ROW_NUMBER() OVER (
+                    PARTITION BY request_id
+                    ORDER BY date_time DESC, message_id DESC
+                ) AS rn
+            FROM messages
+        ) m
+        ON m.request_id = r.request_id
+       AND m.rn = 1
+    WHERE r.user_id = ? OR r.helper_id = ?;
+    """, (user_id, user_id)).fetchall()
     conn.close()
-    return [dict(r) for r in chat]
-
-#PUT chat
-@app.put("/chat/{request_id}")
-#updates a chat in table "chats", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
-async def update_chat(request_id: int, chat: Chat):
-    conn = get_db_connection()
-    try:
-        conn.execute("UPDATE chats SET helper_id = ? WHERE request_id = ?", 
-                     (chat.helper_id, request_id,))
-        conn.commit()
-        conn.close()
-        return HTTPStatus.CREATED
-    except IntegrityError:
-        conn.close()
-        raise HTTPException(status_code=409, detail="chat not found")
-
-#DELETE chat
-@app.delete("/chat/{request_id}")
-#deletes a chat from table "chats", returns HTTPStatus.ACCEPTED
-async def delete_chat(request_id: int):
-    conn = get_db_connection()
-    chat = conn.execute("DELETE FROM chats WHERE request_id = ?", (request_id,)).fetchone()
-    conn.commit()
-    conn.close()
-    return HTTPStatus.ACCEPTED
+    return [dict(r) for r in requests]
 
 
 #MESSAGE DATA
@@ -417,7 +368,16 @@ async def update_message(message_id: int, message: Message):
 #deletes a message from table "messages", returns HTTPStatus.ACCEPTED
 async def delete_message(message_id: int):
     conn = get_db_connection()
-    message = conn.execute("DELETE FROM messages WHERE message_id = ?", (message_id,)).fetchone()
+    conn.execute("DELETE FROM messages WHERE message_id = ?", (message_id,)).fetchone()
+    conn.commit()
+    conn.close()
+    return HTTPStatus.ACCEPTED
+
+@app.delete("/messages/{request_id}")
+#deletes all messages by request_id (DELETE CHAT)
+async def delete_message(request_id: int):
+    conn = get_db_connection()
+    conn.execute("DELETE FROM messages WHERE request_id = ?", (request_id,)).fetchall()
     conn.commit()
     conn.close()
     return HTTPStatus.ACCEPTED
@@ -514,7 +474,6 @@ async def resetDB():
 
     await testUserData()
     await testRequestData()
-    await testChatData()
     await testMessageData()
 
     print("Neue DB erstellt")
@@ -639,18 +598,7 @@ async def testRequestData():
         await create_request(r)
         
     print("Test Requests created")
-    
-async def testChatData():
-    chats = [
-        Chat(helper_id=1, help_id=4, request_id=1),
-        Chat(helper_id=2, help_id=4, request_id=4),
-        Chat(helper_id=3, help_id=5, request_id=5),
-    ]
-    
-    for c in chats:
-        await create_chat(c)
-        
-    print("Test Chats created")
+
 
 async def testMessageData():
     messages = [
@@ -689,7 +637,6 @@ async def testMessageData():
     # await resetDB()
     # await testUserData()
     # await testRequestData()
-    # await testChatData()
     # await testMessageData()
 
 
