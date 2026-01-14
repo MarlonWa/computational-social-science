@@ -195,7 +195,7 @@ export function FAQ() {
         topic: "Megabyte & Gigabyte",
         icon: <SdCardIcon sx={{ color: '#fbc02d' }} />,
         question: "Was bedeuten MB und GB?",
-        answer: "Das sind Maßeinheiten für digitalen Platz. 1.000 Megabyte (MB) sind etwa 1 Gigabyte (GB). Je mehr GB dein Handy hat, desto mehr Fotos, Videos und Apps kannst du speichern."
+        answer: "Das sind Maßeinheiten für digitalen Speicherplatz und die Größe von Daten. 1.000 Megabyte (MB) sind etwa 1 Gigabyte (GB). Je mehr GB dein Handy oder dein Computer hat, desto mehr Fotos, Videos und Apps kannst du speichern."
     },
     {
         id: 14,
