@@ -27,9 +27,9 @@ export function Footer() {
                             alignItems: "center",
                         }}
                     >
-                        <Box sx={{ flex: 1, display: 'flex', justifyContent: 'left' }}>
+                        {/* <Box sx={{ flex: 1, display: 'flex', justifyContent: 'left' }}>
                             <img src={`${Constants.API_URL}/images/favicon.png`} alt="help@m logo" style={{ marginLeft: { xs: '2px', sm: '16px' }, height: { xs: '16px', sm: '48px' }, width: { xs: '16px', sm: '48px' } }} />
-                        </Box>
+                        </Box> */}
                         <Box sx={{ display: 'flex', width: '100%', justifyContent: 'space-around' }}>
 
 
