@@ -44,6 +44,24 @@ export function Dev() {
         }
     };
 
+    const handleClear = async () => {
+        try {
+            const response = await fetch(Constants.API_URL + '/cleanreset', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.ok) {
+                console.log('Clear successful');
+            } else {
+                console.error('Clear failed');
+            }
+        } catch (error) {
+            console.error('Error calling clear API:', error);
+        }
+    };
+
     return (
         <>
             <Box height="100vh" display="flex" flexDirection="column" >
@@ -52,6 +70,9 @@ export function Dev() {
 
                 <Button onClick={handleRestart} style={{backgroundColor : Constants.error, color: Constants.neutral_light, fontSize : "2rem"}}>
                     Restart Database 
+                </Button>
+                <Button onClick={handleClear} style={{backgroundColor : Constants.error, color: Constants.neutral_light, fontSize : "2rem"}}>
+                    Clear Database 
                 </Button>
                 <p> (be careful with clicking this, requests and users gone afterwards !) </p>
 

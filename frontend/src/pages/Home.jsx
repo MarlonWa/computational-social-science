@@ -25,7 +25,7 @@ export function Home() { //DONE FOR NOW :)
 
         <Box sx = {{ textAlign: "center", my: 0.5, mx:1, borderRadius: 2, backgroundColor: Constants.primary_color_very_light, boxShadow: `0 4px 8px 0 ${Constants.shadow_black}`, fontSize: { xs: '1rem ', sm:'1.2rem'}}}>
           <p style={{ }}> help@M - Verbindung zwischen Hilfesuchenden und freiwilligen Helfern, um allen den Zugang zu digitalen Medien zu ermöglichen. </p>
-          {/* <p style={{ }}>  </p> */}
+          <p style={{ }}> !Achtung! Aktuell werden alle Daten (auch Passwörter) in Klartext und öffentlich gespeichert. Bitte keine persönlichen Daten angeben. </p>
         </Box>
 
         <Box
