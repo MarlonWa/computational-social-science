@@ -323,11 +323,16 @@ async def get_message(message_id: int):
 async def get_chat_messages(request_id: int):
     conn = get_db_connection()
     message = conn.execute("SELECT * FROM messages WHERE request_id = ?", (request_id,)).fetchall()
-    conn.close()
     if(message):
+        conn.close()
         return [dict(r) for r in message]
     else: 
-        raise HTTPException(status_code=404, detail="message not found")
+        req = conn.execute("SELECT * FROM requests WHERE request_id = ?", (request_id,)).fetchone()
+        conn.close()
+        if req is None:
+            raise HTTPException(status_code=404, detail="Request not found")
+        else:
+            raise HTTPException(status_code=204, detail="no messages found")
 
 #POST message
 @app.post("/message", status_code=HTTPStatus.CREATED)

@@ -47,10 +47,15 @@ export function Hilfe_Chat() {
             setMessages(fetched_messages);
             return 0;
         }
-        else if (fetched_messages === 404) {
+        else if (fetched_messages === 204) {
             setMessages([]);
             setInfo('Es sind noch keine Nachrichten in diesem Chat vorhanden. Senden Sie die erste Nachricht, um zu beginnen.');
             return 1;
+        }
+        else if (fetched_messages === 404) {
+            setMessages([]);
+            setAlert('Die zum Chat zugehörige Anfrage wurde nicht gefunden. Bitte laden Sie die Seite neu.');
+            return 2;
         }
         else if (fetched_messages === 408) {
             setInfo('');

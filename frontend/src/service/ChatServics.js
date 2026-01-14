@@ -113,7 +113,7 @@ export async function getTitle(request_id) {
             console.error('Request timed out');
             return 408
         }
-        else{
+        else {
             console.error(error.message);
             return 0;
         }
