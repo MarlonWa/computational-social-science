@@ -269,12 +269,13 @@ async def delete_request(request_id: int):
 
     
 @app.get("/user/{user_id}/chats")
-#return chat overview for a person (request_id, last message, title, status)
+#return chat overview for a person (others_name, request_id, last message, title, status)
 async def get_user_chats(user_id: int):
     conn = get_db_connection()
     requests = conn.execute(
     """ 
     SELECT
+        u.name,
         r.request_id,
         m.message_text,
         r.title,
@@ -290,8 +291,13 @@ async def get_user_chats(user_id: int):
         ) m
         ON m.request_id = r.request_id
        AND m.rn = 1
+    JOIN users u 
+        ON (u.user_id = 
+            CASE
+                WHEN r.user_id = ? THEN r.helper_id ELSE r.user_id
+            END)
     WHERE r.user_id = ? OR r.helper_id = ?;
-    """, (user_id, user_id)).fetchall()
+    """, (user_id, user_id, user_id,)).fetchall()
     conn.close()
     return [dict(r) for r in requests]
 
@@ -618,17 +624,17 @@ async def testMessageData():
         Message(request_id=1, user_id=1, message_text="Sehr gut! Das freut mich. Falls Sie noch Fragen haben, melden Sie sich gerne."),
         
         # Chat 2: Peter hilft Hans mit Passwort (abgeschlossen)
-        Message(request_id=2, user_id=4, message_text="Hallo Peter, ich komme nicht mehr in meine E-Mails..."),
-        Message(request_id=2, user_id=2, message_text="Hallo Hans! Kein Problem, das kriegen wir hin. Welcher E-Mail-Anbieter ist das?"),
-        Message(request_id=2, user_id=4, message_text="Das ist T-Online."),
-        Message(request_id=2, user_id=2, message_text="Okay, gehen Sie auf die T-Online Webseite und klicken Sie auf 'Passwort vergessen'. Dann bekommen Sie eine SMS oder E-Mail zum Zurücksetzen."),
-        Message(request_id=2, user_id=4, message_text="Ah verstehe! Das hat geklappt, ich habe jetzt ein neues Passwort. Danke!"),
+        Message(request_id=4, user_id=4, message_text="Hallo Peter, ich komme nicht mehr in meine E-Mails..."),
+        Message(request_id=4, user_id=2, message_text="Hallo Hans! Kein Problem, das kriegen wir hin. Welcher E-Mail-Anbieter ist das?"),
+        Message(request_id=4, user_id=4, message_text="Das ist T-Online."),
+        Message(request_id=4, user_id=2, message_text="Okay, gehen Sie auf die T-Online Webseite und klicken Sie auf 'Passwort vergessen'. Dann bekommen Sie eine SMS oder E-Mail zum Zurücksetzen."),
+        Message(request_id=4, user_id=4, message_text="Ah verstehe! Das hat geklappt, ich habe jetzt ein neues Passwort. Danke!"),
         
         # Chat 3: Claudia hilft Gisela mit langsamem Handy
-        Message(request_id=3, user_id=5, message_text="Hallo Claudia, mein Handy ist so langsam geworden..."),
-        Message(request_id=3, user_id=3, message_text="Hallo Gisela! Das können wir zusammen anschauen. Wie viel Speicherplatz haben Sie noch frei?"),
-        Message(request_id=3, user_id=5, message_text="Wie sehe ich das denn?"),
-        Message(request_id=3, user_id=3, message_text="Gehen Sie in die Einstellungen und dann auf 'Speicher'. Dort steht, wie viel Platz noch frei ist."),
+        Message(request_id=5, user_id=5, message_text="Hallo Claudia, mein Handy ist so langsam geworden..."),
+        Message(request_id=5, user_id=3, message_text="Hallo Gisela! Das können wir zusammen anschauen. Wie viel Speicherplatz haben Sie noch frei?"),
+        Message(request_id=5, user_id=5, message_text="Wie sehe ich das denn?"),
+        Message(request_id=5, user_id=3, message_text="Gehen Sie in die Einstellungen und dann auf 'Speicher'. Dort steht, wie viel Platz noch frei ist."),
     ]
     
     for m in messages:

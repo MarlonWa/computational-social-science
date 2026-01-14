@@ -16,16 +16,7 @@ export async function postMessage(request_id, user_id, message_text) {
             },
             body: JSON.stringify(payload),
         });
-
-        /*
-        if (res.status !== 201) {
-            if (res.status === 404) {
-                return 404;
-            } else {
-                return 0;
-            }
-        }
-        */
+        
         console.log("postMessage returned: ", res.status);
         return res.status;
 
@@ -63,9 +54,9 @@ export async function getChats(user_id) {
                 continue;
             }
             chats.push({
+                other: data[index].name,
                 request_id: data[index].request_id,
                 title: data[index].title,
-                user: "not here yet TODO",
                 lastMessage: data[index].message_text,
                 status: data[index].status
             });
@@ -155,6 +146,62 @@ export async function getMessages(request_id) {
 
         return messages;
 
+    } catch (error) {
+        if (error.name === 'AbortError') {
+            console.error('Request timed out');
+            return 408
+        } else {
+            console.error('Fetch error: ', error.message);
+            return 0;
+        }
+    }
+}
+
+export async function getPartner(request_id, uid) {
+    const controller = new AbortController();
+    try {
+        // fetch id
+
+        let timeoutId = setTimeout(() => controller.abort(), 5000);
+        const res = await fetch(url + `/request/${encodeURIComponent(request_id)}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (res.status !== 200) {
+            return res.status;
+        }
+
+        const data = await res.json();
+        const other_id = data.user_id === uid ? data.helper_id : data.user_id;
+
+        // fetch name
+
+        timeoutId = setTimeout(() => controller.abort(), 5000);
+
+        const res_user = await fetch(url + `/user/${encodeURIComponent(other_id)}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            signal: controller.signal,
+        });
+
+        clearTimeout(timeoutId);
+
+        if (res_user.status !== 200) {
+            return res_user.status;
+        }
+
+        const data_user = await res_user.json();
+
+        return data_user.name;
+    
     } catch (error) {
         if (error.name === 'AbortError') {
             console.error('Request timed out');

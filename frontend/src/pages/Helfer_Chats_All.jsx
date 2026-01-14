@@ -75,7 +75,7 @@ export function Helfer_Chats_All() {
                                         {chat.title}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: Constants.text_color_dark_grey, mb: 0.5 }}>
-                                        {chat.user}
+                                        Du schreibst mit: {chat.other}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: Constants.neutral_medium, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                                         {chat.lastMessage}

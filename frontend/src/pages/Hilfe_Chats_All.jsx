@@ -74,7 +74,7 @@ export function Hilfe_Chats_All() {
                                         {chat.title}
                                     </Typography>
                                     <Typography variant="body1" sx={{ color: Constants.text_color_dark_grey, mb: 1, fontSize: { xs: '1.4rem', sm: '1.6rem' } }}>
-                                        {chat.user}
+                                        Ihnen hilft: {chat.other}
                                     </Typography>
                                     <Typography variant="body2" sx={{ color: Constants.neutral_medium, whiteSpace: { xs: 'normal', sm: 'nowrap' }, overflow: 'hidden', textOverflow: 'ellipsis', fontSize: { xs: '1.3rem', sm: '1.5rem' } }}>
                                         {chat.lastMessage}

@@ -14,6 +14,8 @@ export function Hilfe_Chat() {
     const [chat_title, setChatTitle] = useState('');
     const [alert, setAlert] = useState('');
     const [info, setInfo] = useState('');
+    const [partner, setPartner] = useState('');
+    const [latestMsgId, setLatestMsgId] = useState(null);
     const messagesEndRef = useRef(null);
 
     const back_links = [
@@ -45,6 +47,7 @@ export function Hilfe_Chat() {
 
         if (fetched_messages.length > 0) {
             setMessages(fetched_messages);
+            setLatestMsgId(fetched_messages[fetched_messages.length - 1].message_id);
             return 0;
         }
         else if (fetched_messages === 204) {
@@ -76,7 +79,7 @@ export function Hilfe_Chat() {
 
         if (typeof fetched_title === 'string' && fetched_title.trim() !== '') {
             setChatTitle(fetched_title);
-            if (code === 0) {
+            if (code === 0 && partner !== '') {
                 setInfo('');
                 setAlert('');
             }
@@ -91,13 +94,32 @@ export function Hilfe_Chat() {
         }
     };
 
+    const getPartnerName = async () => {
+        const fetched_name = await ChatServices.getPartner(request_id, user_id);
+
+        if (typeof fetched_name === 'string' && fetched_name.trim() !== '') {
+            setPartner(fetched_name);
+        }
+        else if (fetched_name === 408) {
+            setInfo('');
+            setAlert('Die Antwort des Servers hat zu lange gedauert. Bitte versuchen Sie es erneut.');
+        }
+        else {
+            setInfo('');
+            setAlert('Fehler beim Laden des Chat-Partners. Bitte versuchen Sie es erneut.');
+        }
+    };
+
     useEffect(() => {
+        getPartnerName();
         reload();
     }, [user_id, request_id]);
 
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages]);
+        setTimeout(() => {
+            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }, 500);
+    }, [latestMsgId, user_id, request_id]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -313,7 +335,7 @@ export function Hilfe_Chat() {
                                         }}
                                     >
                                         <Box sx={{ fontWeight: '500', mb: 0.5, fontSize: { xs: '0.9rem', sm: '1rem' } }}>
-                                            {msg.user_id == user_id ? 'Du' : 'Helfer'}
+                                            {msg.user_id == user_id ? 'Du' : partner}
                                         </Box>
                                         <Box sx={{ fontSize: { xs: '0.95rem', sm: '1rem' }, lineHeight: 1.5 }}>
                                             {msg.message_text}
