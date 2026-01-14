@@ -48,7 +48,7 @@ export function Hilfe_Chat() {
         setChatTitle(fetched_title);
 
         const fetched_messages = await ChatServices.getMessages(request_id);
-        
+
         if (fetched_messages.length > 0) {
             setMessages(fetched_messages);
         }
@@ -72,6 +72,13 @@ export function Hilfe_Chat() {
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            reload();
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
 
     return (
         <Box sx={{

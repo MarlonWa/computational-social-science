@@ -75,6 +75,13 @@ export function Helfer_Chat() {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            reload();
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+    
     return (
         <Box sx={{
             height: "100vh",

@@ -33,8 +33,8 @@ export function Hilfe_Chats_All() {
     };
 
     useEffect(() => {
-            reload();
-        }, [user_id]);
+        reload();
+    }, [user_id]);
 
     return (
         <Box sx={{ height: "100vh", display: 'flex', flexDirection: 'column' }}>
