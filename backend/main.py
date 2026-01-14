@@ -21,7 +21,7 @@ class User(BaseModel):
 class Request(BaseModel):
     request_id: int = 0
     user_id : int = 0
-    helper_id: int = 0
+    helper_id: int = None
     title: str = ""
     text: str = ""
     status: str = "open"
@@ -107,8 +107,8 @@ async def login(email: str, helper: bool):
 async def create_user(user: User):
     conn = get_db_connection()
     try: 
-        cursor = conn.execute("INSERT INTO users (name, email, password, address, helper) VALUES (?, ?, ?, ?, ?)", 
-                 (user.name, user.email, user.password, user.address, user.helper))
+        cursor = conn.execute("INSERT INTO users (name, email, password, address, helper, points) VALUES (?, ?, ?, ?, ?, ?)", 
+                 (user.name, user.email, user.password, user.address, user.helper, user.points,))
         conn.commit()
         uid = cursor.lastrowid
         conn.close()
@@ -209,9 +209,10 @@ async def get_user_requests(user_id: int):
 #creates a new request in table "requests", returns HTTPStatus.CREATED on success, HTTPStatus.CONFLICT on failure
 async def create_request(request: Request):
     conn = get_db_connection()
+    print(request)
     try: 
-        conn.execute("INSERT INTO requests (user_id, title, text) VALUES (?, ?, ?)", 
-                 (request.user_id, request.title, request.text,))
+        conn.execute("INSERT INTO requests (user_id, title, text, helper_id, status) VALUES (?, ?, ?, ?, ?)", 
+                 (request.user_id, request.title, request.text, request.helper_id, request.status,))
         conn.commit()
         conn.close()
         return HTTPStatus.CREATED

@@ -87,7 +87,6 @@ export function Hilfe_SignUp() {
             name: name_p,
             email: email_p,
             password: password_p,
-            address: "",
             helper: false,
         };
         try {
