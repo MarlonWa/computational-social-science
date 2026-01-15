@@ -124,7 +124,7 @@ export function Hilfe_Login() {
 
                     <Link to="/hilfe/5">
                         <Typography variant="p" color="red">
-                            TRY IT OUT: Teste die Anfrageseite hier direkt, als Benutzer Otto
+                            TRY IT OUT: Teste die Anfrageseite hier direkt als Benutzer Otto
                         </Typography>
                     </Link>
 
