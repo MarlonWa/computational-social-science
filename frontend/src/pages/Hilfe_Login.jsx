@@ -120,9 +120,6 @@ export function Hilfe_Login() {
             </Alert>
             <Box flex="1" display="flex" justifyContent="center" alignItems="flex-start" sx={{ px: 2, pt: 1 }}>
                 <Card variant="outlined" sx={{ position: 'relative', p: 3, gap: 1 }}>
-                    {/* DEV LINE - TODO */}
-
-                    <Link to="/hilfe/4"> DEV: Login als Hilfesuchender ID 4 </Link>
 
                     {/* title */}
                     <Typography

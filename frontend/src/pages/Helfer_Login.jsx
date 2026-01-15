@@ -40,17 +40,6 @@ export function Helfer_Login() {
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
     const [alert, setAlert] = useState("");
 
-    // following also forgot password stuff; see below - TODO
-    /* const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    }; */
-
 
     const handleSubmit = async () => {
         event.preventDefault();
@@ -154,11 +143,7 @@ export function Helfer_Login() {
                         }}
                     >
                         ✕
-                    </Button>
-
-                    {/* DEV LINE - TODO */}
-
-                    <Link to="/helfer/1"> DEV: Login als HelferID 1 </Link>
+                </Button>
 
                     {/* title */}
                     <Typography
