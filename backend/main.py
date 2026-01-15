@@ -587,8 +587,8 @@ async def testUserData():
         User(name="Marlon W", email="marlon.w@email.de", password="MWS2024!", address="Marienplatz 12, München", helper=True, points=85),
         User(name="Peter Müller", email="peter.mueller@gmx.de", password="PeterM123", address="Hauptstraße 45, Augsburg", helper=True, points=62),
         User(name="Anna Wagner", email="a.wagner@web.de", password="Anna!99", address="Bahnhofstraße 8, Nürnberg", helper=True, points=41),
-        User(name="Sophie W", email="sophie.w@email.de", password="SophieW2024", address="Gartenweg 23, Regensburg", helper=False, points=5),
-        User(name="Otto Hoffmann", email="otto.h@gmx.net", password="Otto123!", address="Rosenstraße 17, Passau", helper=False, points=3),
+        User(name="Sophie W", email="sophie.w@email.de", password="SophieW2024", address="Gartenweg 23, Regensburg", helper=False, points=0),
+        User(name="Otto Hoffmann", email="otto.h@gmx.net", password="Otto123!", address="Rosenstraße 17, Passau", helper=False, points=0),
         User(name="Wolfgang Klein", email="w.klein@yahoo.de", password="Wolfgang!2024", address="Kirchplatz 9, Landshut", helper=False, points=0)
 ]
     
