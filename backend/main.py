@@ -586,9 +586,9 @@ async def testUserData():
     users = [
         User(name="Marlon W", email="marlon.w@email.de", password="MWS2024!", address="Marienplatz 12, München", helper=True, points=85),
         User(name="Peter Müller", email="peter.mueller@gmx.de", password="PeterM123", address="Hauptstraße 45, Augsburg", helper=True, points=62),
-        User(name="Claudia Wagner", email="c.wagner@web.de", password="Claudia!99", address="Bahnhofstraße 8, Nürnberg", helper=True, points=41),
+        User(name="Anna Wagner", email="a.wagner@web.de", password="Anna!99", address="Bahnhofstraße 8, Nürnberg", helper=True, points=41),
         User(name="Sophie W", email="sophie.w@email.de", password="SophieW2024", address="Gartenweg 23, Regensburg", helper=False, points=5),
-        User(name="Gisela Hoffmann", email="gisela.h@gmx.net", password="Gisela123!", address="Rosenstraße 17, Passau", helper=False, points=3),
+        User(name="Otto Hoffmann", email="otto.h@gmx.net", password="Otto123!", address="Rosenstraße 17, Passau", helper=False, points=3),
         User(name="Wolfgang Klein", email="w.klein@yahoo.de", password="Wolfgang!2024", address="Kirchplatz 9, Landshut", helper=False, points=0)
 ]
     
@@ -630,9 +630,9 @@ async def testMessageData():
         Message(request_id=4, user_id=2, message_text="Okay, gehen Sie auf die T-Online Webseite und klicken Sie auf 'Passwort vergessen'. Dann bekommen Sie eine SMS oder E-Mail zum Zurücksetzen."),
         Message(request_id=4, user_id=4, message_text="Ah verstehe! Das hat geklappt, ich habe jetzt ein neues Passwort. Danke!"),
         
-        # Chat 3: Claudia hilft Gisela mit langsamem Handy
-        Message(request_id=5, user_id=5, message_text="Hallo Claudia, mein Handy ist so langsam geworden..."),
-        Message(request_id=5, user_id=3, message_text="Hallo Gisela! Das können wir zusammen anschauen. Wie viel Speicherplatz haben Sie noch frei?"),
+        # Chat 3: Anna hilft Otto mit langsamem Handy
+        Message(request_id=5, user_id=5, message_text="Hallo Anna, mein Handy ist so langsam geworden..."),
+        Message(request_id=5, user_id=3, message_text="Hallo Otto! Das können wir zusammen anschauen. Wie viel Speicherplatz haben Sie noch frei?"),
         Message(request_id=5, user_id=5, message_text="Wie sehe ich das denn?"),
         Message(request_id=5, user_id=3, message_text="Gehen Sie in die Einstellungen und dann auf 'Speicher'. Dort steht, wie viel Platz noch frei ist."),
     ]

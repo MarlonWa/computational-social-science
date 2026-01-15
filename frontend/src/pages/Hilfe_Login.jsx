@@ -120,6 +120,13 @@ export function Hilfe_Login() {
             </Alert>
             <Box flex="1" display="flex" justifyContent="center" alignItems="flex-start" sx={{ px: 2, pt: 1 }}>
                 <Card variant="outlined" sx={{ position: 'relative', p: 3, gap: 1 }}>
+                    {/* DEV LINE - TODO */}
+
+                    <Link to="/hilfe/5">
+                        <Typography variant="p" color="red">
+                            TRY IT OUT: Teste die Anfrageseite hier direkt, als Benutzer Otto
+                        </Typography>
+                    </Link>
 
                     {/* title */}
                     <Typography
