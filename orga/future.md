@@ -18,3 +18,6 @@ Aktuell werden die meisten API-calls in den .jsx Dateien selbst aufgerufen. Für
 
 ## Punkteverteilung
 Aktuell 1 Punkt pro abgeschlossener Anfrage
+
+## Sprachen
+In Zukunft könnte man Übersetzungen in weiteren Sprachen anbieten, z. B. Englisch

@@ -11,7 +11,7 @@ export function Helfer_Home() {
     const buttonItems = [
         { label: 'Scoreboard', path: 'scoreboard' },
         { label: 'zugewiesene Anfragen', path: 'myrequests' },
-        { label: 'Alle Anfragen', path: 'requests' },
+        { label: 'offene Anfragen', path: 'requests' },
         { label: 'Meine Chats', path: 'chats' },
     ];
 

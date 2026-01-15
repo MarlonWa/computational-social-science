@@ -75,23 +75,34 @@ export function Helfer_Chat() {
     }
 
     const reload = async () => {
+        const code2 = await getPartnerName();
         const code = await load_msgs();
 
         const fetched_title = await ChatServices.getTitle(request_id);
 
         if (typeof fetched_title === 'string' && fetched_title.trim() !== '') {
             setChatTitle(fetched_title);
-            if (code === 0 && partner !== '') {
+            if (code === 0 && code2 === 0) {
                 setInfo('');
                 setAlert('');
             }
+            else if (code <= 1 && code2 <= 1) {
+                setAlert('');
+            }
+            else if (code !== 1 && code2 !== 1) {
+                setInfo('');
+            }
         }
-        else if (fetched_messages === 408) {
-            setInfo('');
+        else if (fetched_title === 408) {
+            if (code != 1 && code2 != 1) {
+                setInfo('');
+            }
             setAlert('Die Antwort des Servers hat zu lange gedauert. Bitte versuchen Sie es erneut.');
         }
         else {
-            setInfo('');
+            if (code != 1 && code2 != 1) {
+                setInfo('');
+            }
             setAlert('Fehler beim Laden der Anfrage. Bitte versuchen Sie es erneut.');
         }
     };
@@ -101,19 +112,24 @@ export function Helfer_Chat() {
 
         if (typeof fetched_name === 'string' && fetched_name.trim() !== '') {
             setPartner(fetched_name);
+            return 0;
+        }
+        else if (fetched_name === 1) {
+            setInfo('');
+            setAlert('Diese Anfrage ist noch nicht in Bearbeitung.');
+            return 2;
         }
         else if (fetched_name === 408) {
-            setInfo('');
             setAlert('Die Antwort des Servers hat zu lange gedauert. Bitte versuchen Sie es erneut.');
+            return 2;
         }
         else {
-            setInfo('');
             setAlert('Fehler beim Laden des Chat-Partners. Bitte versuchen Sie es erneut.');
+            return 2;
         }
     };
 
     useEffect(() => {
-        getPartnerName();
         reload();
     }, [user_id, request_id]);
 

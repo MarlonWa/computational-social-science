@@ -13,7 +13,7 @@ export function Helfer_Request_Details() {
 
     const back_links = [
         { name: 'Meine Startseite', path: `/helfer/${user_id}` },
-        { name: 'Alle Anfragen', path: `/helfer/${user_id}/requests` },
+        { name: 'offene Anfragen', path: `/helfer/${user_id}/requests` },
     ];
 
     const [request, setRequest] = useState({});
