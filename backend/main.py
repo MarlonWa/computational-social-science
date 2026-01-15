@@ -584,13 +584,13 @@ def createMessageTable():
 #TEST DATA
 async def testUserData():
     users = [
-        User(name="Anna Schmidt", email="anna.schmidt@email.de", password="AnnaS2024!", address="Marienplatz 12, München", helper=True, points=85),
+        User(name="Marlon W", email="marlon.w@email.de", password="MWS2024!", address="Marienplatz 12, München", helper=True, points=85),
         User(name="Peter Müller", email="peter.mueller@gmx.de", password="PeterM123", address="Hauptstraße 45, Augsburg", helper=True, points=62),
         User(name="Claudia Wagner", email="c.wagner@web.de", password="Claudia!99", address="Bahnhofstraße 8, Nürnberg", helper=True, points=41),
-        User(name="Hans Becker", email="hans.becker@t-online.de", password="HansBecker2024", address="Gartenweg 23, Regensburg", helper=False, points=5),
+        User(name="Sophie W", email="sophie.w@email.de", password="SophieW2024", address="Gartenweg 23, Regensburg", helper=False, points=5),
         User(name="Gisela Hoffmann", email="gisela.h@gmx.net", password="Gisela123!", address="Rosenstraße 17, Passau", helper=False, points=3),
         User(name="Wolfgang Klein", email="w.klein@yahoo.de", password="Wolfgang!2024", address="Kirchplatz 9, Landshut", helper=False, points=0)
-    ]
+]
     
     for u in users:
         await create_user(u)
@@ -614,18 +614,18 @@ async def testRequestData():
 
 async def testMessageData():
     messages = [
-        # Chat 1: Anna hilft Hans mit WLAN
-        Message(request_id=1, user_id=4, message_text="Hallo Anna, vielen Dank, dass Sie mir helfen möchten!"),
-        Message(request_id=1, user_id=1, message_text="Guten Tag Hans! Gerne helfe ich Ihnen. Können Sie mir sagen, welche Farbe die Lampe am Router hat?"),
+        # Chat 1: Marlon hilft Sophie mit WLAN
+        Message(request_id=1, user_id=4, message_text="Hallo Marlon, vielen Dank, dass Sie mir helfen möchten!"),
+        Message(request_id=1, user_id=1, message_text="Guten Tag Sophie! Gerne helfe ich Ihnen. Können Sie mir sagen, welche Farbe die Lampe am Router hat?"),
         Message(request_id=1, user_id=4, message_text="Die Lampe blinkt rot. Ist das schlecht?"),
         Message(request_id=1, user_id=1, message_text="Das bedeutet meist, dass keine Internetverbindung besteht. Versuchen Sie bitte, den Router für 30 Sekunden auszuschalten und dann wieder einzuschalten."),
         Message(request_id=1, user_id=4, message_text="Okay, ich probiere das jetzt mal..."),
         Message(request_id=1, user_id=4, message_text="Es funktioniert! Die Lampe ist jetzt grün. Vielen Dank!"),
         Message(request_id=1, user_id=1, message_text="Sehr gut! Das freut mich. Falls Sie noch Fragen haben, melden Sie sich gerne."),
         
-        # Chat 2: Peter hilft Hans mit Passwort (abgeschlossen)
+        # Chat 2: Peter hilft Sophie mit Passwort (abgeschlossen)
         Message(request_id=4, user_id=4, message_text="Hallo Peter, ich komme nicht mehr in meine E-Mails..."),
-        Message(request_id=4, user_id=2, message_text="Hallo Hans! Kein Problem, das kriegen wir hin. Welcher E-Mail-Anbieter ist das?"),
+        Message(request_id=4, user_id=2, message_text="Hallo Sophie! Kein Problem, das kriegen wir hin. Welcher E-Mail-Anbieter ist das?"),
         Message(request_id=4, user_id=4, message_text="Das ist T-Online."),
         Message(request_id=4, user_id=2, message_text="Okay, gehen Sie auf die T-Online Webseite und klicken Sie auf 'Passwort vergessen'. Dann bekommen Sie eine SMS oder E-Mail zum Zurücksetzen."),
         Message(request_id=4, user_id=4, message_text="Ah verstehe! Das hat geklappt, ich habe jetzt ein neues Passwort. Danke!"),
